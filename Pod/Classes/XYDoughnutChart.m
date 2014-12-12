@@ -579,7 +579,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
 
 - (void)notifyDelegateOfSelectionChangeFrom:(NSUInteger)previousSelection to:(NSUInteger)newSelection
 {
-    if (previousSelection != newSelection){
+    if (previousSelection != newSelection) {
         if(previousSelection != -1) {
             NSUInteger tempPre = previousSelection;
             [self setSliceDeselectedAtIndex:tempPre];
@@ -587,6 +587,11 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
             if([_delegate respondsToSelector:@selector(pieChart:didDeselectSliceAtIndex:)]) {
                 [_delegate pieChart:self didDeselectSliceAtIndex:tempPre];
             }
+        }
+
+        if (newSelection == -1) {
+            _selectedSliceIndex = newSelection;
+            return;
         }
         
         if (newSelection != -1) {
