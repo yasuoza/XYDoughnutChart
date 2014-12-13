@@ -40,16 +40,12 @@
 @end
 
 @implementation SliceLayer
-@synthesize text = _text;
-@synthesize value = _value;
-@synthesize percentage = _percentage;
-@synthesize startAngle = _startAngle;
-@synthesize endAngle = _endAngle;
-@synthesize isSelected = _isSelected;
+
 - (NSString*)description
 {
     return [NSString stringWithFormat:@"value:%f, percentage:%0.0f, start:%f, end:%f", _value, _percentage, _startAngle/M_PI*180, _endAngle/M_PI*180];
 }
+
 + (BOOL)needsDisplayForKey:(NSString *)key 
 {
     if ([key isEqualToString:@"startAngle"] || [key isEqualToString:@"endAngle"]) {
@@ -59,6 +55,7 @@
         return [super needsDisplayForKey:key];
     }
 }
+
 - (id)initWithLayer:(id)layer
 {
     if (self = [super initWithLayer:layer])
@@ -84,10 +81,12 @@
 }
 @end
 
-@interface XYDoughnutChart (Private) 
+@interface XYDoughnutChart ()
+@property(nonatomic, assign) CGPoint pieCenter;
+@property(nonatomic, assign) CGFloat pieRadius;
+
 - (void)updateTimerFired:(NSTimer *)timer;
 - (SliceLayer *)createSliceLayer;
-- (CGSize)sizeThatFitsString:(NSString *)string;
 - (void)updateLabelForLayer:(SliceLayer *)pieLayer value:(CGFloat)value;
 - (void)notifyDelegateOfSelectionChangeFrom:(NSUInteger)previousSelection to:(NSUInteger)newSelection;
 @end
@@ -104,21 +103,6 @@
 }
 
 static NSUInteger kDefaultSliceZOrder = 100;
-
-@synthesize dataSource = _dataSource;
-@synthesize delegate = _delegate;
-@synthesize startPieAngle = _startPieAngle;
-@synthesize animationSpeed = _animationSpeed;
-@synthesize pieCenter = _pieCenter;
-@synthesize pieRadius = _pieRadius;
-@synthesize showLabel = _showLabel;
-@synthesize labelFont = _labelFont;
-@synthesize labelColor = _labelColor;
-@synthesize labelShadowColor = _labelShadowColor;
-@synthesize labelRadius = _labelRadius;
-@synthesize selectedSliceStroke = _selectedSliceStroke;
-@synthesize selectedSliceOffsetRadius = _selectedSliceOffsetRadius;
-@synthesize showPercentage = _showPercentage;
 
 static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAngle, CGFloat endAngle) 
 {
@@ -140,6 +124,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
     self = [super initWithFrame:frame];
     if (self)
     {
+        self.clipsToBounds = YES;
         self.backgroundColor = [UIColor clearColor];
         _pieView = [[UIView alloc] initWithFrame:frame];
         [_pieView setBackgroundColor:[UIColor clearColor]];
@@ -197,7 +182,6 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
         CGRect bounds = self.bounds;
         self.pieRadius = MIN(bounds.size.width/2, bounds.size.height/2);
         self.pieCenter = CGPointMake(bounds.size.width/2, bounds.size.height/2);
-        NSLog(@"pieCenter = %@", NSStringFromCGPoint(self.pieCenter));
         self.labelFont = [UIFont boldSystemFontOfSize:MAX((int)self.pieRadius/10, 5)];
         _labelColor = [UIColor whiteColor];
         _labelRadius = _pieRadius*2/3;
@@ -207,15 +191,6 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
         _showPercentage = YES;
     }
     return self;
-}
-
-- (void)layoutSubviews {
-    [super layoutSubviews];
-
-//    self.pieRadius = MIN(self.bounds.size.width/2, self.bounds.size.height/2);
-//    self.pieCenter = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
-
-//    [self setNeedsDisplay];
 }
 
 - (void)setPieCenter:(CGPoint)pieCenter
@@ -253,12 +228,14 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
         [textLayer setHidden:!_showLabel];
         if(!_showLabel) return;
         NSString *label;
-        if(_showPercentage)
+        if (_showPercentage) {
             label = [NSString stringWithFormat:@"%0.0f", layer.percentage*100];
-        else
+        } else {
             label = (layer.text)?layer.text:[NSString stringWithFormat:@"%0.0f", layer.value];
-        CGSize size = [label sizeWithFont:self.labelFont];
-        
+        }
+
+        CGSize size = [label sizeWithAttributes:@{NSFontAttributeName: self.labelFont}];
+
         if(M_PI*2*_labelRadius*layer.percentage < MAX(size.width,size.height))
         {
             [textLayer setString:@""];
@@ -620,6 +597,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
         }
     }
 }
+
 #pragma mark - Selection Programmatically Without Notification
 
 - (void)setSliceSelectedAtIndex:(NSInteger)index
@@ -673,7 +651,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
         [textLayer setShadowOpacity:1.0f];
         [textLayer setShadowRadius:2.0f];
     }
-    CGSize size = [@"0" sizeWithFont:self.labelFont];
+    CGSize size = [@"0" sizeWithAttributes:@{NSFontAttributeName: self.labelFont}];
     [CATransaction setDisableActions:YES];
     [textLayer setFrame:CGRectMake(0, 0, size.width, size.height)];
     [textLayer setPosition:CGPointMake(_pieCenter.x + (_labelRadius * cos(0)), _pieCenter.y + (_labelRadius * sin(0)))];
@@ -688,12 +666,13 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
     [textLayer setHidden:!_showLabel];
     if(!_showLabel) return;
     NSString *label;
-    if(_showPercentage)
+    if (_showPercentage) {
         label = [NSString stringWithFormat:@"%0.0f", pieLayer.percentage*100];
-    else
+    } else {
         label = (pieLayer.text)?pieLayer.text:[NSString stringWithFormat:@"%0.0f", value];
-    
-    CGSize size = [label sizeWithFont:self.labelFont];
+    }
+
+    CGSize size = [label sizeWithAttributes:@{NSFontAttributeName: self.labelFont}];
     
     [CATransaction setDisableActions:YES];
     if(M_PI*2*_labelRadius*pieLayer.percentage < MAX(size.width,size.height) || value <= 0)
