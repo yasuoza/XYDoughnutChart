@@ -1,6 +1,7 @@
 #import <UIKit/UIKit.h>
 
 @class XYDoughnutChart;
+
 @protocol XYDoughnutChartDataSource <NSObject>
 @required
 - (NSUInteger)numberOfSlicesInPieChart:(XYDoughnutChart *)pieChart;
@@ -31,11 +32,11 @@
 @property(nonatomic, assign) CGFloat selectedSliceStroke;
 @property(nonatomic, assign) CGFloat selectedSliceOffsetRadius;
 @property(nonatomic, assign) BOOL    showPercentage;
+
 - (id)initWithFrame:(CGRect)frame Center:(CGPoint)center Radius:(CGFloat)radius;
 - (void)reloadData;
 - (void)setPieBackgroundColor:(UIColor *)color;
 
 - (void)setSliceSelectedAtIndex:(NSInteger)index;
 - (void)setSliceDeselectedAtIndex:(NSInteger)index;
-
 @end;

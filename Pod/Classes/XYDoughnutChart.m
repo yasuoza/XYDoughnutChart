@@ -8,6 +8,7 @@
 @property (nonatomic, assign) double    endAngle;
 @property (nonatomic, assign) BOOL      isSelected;
 @property (nonatomic, strong) NSString  *text;
+
 - (void)createArcAnimationForKey:(NSString *)key fromValue:(NSNumber *)from toValue:(NSNumber *)to Delegate:(id)delegate;
 @end
 
@@ -39,6 +40,7 @@
     }
     return self;
 }
+
 - (void)createArcAnimationForKey:(NSString *)key fromValue:(NSNumber *)from toValue:(NSNumber *)to Delegate:(id)delegate
 {
     CABasicAnimation *arcAnimation = [CABasicAnimation animationWithKeyPath:key];
