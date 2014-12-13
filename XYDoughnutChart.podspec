@@ -1,28 +1,19 @@
-#
-# Be sure to run `pod lib lint XYDoughnutChart.podspec' to ensure this is a
-# valid spec and remove all comments before submitting the spec.
-#
-# Any lines starting with a # are optional, but encouraged
-#
-# To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html
-#
-
 Pod::Spec.new do |s|
   s.name             = "XYDoughnutChart"
   s.version          = "0.1.0"
-  s.summary          = "A short description of XYDoughnutChart."
+  s.summary          = "Simple DoughnutChart library for iOS"
   s.description      = <<-DESC
-                       An optional longer description of XYDoughnutChart
+                       Easy to use doughunut chart library for iOS platform.
 
-                       * Markdown format.
-                       * Don't worry about the indent, we strip it!
+                       This library is inspired by [XYPieChart](https://github.com/xyfeng/XYPieChart).
+
+                       If you want to try this pod, please run demo application placed at Example folder.
                        DESC
-  s.homepage         = "https://github.com/<GITHUB_USERNAME>/XYDoughnutChart"
+  s.homepage         = "https://github.com/yasuoza/XYDoughnutChart"
   # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
   s.license          = 'MIT'
   s.author           = { "Yasuharu Ozaki" => "yasuharu.ozaki@gmail.com" }
-  s.source           = { :git => "https://github.com/<GITHUB_USERNAME>/XYDoughnutChart.git", :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+  s.source           = { :git => "https://github.com/yasuoza/XYDoughnutChart.git", :tag => s.version.to_s }
 
   s.platform     = :ios, '7.0'
   s.requires_arc = true
@@ -32,7 +23,5 @@ Pod::Spec.new do |s|
     'XYDoughnutChart' => ['Pod/Assets/*.png']
   }
 
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+  s.frameworks = 'UIKit', 'QuartzCore'
 end
