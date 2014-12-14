@@ -21,7 +21,8 @@
 		6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
-		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
+		6003F5BC195388D20070C39A /* ChartViewSnapshotTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* ChartViewSnapshotTests.m */; };
+		A821996D1A3B3F7800F32D99 /* DoughnutChartContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = A821996C1A3B3F7800F32D99 /* DoughnutChartContainerView.m */; };
 		A85906B91A3AEF1F003D6A8F /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A85906B71A3AEF1F003D6A8F /* Launch Screen.xib */; };
 		D09D5D103408FBC82C799C8A /* libPods-XYDoughnutChart.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EF605A0633E7A370F8AC636 /* libPods-XYDoughnutChart.a */; };
 		F337FA4B227C47797B25D61A /* libPods-Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3385BE957BE6D669485A45E2 /* libPods-Tests.a */; };
@@ -62,12 +63,14 @@
 		6003F5AF195388D20070C39A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		6003F5B7195388D20070C39A /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
 		6003F5B9195388D20070C39A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		6003F5BB195388D20070C39A /* Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
+		6003F5BB195388D20070C39A /* ChartViewSnapshotTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChartViewSnapshotTests.m; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		66B7873D6A6F15FB816E82B4 /* Pods-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tests/Pods-Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		7511BF1AD5F9B36487D9EF73 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		7A2184AC4AD4C3B5301900F7 /* Pods-Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tests/Pods-Tests.release.xcconfig"; sourceTree = "<group>"; };
 		A70F97161F9660B30548E542 /* Pods-XYDoughnutChart.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XYDoughnutChart.debug.xcconfig"; path = "Pods/Target Support Files/Pods-XYDoughnutChart/Pods-XYDoughnutChart.debug.xcconfig"; sourceTree = "<group>"; };
+		A821996B1A3B3F7800F32D99 /* DoughnutChartContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoughnutChartContainerView.h; sourceTree = "<group>"; };
+		A821996C1A3B3F7800F32D99 /* DoughnutChartContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoughnutChartContainerView.m; sourceTree = "<group>"; };
 		A85906B81A3AEF1F003D6A8F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "XYDoughnutChart/Base.lproj/Launch Screen.xib"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -152,6 +155,8 @@
 				A85906B71A3AEF1F003D6A8F /* Launch Screen.xib */,
 				6003F5A5195388D20070C39A /* XYDoughnutChartViewController.h */,
 				6003F5A6195388D20070C39A /* XYDoughnutChartViewController.m */,
+				A821996B1A3B3F7800F32D99 /* DoughnutChartContainerView.h */,
+				A821996C1A3B3F7800F32D99 /* DoughnutChartContainerView.m */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
 			);
@@ -172,7 +177,7 @@
 		6003F5B5195388D20070C39A /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				6003F5BB195388D20070C39A /* Tests.m */,
+				6003F5BB195388D20070C39A /* ChartViewSnapshotTests.m */,
 				6003F5B6195388D20070C39A /* Supporting Files */,
 			);
 			path = Tests;
@@ -366,6 +371,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6003F59E195388D20070C39A /* XYDoughnutChartAppDelegate.m in Sources */,
+				A821996D1A3B3F7800F32D99 /* DoughnutChartContainerView.m in Sources */,
 				6003F5A7195388D20070C39A /* XYDoughnutChartViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 			);
@@ -375,7 +381,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6003F5BC195388D20070C39A /* Tests.m in Sources */,
+				6003F5BC195388D20070C39A /* ChartViewSnapshotTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -516,6 +522,7 @@
 				GCC_PREFIX_HEADER = "XYDoughnutChart/XYDoughnutChart-Prefix.pch";
 				INFOPLIST_FILE = "XYDoughnutChart/XYDoughnutChart-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -530,6 +537,7 @@
 				GCC_PREFIX_HEADER = "XYDoughnutChart/XYDoughnutChart-Prefix.pch";
 				INFOPLIST_FILE = "XYDoughnutChart/XYDoughnutChart-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -549,6 +557,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
+					"FB_REFERENCE_IMAGE_DIR=\"\\\"$(SOURCE_ROOT)/Tests/ReferenceImages\\\"\"",
 				);
 				INFOPLIST_FILE = "Tests/Tests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
