@@ -118,7 +118,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
     _selectedSliceIndex = -1;
     _animations = [[NSMutableArray alloc] init];
 
-    _animationSpeed = 0.5;
+    _animationDuration = 0.5f;
     _startPieAngle = M_PI_2*3;
     _selectedSliceStroke = 3.0;
 
@@ -231,7 +231,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
 
     if (animated) {
         [CATransaction begin];
-        [CATransaction setAnimationDuration:_animationSpeed];
+        [CATransaction setAnimationDuration:_animationDuration];
     }
 
     [_pieView setUserInteractionEnabled:NO];
