@@ -33,6 +33,7 @@
 @property(nonatomic, assign) BOOL    showPercentage;
 
 - (void)reloadData;
+- (void)reloadData:(BOOL)animated;
 - (void)setPieBackgroundColor:(UIColor *)color;
 - (void)setSliceSelectedAtIndex:(NSInteger)index;
 - (void)setSliceDeselectedAtIndex:(NSInteger)index;

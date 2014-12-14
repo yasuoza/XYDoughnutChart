@@ -187,6 +187,11 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
 
 - (void)reloadData
 {
+    [self reloadData:NO];
+}
+
+- (void)reloadData:(BOOL)animated
+{
     if (_dataSource == nil) {
         return;
     }
@@ -201,8 +206,9 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
     _selectedSliceIndex = -1;
     [slicelayers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         SliceLayer *layer = (SliceLayer *)obj;
-        if(layer.isSelected)
+        if(layer.isSelected) {
             [self setSliceDeselectedAtIndex:idx];
+        }
     }];
 
     double startToAngle = 0.0;
@@ -223,8 +229,10 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
         angles[index] = M_PI * 2 * div;
     }
 
-    [CATransaction begin];
-    [CATransaction setAnimationDuration:_animationSpeed];
+    if (animated) {
+        [CATransaction begin];
+        [CATransaction setAnimationDuration:_animationSpeed];
+    }
 
     [_pieView setUserInteractionEnabled:NO];
 
@@ -247,7 +255,11 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
                                     toValue:[NSNumber numberWithDouble:_startPieAngle]
                                    Delegate:self];
         }
-        [CATransaction commit];
+
+        if (animated) {
+            [CATransaction commit];
+        }
+
         return;
     }
 
@@ -342,37 +354,19 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
     [_pieView setUserInteractionEnabled:YES];
 
     [CATransaction setDisableActions:NO];
-    [CATransaction commit];
+
+    if (animated) {
+        [CATransaction commit];
+    } else {
+        [self updateLayerAngle:animated];
+    }
 }
 
 # pragma mark - Animation Delegate + Run Loop Timer
 
 - (void)updateTimerFired:(NSTimer *)timer;
 {
-    CALayer *parentLayer = [_pieView layer];
-    NSArray *pieLayers = [parentLayer sublayers];
-
-    [pieLayers enumerateObjectsUsingBlock:^(CAShapeLayer * obj, NSUInteger idx, BOOL *stop) {
-        
-        NSNumber *presentationLayerStartAngle = [[obj presentationLayer] valueForKey:@"startAngle"];
-        CGFloat interpolatedStartAngle = [presentationLayerStartAngle doubleValue];
-        
-        NSNumber *presentationLayerEndAngle = [[obj presentationLayer] valueForKey:@"endAngle"];
-        CGFloat interpolatedEndAngle = [presentationLayerEndAngle doubleValue];
-
-        CGPathRef path = CGPathCreateArc(_pieCenter, _pieRadius, interpolatedStartAngle, interpolatedEndAngle);
-        [obj setPath:path];
-        CFRelease(path);
-
-        {
-            CALayer *labelLayer = [[obj sublayers] objectAtIndex:0];
-            CGFloat interpolatedMidAngle = (interpolatedEndAngle + interpolatedStartAngle) / 2;
-            [CATransaction setDisableActions:YES];
-            [labelLayer setPosition:CGPointMake(_pieCenter.x + (_labelRadius * cos(interpolatedMidAngle)),
-                                                _pieCenter.y + (_labelRadius * sin(interpolatedMidAngle)))];
-            [CATransaction setDisableActions:NO];
-        }
-    }];
+    [self updateLayerAngle:YES];
 }
 
 - (void)animationDidStart:(CAAnimation *)anim
@@ -560,6 +554,41 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
     [CATransaction setDisableActions:NO];
     [pieLayer addSublayer:textLayer];
     return pieLayer;
+}
+
+- (void)updateLayerAngle:(BOOL)animated
+{
+    CALayer *parentLayer = [_pieView layer];
+    NSArray *pieLayers = [parentLayer sublayers];
+
+    [pieLayers enumerateObjectsUsingBlock:^(CAShapeLayer * obj, NSUInteger idx, BOOL *stop) {
+
+
+        NSNumber *presentationLayerStartAngle = [obj valueForKey:@"startAngle"];
+        if (animated) {
+            presentationLayerStartAngle = [[obj presentationLayer] valueForKey:@"startAngle"];
+        }
+        CGFloat interpolatedStartAngle = [presentationLayerStartAngle doubleValue];
+
+        NSNumber *presentationLayerEndAngle = [obj valueForKey:@"endAngle"];
+        if (animated) {
+            presentationLayerEndAngle = [[obj presentationLayer] valueForKey:@"endAngle"];
+        }
+        CGFloat interpolatedEndAngle = [presentationLayerEndAngle doubleValue];
+
+        CGPathRef path = CGPathCreateArc(_pieCenter, _pieRadius, interpolatedStartAngle, interpolatedEndAngle);
+        [obj setPath:path];
+        CFRelease(path);
+
+        {
+            CALayer *labelLayer = [[obj sublayers] objectAtIndex:0];
+            CGFloat interpolatedMidAngle = (interpolatedEndAngle + interpolatedStartAngle) / 2;
+            [CATransaction setDisableActions:YES];
+            [labelLayer setPosition:CGPointMake(_pieCenter.x + (_labelRadius * cos(interpolatedMidAngle)),
+                                                _pieCenter.y + (_labelRadius * sin(interpolatedMidAngle)))];
+            [CATransaction setDisableActions:NO];
+        }
+    }];
 }
 
 - (void)updateLabelForLayer:(SliceLayer *)pieLayer value:(CGFloat)value
