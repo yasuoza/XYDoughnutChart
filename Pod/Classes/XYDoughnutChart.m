@@ -242,18 +242,23 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
     NSInteger diff = sliceCount - [slicelayers count];
     layersToRemove = [NSMutableArray arrayWithArray:slicelayers];
 
-    BOOL isOnEnd = ([slicelayers count] && (sliceCount == 0 || sum <= 0));
-    if (isOnEnd) {
+    BOOL onEnd = ([slicelayers count] && (sliceCount == 0 || sum <= 0));
+    if (onEnd) {
         for(SliceLayer *layer in _pieView.layer.sublayers) {
             [self updateLabelForLayer:layer value:0];
-            [layer createArcAnimationForKey:@"startAngle"
-                                  fromValue:[NSNumber numberWithDouble:_startPieAngle]
-                                    toValue:[NSNumber numberWithDouble:_startPieAngle]
-                                   Delegate:self];
-            [layer createArcAnimationForKey:@"endAngle"
-                                  fromValue:[NSNumber numberWithDouble:_startPieAngle]
-                                    toValue:[NSNumber numberWithDouble:_startPieAngle]
-                                   Delegate:self];
+            if (animated) {
+                [layer createArcAnimationForKey:@"startAngle"
+                                      fromValue:[NSNumber numberWithDouble:_startPieAngle]
+                                        toValue:[NSNumber numberWithDouble:_startPieAngle]
+                                       Delegate:self];
+                [layer createArcAnimationForKey:@"endAngle"
+                                      fromValue:[NSNumber numberWithDouble:_startPieAngle]
+                                        toValue:[NSNumber numberWithDouble:_startPieAngle]
+                                       Delegate:self];
+            } else {
+                layer.startAngle = _startPieAngle;
+                layer.endAngle = _startPieAngle;
+            }
         }
 
         if (animated) {
@@ -320,18 +325,27 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
         }
 
         [self updateLabelForLayer:layer value:values[index]];
-        [layer createArcAnimationForKey:@"startAngle"
-                              fromValue:[NSNumber numberWithDouble:startFromAngle]
-                                toValue:[NSNumber numberWithDouble:startToAngle+_startPieAngle]
-                               Delegate:self];
-        [layer createArcAnimationForKey:@"endAngle"
-                              fromValue:[NSNumber numberWithDouble:endFromAngle]
-                                toValue:[NSNumber numberWithDouble:endToAngle+_startPieAngle]
-                               Delegate:self];
+
+        if (animated) {
+            [layer createArcAnimationForKey:@"startAngle"
+                                  fromValue:[NSNumber numberWithDouble:startFromAngle]
+                                    toValue:[NSNumber numberWithDouble:startToAngle+_startPieAngle]
+                                   Delegate:self];
+            [layer createArcAnimationForKey:@"endAngle"
+                                  fromValue:[NSNumber numberWithDouble:endFromAngle]
+                                    toValue:[NSNumber numberWithDouble:endToAngle+_startPieAngle]
+                                   Delegate:self];
+        } else {
+            layer.startAngle = startToAngle + _startPieAngle;
+            layer.endAngle = endToAngle + _startPieAngle;
+        }
+
         startToAngle = endToAngle;
     }
 
-    [CATransaction setDisableActions:YES];
+    if (animated) {
+        [CATransaction setDisableActions:YES];
+    }
 
     for(SliceLayer *layer in layersToRemove) {
         [layer setFillColor:[self backgroundColor].CGColor];
@@ -353,9 +367,8 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
 
     [_pieView setUserInteractionEnabled:YES];
 
-    [CATransaction setDisableActions:NO];
-
     if (animated) {
+        [CATransaction setDisableActions:NO];
         [CATransaction commit];
     } else {
         [self updateLayerAngle:animated];
@@ -561,9 +574,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
     CALayer *parentLayer = [_pieView layer];
     NSArray *pieLayers = [parentLayer sublayers];
 
-    [pieLayers enumerateObjectsUsingBlock:^(CAShapeLayer * obj, NSUInteger idx, BOOL *stop) {
-
-
+    [pieLayers enumerateObjectsUsingBlock:^(SliceLayer * obj, NSUInteger idx, BOOL *stop) {
         NSNumber *presentationLayerStartAngle = [obj valueForKey:@"startAngle"];
         if (animated) {
             presentationLayerStartAngle = [[obj presentationLayer] valueForKey:@"startAngle"];
