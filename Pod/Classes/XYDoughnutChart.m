@@ -263,6 +263,8 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
 
         if (animated) {
             [CATransaction commit];
+        } else {
+            [self updateLayerAngle:NO];
         }
 
         return;
