@@ -292,6 +292,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
             }
             else if(diff > 0) {
                 layer = [self createSliceLayer];
+                startFromAngle = endFromAngle = _startPieAngle;
                 [parentLayer insertSublayer:layer atIndex:index];
                 diff--;
             }
