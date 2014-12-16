@@ -16,7 +16,7 @@ def run(command)
                                          #{args}                    \
                                          #{ARCH_FLAG}               \
                                          | xcpretty -c)
-  exit success ? 0 : 1
+  exit! unless success
 end
 
 def test(destinations: [DESTINATIONS[1]])
