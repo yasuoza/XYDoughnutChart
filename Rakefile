@@ -10,12 +10,13 @@ DESTINATIONS = [
 
 def run(command)
   args = block_given?? yield : ''
-  system %(xcodebuild #{command.to_s}  \
-            -workspace #{WORKSPACE}    \
-            -scheme #{SCHEME}          \
-            #{args}                    \
-            #{ARCH_FLAG}               \
-            | xcpretty -c)
+  success = system %(set -o pipefail && xcodebuild #{command.to_s}  \
+                                         -workspace #{WORKSPACE}    \
+                                         -scheme #{SCHEME}          \
+                                         #{args}                    \
+                                         #{ARCH_FLAG}               \
+                                         | xcpretty -c)
+  exit success ? 0 : 1
 end
 
 def test(destinations: [DESTINATIONS[1]])
