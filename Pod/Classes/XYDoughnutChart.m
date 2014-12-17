@@ -597,6 +597,13 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
         {
             CALayer *labelLayer = [[obj sublayers] objectAtIndex:0];
             CGFloat interpolatedMidAngle = (interpolatedEndAngle + interpolatedStartAngle) / 2;
+
+            if (interpolatedEndAngle == interpolatedStartAngle) {
+                labelLayer.hidden = YES;
+                return;
+            }
+
+            labelLayer.hidden = NO;
             [CATransaction setDisableActions:YES];
             [labelLayer setPosition:CGPointMake(_pieCenter.x + (_labelRadius * cos(interpolatedMidAngle)),
                                                 _pieCenter.y + (_labelRadius * sin(interpolatedMidAngle)))];
