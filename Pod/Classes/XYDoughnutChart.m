@@ -109,8 +109,8 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
     return self;
 }
 
-- (void)constructChartView {
-    self.clipsToBounds = YES;
+- (void)constructChartView
+{
     _pieView = [[UIView alloc] initWithFrame:self.frame];
     [_pieView setBackgroundColor:[UIColor clearColor]];
     [self addSubview:_pieView];

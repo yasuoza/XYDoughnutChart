@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
@@ -16,18 +16,18 @@
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gEi-vd-Bfa" customClass="DoughnutChartContainerView">
-                                <rect key="frame" x="40" y="164" width="240" height="240"/>
+                                <rect key="frame" x="75" y="75" width="450" height="450"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Ex-LF-3I5" customClass="XYDoughnutChart">
-                                        <rect key="frame" x="0.0" y="0.0" width="240" height="240"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="450" height="450"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="gEi-vd-Bfa" secondAttribute="height" multiplier="1:1" id="Q08-yk-mnq"/>
                                     <constraint firstItem="8Ex-LF-3I5" firstAttribute="leading" secondItem="gEi-vd-Bfa" secondAttribute="leading" id="ef5-Ts-16v"/>
@@ -43,9 +43,16 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="gEi-vd-Bfa" secondAttribute="centerX" id="ERK-4G-dND"/>
-                            <constraint firstItem="gEi-vd-Bfa" firstAttribute="width" secondItem="kh9-bI-dsS" secondAttribute="width" multiplier="3:4" id="Ye9-3R-lNq"/>
+                            <constraint firstItem="gEi-vd-Bfa" firstAttribute="width" secondItem="kh9-bI-dsS" secondAttribute="width" multiplier="3:4" id="Ye9-3R-lNq">
+                                <variation key="heightClass=compact" constant="-200"/>
+                            </constraint>
                             <constraint firstAttribute="centerY" secondItem="gEi-vd-Bfa" secondAttribute="centerY" id="vz6-iV-pKK"/>
                         </constraints>
+                        <variation key="heightClass=compact">
+                            <mask key="constraints">
+                                <include reference="Ye9-3R-lNq"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="chartContainer" destination="gEi-vd-Bfa" id="T7j-cM-P64"/>
@@ -53,12 +60,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="494" y="294"/>
+            <point key="canvasLocation" x="926.25" y="310.56338028169012"/>
         </scene>
     </scenes>
-    <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar"/>
-        <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4"/>
-    </simulatedMetricsContainer>
 </document>
