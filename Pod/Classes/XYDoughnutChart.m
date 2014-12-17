@@ -214,12 +214,12 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
     double startToAngle = 0.0;
     double endToAngle = startToAngle;
 
-    NSUInteger sliceCount = [_dataSource numberOfSlicesInPieChart:self];
+    NSUInteger sliceCount = [_dataSource numberOfSlicesInDoughnutChart:self];
 
     double sum = 0.0;
     double values[sliceCount];
     for (int index = 0; index < sliceCount; index++) {
-        values[index] = [_dataSource pieChart:self valueForSliceAtIndex:index];
+        values[index] = [_dataSource doughnutChart:self valueForSliceAtIndex:index];
         sum += values[index];
     }
 
@@ -314,8 +314,8 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
         layer.value = values[index];
         layer.percentage = (sum)?layer.value/sum:0;
         UIColor *color = nil;
-        if([_dataSource respondsToSelector:@selector(pieChart:colorForSliceAtIndex:)]) {
-            color = [_dataSource pieChart:self colorForSliceAtIndex:index];
+        if([_dataSource respondsToSelector:@selector(doughnutChart:colorForSliceAtIndex:)]) {
+            color = [_dataSource doughnutChart:self colorForSliceAtIndex:index];
         }
 
         if(!color) {
@@ -323,8 +323,8 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
         }
 
         [layer setFillColor:color.CGColor];
-        if([_dataSource respondsToSelector:@selector(pieChart:textForSliceAtIndex:)]) {
-            layer.text = [_dataSource pieChart:self textForSliceAtIndex:index];
+        if([_dataSource respondsToSelector:@selector(doughnutChart:textForSliceAtIndex:)]) {
+            layer.text = [_dataSource doughnutChart:self textForSliceAtIndex:index];
         }
 
         [self updateLabelForLayer:layer value:values[index]];
@@ -496,8 +496,8 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
         NSUInteger tempPre = previousSelection;
         [self setSliceDeselectedAtIndex:tempPre];
         previousSelection = newSelection;
-        if([_delegate respondsToSelector:@selector(pieChart:didDeselectSliceAtIndex:)]) {
-            [_delegate pieChart:self didDeselectSliceAtIndex:tempPre];
+        if([_delegate respondsToSelector:@selector(doughnutChart:didDeselectSliceAtIndex:)]) {
+            [_delegate doughnutChart:self didDeselectSliceAtIndex:tempPre];
         }
     }
 
@@ -509,8 +509,8 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
     [self setSliceSelectedAtIndex:newSelection];
 
     _selectedSliceIndex = newSelection;
-    if ([_delegate respondsToSelector:@selector(pieChart:didSelectSliceAtIndex:)]) {
-        [_delegate pieChart:self didSelectSliceAtIndex:newSelection];
+    if ([_delegate respondsToSelector:@selector(doughnutChart:didSelectSliceAtIndex:)]) {
+        [_delegate doughnutChart:self didSelectSliceAtIndex:newSelection];
     }
 }
 

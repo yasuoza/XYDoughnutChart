@@ -4,19 +4,19 @@
 
 @protocol XYDoughnutChartDataSource <NSObject>
 @required
-- (NSUInteger)numberOfSlicesInPieChart:(XYDoughnutChart *)pieChart;
-- (CGFloat)pieChart:(XYDoughnutChart *)pieChart valueForSliceAtIndex:(NSUInteger)index;
+- (NSUInteger)numberOfSlicesInDoughnutChart:(XYDoughnutChart *)doughnutChart;
+- (CGFloat)doughnutChart:(XYDoughnutChart *)doughnutChart valueForSliceAtIndex:(NSUInteger)index;
 @optional
-- (UIColor *)pieChart:(XYDoughnutChart *)pieChart colorForSliceAtIndex:(NSUInteger)index;
-- (NSString *)pieChart:(XYDoughnutChart *)pieChart textForSliceAtIndex:(NSUInteger)index;
+- (UIColor *)doughnutChart:(XYDoughnutChart *)doughnutChart colorForSliceAtIndex:(NSUInteger)index;
+- (NSString *)doughnutChart:(XYDoughnutChart *)doughnutChart textForSliceAtIndex:(NSUInteger)index;
 @end
 
 @protocol XYDoughnutChartDelegate <NSObject>
 @optional
-- (void)pieChart:(XYDoughnutChart *)pieChart willSelectSliceAtIndex:(NSUInteger)index;
-- (void)pieChart:(XYDoughnutChart *)pieChart didSelectSliceAtIndex:(NSUInteger)index;
-- (void)pieChart:(XYDoughnutChart *)pieChart willDeselectSliceAtIndex:(NSUInteger)index;
-- (void)pieChart:(XYDoughnutChart *)pieChart didDeselectSliceAtIndex:(NSUInteger)index;
+- (void)doughnutChart:(XYDoughnutChart *)doughnutChart willSelectSliceAtIndex:(NSUInteger)index;
+- (void)doughnutChart:(XYDoughnutChart *)doughnutChart didSelectSliceAtIndex:(NSUInteger)index;
+- (void)doughnutChart:(XYDoughnutChart *)doughnutChart willDeselectSliceAtIndex:(NSUInteger)index;
+- (void)doughnutChart:(XYDoughnutChart *)doughnutChart didDeselectSliceAtIndex:(NSUInteger)index;
 @end
 
 @interface XYDoughnutChart : UIView

@@ -8,12 +8,15 @@
 
 @interface DummyChartSourceClass : NSObject<XYDoughnutChartDelegate, XYDoughnutChartDataSource>
 @end
+
 @implementation DummyChartSourceClass
-- (NSUInteger)numberOfSlicesInPieChart:(XYDoughnutChart *)pieChart {
+- (NSUInteger)numberOfSlicesInDoughnutChart:(XYDoughnutChart *)doughnutChart
+{
     return 4;
 }
 
-- (CGFloat)pieChart:(XYDoughnutChart *)pieChart valueForSliceAtIndex:(NSUInteger)index {
+- (CGFloat)doughnutChart:(XYDoughnutChart *)doughnutChart valueForSliceAtIndex:(NSUInteger)index
+{
     return (index + 1) * 10.0;
 }
 @end

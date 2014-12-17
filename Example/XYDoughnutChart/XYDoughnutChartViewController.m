@@ -55,40 +55,40 @@
 
 #pragma mark - XYDoughnutChart Data Source
 
-- (NSUInteger)numberOfSlicesInPieChart:(XYDoughnutChart *)pieChart
+- (NSUInteger)numberOfSlicesInDoughnutChart:(XYDoughnutChart *)doughnutChart
 {
     return self.slices.count;
 }
 
-- (CGFloat)pieChart:(XYDoughnutChart *)pieChart valueForSliceAtIndex:(NSUInteger)index
+- (CGFloat)doughnutChart:(XYDoughnutChart *)doughnutChart valueForSliceAtIndex:(NSUInteger)index
 {
     return [[self.slices objectAtIndex:(index % self.slices.count)] intValue];
 }
 
-- (UIColor *)pieChart:(XYDoughnutChart *)pieChart colorForSliceAtIndex:(NSUInteger)index
+- (UIColor *)doughnutChart:(XYDoughnutChart *)doughnutChart colorForSliceAtIndex:(NSUInteger)index
 {
     return [self.sliceColors objectAtIndex:(index % self.sliceColors.count)];
 }
 
 #pragma mark - XYDoughnutChart Delegate
 
-- (void)pieChart:(XYDoughnutChart *)pieChart willSelectSliceAtIndex:(NSUInteger)index
+- (void)doughnutChart:(XYDoughnutChart *)doughnutChart willSelectSliceAtIndex:(NSUInteger)index
 {
     NSLog(@"will select slice at index %lu", (unsigned long)index);
 }
 
-- (void)pieChart:(XYDoughnutChart *)pieChart willDeselectSliceAtIndex:(NSUInteger)index
+- (void)doughnutChart:(XYDoughnutChart *)doughnutChart willDeselectSliceAtIndex:(NSUInteger)index
 {
 
     NSLog(@"will deselect slice at index %lu", (unsigned long)index);
 }
 
-- (void)pieChart:(XYDoughnutChart *)pieChart didDeselectSliceAtIndex:(NSUInteger)index
+- (void)doughnutChart:(XYDoughnutChart *)doughnutChart didDeselectSliceAtIndex:(NSUInteger)index
 {
     NSLog(@"did deselect slice at index %lu", (unsigned long)index);
 }
 
-- (void)pieChart:(XYDoughnutChart *)pieChart didSelectSliceAtIndex:(NSUInteger)index
+- (void)doughnutChart:(XYDoughnutChart *)doughnutChart didSelectSliceAtIndex:(NSUInteger)index
 {
     NSLog(@"did select slice at index%lu", (unsigned long)index);
 //    self.selectedSliceLabel.text = [NSString stringWithFormat:@"$%@",[self.slices objectAtIndex:index]];
