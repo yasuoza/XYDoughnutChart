@@ -33,7 +33,8 @@
     self.recordMode = NO;
 }
 
-- (void)testChartViewReloadData {
+- (void)testChartViewReloadData
+{
     XYDoughnutChart *chart = [[XYDoughnutChart alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
     DummyChartSourceClass *source = [[DummyChartSourceClass alloc] init];
     chart.delegate = source;

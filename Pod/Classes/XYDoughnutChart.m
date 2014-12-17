@@ -14,20 +14,6 @@
 
 @implementation SliceLayer
 
-- (NSString*)description
-{
-    return [NSString stringWithFormat:@"value:%f, percentage:%0.0f, start:%f, end:%f", _value, _percentage, _startAngle/M_PI*180, _endAngle/M_PI*180];
-}
-
-+ (BOOL)needsDisplayForKey:(NSString *)key
-{
-    if ([key isEqualToString:@"startAngle"] || [key isEqualToString:@"endAngle"]) {
-        return YES;
-    } else {
-        return [super needsDisplayForKey:key];
-    }
-}
-
 - (id)initWithLayer:(id)layer
 {
     if (self = [super initWithLayer:layer]) {
@@ -621,18 +607,20 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
     if (_showPercentage) {
         label = [NSString stringWithFormat:@"%0.0f", pieLayer.percentage*100];
     } else {
-        label = (pieLayer.text)?pieLayer.text:[NSString stringWithFormat:@"%0.0f", value];
+        label = (pieLayer.text) ? pieLayer.text : [NSString stringWithFormat:@"%0.0f", value];
     }
 
     CGSize size = [label sizeWithAttributes:@{NSFontAttributeName: self.labelFont}];
 
     [CATransaction setDisableActions:YES];
+
     if(M_PI*2*_labelRadius*pieLayer.percentage < MAX(size.width,size.height) || value <= 0) {
         [textLayer setString:@""];
     } else {
         [textLayer setString:label];
         [textLayer setBounds:CGRectMake(0, 0, size.width, size.height)];
     }
+
     [CATransaction setDisableActions:NO];
 }
 
