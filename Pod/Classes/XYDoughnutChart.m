@@ -1,6 +1,7 @@
 #import "XYDoughnutChart.h"
 #import <QuartzCore/QuartzCore.h>
 
+
 @interface SliceLayer : CAShapeLayer
 @property (nonatomic, assign) CGFloat   value;
 @property (nonatomic, assign) CGFloat   percentage;
@@ -38,6 +39,28 @@
     [self setValue:to forKey:key];
 }
 @end
+
+
+@interface SliceTextLayer : CATextLayer
+- (NSString *)valueAtSliceLayer:(SliceLayer *)sliceLayer byPercentage:(BOOL)byPercentage;
+@end
+
+@implementation SliceTextLayer
+
+- (NSString *)valueAtSliceLayer:(SliceLayer *)sliceLayer byPercentage:(BOOL)byPercentage
+{
+    CGFloat value = sliceLayer.value;
+    NSString *label;
+    if (byPercentage) {
+        label = [NSString stringWithFormat:@"%0.0f", sliceLayer.percentage*100];
+    } else {
+        label = (sliceLayer.text) ? sliceLayer.text : [NSString stringWithFormat:@"%0.0f", value];
+    }
+    return label;
+}
+
+@end
+
 
 @interface XYDoughnutChart ()
 @property(nonatomic, assign) CGPoint pieCenter;
@@ -313,7 +336,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
             layer.text = [_dataSource doughnutChart:self textForSliceAtIndex:index];
         }
 
-        [self updateLabelForLayer:layer value:values[index]];
+        layer.value = values[index];
 
         if (animated) {
             [layer createArcAnimationForKey:@"startAngle"
@@ -325,6 +348,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
                                     toValue:[NSNumber numberWithDouble:endToAngle+_startPieAngle]
                                    Delegate:self];
         } else {
+            [self updateLabelForLayer:layer value:layer.value];
             layer.startAngle = startToAngle + _startPieAngle;
             layer.endAngle = endToAngle + _startPieAngle;
         }
@@ -340,7 +364,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
         [layer setFillColor:[self backgroundColor].CGColor];
         [layer setDelegate:nil];
         [layer setZPosition:0];
-        CATextLayer *textLayer = [[layer sublayers] objectAtIndex:0];
+        SliceTextLayer *textLayer = [[layer sublayers] objectAtIndex:0];
         [textLayer setHidden:YES];
     }
 
@@ -526,7 +550,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
     SliceLayer *pieLayer = [SliceLayer layer];
     [pieLayer setZPosition:0];
     [pieLayer setStrokeColor:NULL];
-    CATextLayer *textLayer = [CATextLayer layer];
+    SliceTextLayer *textLayer = [SliceTextLayer layer];
     textLayer.contentsScale = [[UIScreen mainScreen] scale];
     CGFontRef font = nil;
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
@@ -563,25 +587,25 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
     CALayer *parentLayer = [_pieView layer];
     NSArray *pieLayers = [parentLayer sublayers];
 
-    [pieLayers enumerateObjectsUsingBlock:^(SliceLayer * obj, NSUInteger idx, BOOL *stop) {
-        NSNumber *presentationLayerStartAngle = [obj valueForKey:@"startAngle"];
+    [pieLayers enumerateObjectsUsingBlock:^(SliceLayer *sliceLayer, NSUInteger idx, BOOL *stop) {
+        NSNumber *presentationLayerStartAngle = [sliceLayer valueForKey:@"startAngle"];
         if (animated) {
-            presentationLayerStartAngle = [[obj presentationLayer] valueForKey:@"startAngle"];
+            presentationLayerStartAngle = [[sliceLayer presentationLayer] valueForKey:@"startAngle"];
         }
         CGFloat interpolatedStartAngle = [presentationLayerStartAngle doubleValue];
 
-        NSNumber *presentationLayerEndAngle = [obj valueForKey:@"endAngle"];
+        NSNumber *presentationLayerEndAngle = [sliceLayer valueForKey:@"endAngle"];
         if (animated) {
-            presentationLayerEndAngle = [[obj presentationLayer] valueForKey:@"endAngle"];
+            presentationLayerEndAngle = [[sliceLayer presentationLayer] valueForKey:@"endAngle"];
         }
         CGFloat interpolatedEndAngle = [presentationLayerEndAngle doubleValue];
 
         CGPathRef path = CGPathCreateArc(_pieCenter, _pieRadius, interpolatedStartAngle, interpolatedEndAngle);
-        [obj setPath:path];
+        [sliceLayer setPath:path];
         CFRelease(path);
 
         {
-            CALayer *labelLayer = [[obj sublayers] objectAtIndex:0];
+            SliceTextLayer *labelLayer = [[sliceLayer sublayers] objectAtIndex:0];
             CGFloat interpolatedMidAngle = (interpolatedEndAngle + interpolatedStartAngle) / 2;
 
             if (interpolatedEndAngle == interpolatedStartAngle) {
@@ -589,36 +613,54 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
                 return;
             }
 
-            labelLayer.hidden = NO;
-            [CATransaction setDisableActions:YES];
-            [labelLayer setPosition:CGPointMake(_pieCenter.x + (_labelRadius * cos(interpolatedMidAngle)),
-                                                _pieCenter.y + (_labelRadius * sin(interpolatedMidAngle)))];
+            if (_showLabel) {
+                labelLayer.hidden = NO;
+                [CATransaction setDisableActions:YES];
+                [labelLayer setPosition:CGPointMake(_pieCenter.x + (_labelRadius * cos(interpolatedMidAngle)),
+                                                    _pieCenter.y + (_labelRadius * sin(interpolatedMidAngle)))];
+
+
+                NSString *valueText = [labelLayer valueAtSliceLayer:sliceLayer byPercentage:_showPercentage];
+
+                CGSize size = [valueText sizeWithAttributes:@{NSFontAttributeName: self.labelFont}];
+                [labelLayer setBounds:CGRectMake(0, 0, size.width, size.height)];
+                CGFloat labelLayerWidth = abs(_labelRadius * cos(interpolatedStartAngle)
+                                         - _labelRadius * cos(interpolatedEndAngle));
+                CGFloat labelLayerHeight = abs(_labelRadius * sin(interpolatedStartAngle)
+                                          - _labelRadius * sin(interpolatedEndAngle));
+                if (MAX(labelLayerWidth, labelLayerHeight) < MAX(size.width,size.height)
+                    || sliceLayer.value <= 0) {
+                    labelLayer.string = @"";
+                } else {
+                    labelLayer.string = valueText;
+                }
+            }
+
             [CATransaction setDisableActions:NO];
         }
     }];
 }
 
-- (void)updateLabelForLayer:(SliceLayer *)pieLayer value:(CGFloat)value
+- (void)updateLabelForLayer:(SliceLayer *)sliceLayer value:(CGFloat)value
 {
-    CATextLayer *textLayer = [[pieLayer sublayers] objectAtIndex:0];
-    [textLayer setHidden:!_showLabel];
-    if(!_showLabel) return;
-    NSString *label;
-    if (_showPercentage) {
-        label = [NSString stringWithFormat:@"%0.0f", pieLayer.percentage*100];
-    } else {
-        label = (pieLayer.text) ? pieLayer.text : [NSString stringWithFormat:@"%0.0f", value];
-    }
+    SliceTextLayer *labelLayer = [[sliceLayer sublayers] objectAtIndex:0];
 
-    CGSize size = [label sizeWithAttributes:@{NSFontAttributeName: self.labelFont}];
+    [labelLayer setHidden:!_showLabel];
+
+    if(!_showLabel) return;
+
+    NSString *valueText = [labelLayer valueAtSliceLayer:sliceLayer byPercentage:_showPercentage];
+
+    CGSize size = [valueText sizeWithAttributes:@{NSFontAttributeName: self.labelFont}];
 
     [CATransaction setDisableActions:YES];
 
-    if(M_PI*2*_labelRadius*pieLayer.percentage < MAX(size.width,size.height) || value <= 0) {
-        [textLayer setString:@""];
+    [labelLayer setBounds:CGRectMake(0, 0, size.width, size.height)];
+
+    if (M_PI*2*_labelRadius*sliceLayer.percentage < MAX(size.width,size.height) || value <= 0) {
+        labelLayer.string = @"";
     } else {
-        [textLayer setString:label];
-        [textLayer setBounds:CGRectMake(0, 0, size.width, size.height)];
+        labelLayer.string = valueText;
     }
 
     [CATransaction setDisableActions:NO];
