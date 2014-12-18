@@ -460,12 +460,14 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
     CALayer *parentLayer = [_pieView layer];
     NSArray *pieLayers = [parentLayer sublayers];
 
+    [CATransaction setDisableActions:YES];
     for (SliceLayer *pieLayer in pieLayers) {
         UIColor *color = [UIColor colorWithCGColor:pieLayer.fillColor];
         [pieLayer setFillColor:[color colorWithAlphaComponent:1.0].CGColor];
         [pieLayer setZPosition:kDefaultSliceZOrder];
         [pieLayer setLineWidth:0.0];
     }
+    [CATransaction setDisableActions:NO];
 }
 
 # pragma mark - Selection Notification
