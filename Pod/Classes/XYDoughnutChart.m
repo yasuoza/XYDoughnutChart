@@ -7,7 +7,7 @@
 @property (nonatomic, assign) CGFloat   percentage;
 @property (nonatomic, assign) double    startAngle;
 @property (nonatomic, assign) double    endAngle;
-@property (nonatomic, assign) BOOL      isSelected;
+@property (nonatomic, assign) BOOL      selected;
 @property (nonatomic, strong) NSString  *text;
 
 - (void)createArcAnimationForKey:(NSString *)key fromValue:(NSNumber *)from toValue:(NSNumber *)to Delegate:(id)delegate;
@@ -69,7 +69,7 @@
 - (void)updateTimerFired:(NSTimer *)timer;
 - (SliceLayer *)createSliceLayer;
 - (void)updateLabelForLayer:(SliceLayer *)sliceLayer;
-- (void)delegateOfSelectionChangeFrom:(NSUInteger)previousSelection to:(NSUInteger)newSelection;
+- (void)delegateOfSelectionChangeFrom:(NSInteger)previousSelection to:(NSInteger)newSelection;
 @end
 
 @implementation XYDoughnutChart
@@ -188,7 +188,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
     _selectedSliceIndex = -1;
     [slicelayers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         SliceLayer *layer = (SliceLayer *)obj;
-        if(layer.isSelected) {
+        if(layer.selected) {
             [self setSliceDeselectedAtIndex:idx];
         }
     }];
@@ -470,31 +470,34 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
 
 # pragma mark - Selection Notification
 
-- (void)delegateOfSelectionChangeFrom:(NSUInteger)previousSelection to:(NSUInteger)newSelection
+- (void)delegateOfSelectionChangeFrom:(NSInteger)previousSelection to:(NSInteger)newSelection
 {
-    if (previousSelection == newSelection) {
-        return;
-    }
-
-    if (previousSelection != -1) {
-        NSUInteger tempPre = previousSelection;
-        [self setSliceDeselectedAtIndex:tempPre];
-        previousSelection = newSelection;
-        if([_delegate respondsToSelector:@selector(doughnutChart:didDeselectSliceAtIndex:)]) {
-            [_delegate doughnutChart:self didDeselectSliceAtIndex:tempPre];
+    if (previousSelection != newSelection) {
+        if (previousSelection != -1) {
+            [self setSliceDeselectedAtIndex:previousSelection];
+            [_delegate doughnutChart:self didDeselectSliceAtIndex:previousSelection];
+            _selectedSliceIndex = -1;
+        }
+        if (newSelection != -1){
+            [self setSliceSelectedAtIndex:newSelection];
+            _selectedSliceIndex = newSelection;
+            [_delegate doughnutChart:self didSelectSliceAtIndex:newSelection];
         }
     }
+    else if (newSelection != -1){
+        SliceLayer *layer = [_pieView.layer.sublayers objectAtIndex:newSelection];
+        if (layer) {
+            if (layer.selected) {
+                [self setSliceDeselectedAtIndex:newSelection];
 
-    if (newSelection == -1) {
-        _selectedSliceIndex = newSelection;
-        return;
-    }
-
-    [self setSliceSelectedAtIndex:newSelection];
-
-    _selectedSliceIndex = newSelection;
-    if ([_delegate respondsToSelector:@selector(doughnutChart:didSelectSliceAtIndex:)]) {
-        [_delegate doughnutChart:self didSelectSliceAtIndex:newSelection];
+                [_delegate doughnutChart:self didDeselectSliceAtIndex:newSelection];
+                _selectedSliceIndex = -1;
+            }
+        } else {
+            [self setSliceSelectedAtIndex:newSelection];
+            _selectedSliceIndex = newSelection;
+            [_delegate doughnutChart:self didSelectSliceAtIndex:newSelection];
+        }
     }
 }
 
@@ -503,17 +506,16 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
 - (void)setSliceSelectedAtIndex:(NSInteger)index
 {
     SliceLayer *layer = [_pieView.layer.sublayers objectAtIndex:index];
-    if (layer && !layer.isSelected) {
-        layer.isSelected = YES;
+    if (layer && !layer.selected) {
+        layer.selected = YES;
     }
 }
 
 - (void)setSliceDeselectedAtIndex:(NSInteger)index
 {
     SliceLayer *layer = [_pieView.layer.sublayers objectAtIndex:index];
-    if (layer && layer.isSelected) {
-        layer.position = CGPointMake(0, 0);
-        layer.isSelected = NO;
+    if (layer && layer.selected) {
+        layer.selected = NO;
     }
 }
 
