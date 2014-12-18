@@ -85,13 +85,12 @@
 
 - (void)doughnutChart:(XYDoughnutChart *)doughnutChart didDeselectSliceAtIndex:(NSUInteger)index
 {
-    NSLog(@"did deselect slice at index %lu", (unsigned long)index);
+    NSLog(@"did Deselect slice at index %lu", (unsigned long)index);
 }
 
 - (void)doughnutChart:(XYDoughnutChart *)doughnutChart didSelectSliceAtIndex:(NSUInteger)index
 {
-    NSLog(@"did select slice at index%lu", (unsigned long)index);
-//    self.selectedSliceLabel.text = [NSString stringWithFormat:@"$%@",[self.slices objectAtIndex:index]];
+    NSLog(@"did Select slice at index %lu", (unsigned long)index);
 }
 
 @end
