@@ -1,17 +1,10 @@
 PODS:
   - FBSnapshotTestCase (1.4)
-  - XYDoughnutChart (0.1.0)
 
 DEPENDENCIES:
   - FBSnapshotTestCase
-  - XYDoughnutChart (from `../`)
-
-EXTERNAL SOURCES:
-  XYDoughnutChart:
-    :path: ../
 
 SPEC CHECKSUMS:
   FBSnapshotTestCase: f9f225b5ba11c8d8c09075590490df16314e4d62
-  XYDoughnutChart: 06bb4122b6400956defef19c170f22194af756db
 
 COCOAPODS: 0.35.0

@@ -1,5 +1,5 @@
 #import <UIKit/UIKit.h>
-#import "XYDoughnutChart.h"
+#import <XYDoughnutChart/XYDoughnutChart.h>
 
 @interface DoughnutChartContainerView : UIView
 

@@ -2,7 +2,10 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:XYDoughnutChart.xcodeproj">
+      location = "group:../XYDoughnutChart.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:XYDoughnutChartDemo.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">

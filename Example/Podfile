@@ -1,11 +1,5 @@
 source 'https://github.com/CocoaPods/Specs.git'
 
-target 'XYDoughnutChart', :exclusive => true do
-  pod "XYDoughnutChart", :path => "../"
-end
-
 target 'Tests', :exclusive => true do
-  pod "XYDoughnutChart", :path => "../"
-
   pod 'FBSnapshotTestCase'
 end

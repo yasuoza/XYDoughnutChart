@@ -1,0 +1,617 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8386CA4AE322D08A5E4E2A28 /* libPods-Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F5A29C6D5646BD442F4297F /* libPods-Tests.a */; };
+		A8E069411A4802C9007C7737 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A8E0693D1A4802B9007C7737 /* InfoPlist.strings */; };
+		A8E069441A480388007C7737 /* ChartViewSnapshotTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A8ED43211A47F63900053246 /* ChartViewSnapshotTests.m */; };
+		A8E0694B1A480439007C7737 /* XYDoughnutChart.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8E0694A1A480427007C7737 /* XYDoughnutChart.framework */; };
+		A8E0694C1A480439007C7737 /* XYDoughnutChart.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A8E0694A1A480427007C7737 /* XYDoughnutChart.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A8ED43081A47F63900053246 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A8ED43071A47F63900053246 /* main.m */; };
+		A8ED43131A47F63900053246 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A8ED43121A47F63900053246 /* Images.xcassets */; };
+		A8ED43421A47F6F100053246 /* DoughnutChartContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = A8ED43331A47F6F100053246 /* DoughnutChartContainerView.m */; };
+		A8ED43471A47F6F100053246 /* XYDoughnutChartAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A8ED433C1A47F6F100053246 /* XYDoughnutChartAppDelegate.m */; };
+		A8ED43481A47F6F100053246 /* XYDoughnutChartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A8ED433E1A47F6F100053246 /* XYDoughnutChartViewController.m */; };
+		A8F7A06E1A47F9DA00265C93 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8ED432C1A47F6F100053246 /* Launch Screen.xib */; };
+		A8F7A06F1A47F9DA00265C93 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A8ED432E1A47F6F100053246 /* Main_iPad.storyboard */; };
+		A8F7A0701A47F9DA00265C93 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A8ED43301A47F6F100053246 /* Main_iPhone.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A8E069491A480427007C7737 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A8E069451A480427007C7737 /* XYDoughnutChart.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A8ED42D71A47F3E200053246;
+			remoteInfo = XYDoughnutChart;
+		};
+		A8E0694D1A480439007C7737 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A8E069451A480427007C7737 /* XYDoughnutChart.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = A8ED42D61A47F3E200053246;
+			remoteInfo = XYDoughnutChart;
+		};
+		A8ED431C1A47F63900053246 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A8ED42FA1A47F63900053246 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A8ED43011A47F63900053246;
+			remoteInfo = XYDoughnutChartDemo;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A8E069241A47FD58007C7737 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				A8E0694C1A480439007C7737 /* XYDoughnutChart.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		4F5A29C6D5646BD442F4297F /* libPods-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5C9E97081F3BE8F52FAB858D /* Pods-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tests/Pods-Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		5DD003F043E195C6A060FE8F /* Pods-Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tests/Pods-Tests.release.xcconfig"; sourceTree = "<group>"; };
+		A8E069251A47FF53007C7737 /* XYDoughnutChart.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XYDoughnutChart.framework; path = "../build/Debug-iphoneos/XYDoughnutChart.framework"; sourceTree = "<group>"; };
+		A8E0692D1A48001C007C7737 /* XYDoughnutChart.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XYDoughnutChart.framework; path = "../build/Debug-iphoneos/XYDoughnutChart.framework"; sourceTree = "<group>"; };
+		A8E0693A1A4802AE007C7737 /* Tests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Tests-Info.plist"; path = "Tests/Tests-Info.plist"; sourceTree = SOURCE_ROOT; };
+		A8E0693B1A4802AE007C7737 /* Tests-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Tests-Prefix.pch"; path = "Tests/Tests-Prefix.pch"; sourceTree = SOURCE_ROOT; };
+		A8E0693E1A4802B9007C7737 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Tests/en.lproj/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
+		A8E069451A480427007C7737 /* XYDoughnutChart.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = XYDoughnutChart.xcodeproj; path = ../XYDoughnutChart.xcodeproj; sourceTree = "<group>"; };
+		A8ED43021A47F63900053246 /* XYDoughnutChartDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XYDoughnutChartDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A8ED43071A47F63900053246 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		A8ED43121A47F63900053246 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		A8ED431B1A47F63900053246 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A8ED43211A47F63900053246 /* ChartViewSnapshotTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ChartViewSnapshotTests.m; path = Tests/ChartViewSnapshotTests.m; sourceTree = SOURCE_ROOT; };
+		A8ED432D1A47F6F100053246 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "Launch Screen.xib"; sourceTree = "<group>"; };
+		A8ED432F1A47F6F100053246 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Main_iPad.storyboard; sourceTree = "<group>"; };
+		A8ED43311A47F6F100053246 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Main_iPhone.storyboard; sourceTree = "<group>"; };
+		A8ED43321A47F6F100053246 /* DoughnutChartContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoughnutChartContainerView.h; sourceTree = "<group>"; };
+		A8ED43331A47F6F100053246 /* DoughnutChartContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoughnutChartContainerView.m; sourceTree = "<group>"; };
+		A8ED43361A47F6F100053246 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = InfoPlist.strings; sourceTree = "<group>"; };
+		A8ED43391A47F6F100053246 /* XYDoughnutChartDemo-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "XYDoughnutChartDemo-Info.plist"; sourceTree = "<group>"; };
+		A8ED433A1A47F6F100053246 /* XYDoughnutChart-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XYDoughnutChart-Prefix.pch"; sourceTree = "<group>"; };
+		A8ED433B1A47F6F100053246 /* XYDoughnutChartAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYDoughnutChartAppDelegate.h; sourceTree = "<group>"; };
+		A8ED433C1A47F6F100053246 /* XYDoughnutChartAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYDoughnutChartAppDelegate.m; sourceTree = "<group>"; };
+		A8ED433D1A47F6F100053246 /* XYDoughnutChartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYDoughnutChartViewController.h; sourceTree = "<group>"; };
+		A8ED433E1A47F6F100053246 /* XYDoughnutChartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYDoughnutChartViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A8ED42FF1A47F63900053246 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A8E0694B1A480439007C7737 /* XYDoughnutChart.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A8ED43181A47F63900053246 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8386CA4AE322D08A5E4E2A28 /* libPods-Tests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A8E069461A480427007C7737 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A8E0694A1A480427007C7737 /* XYDoughnutChart.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A8ED42F91A47F63900053246 = {
+			isa = PBXGroup;
+			children = (
+				A8E069451A480427007C7737 /* XYDoughnutChart.xcodeproj */,
+				A8ED43041A47F63900053246 /* XYDoughnutChartDemo */,
+				A8ED431E1A47F63900053246 /* Tests */,
+				A8ED43031A47F63900053246 /* Products */,
+				F999DF91B8306D9282BEF2EE /* Pods */,
+				E01C450E0196D84BB46374AE /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		A8ED43031A47F63900053246 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A8ED43021A47F63900053246 /* XYDoughnutChartDemo.app */,
+				A8ED431B1A47F63900053246 /* Tests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A8ED43041A47F63900053246 /* XYDoughnutChartDemo */ = {
+			isa = PBXGroup;
+			children = (
+				A8ED432C1A47F6F100053246 /* Launch Screen.xib */,
+				A8ED432E1A47F6F100053246 /* Main_iPad.storyboard */,
+				A8ED43301A47F6F100053246 /* Main_iPhone.storyboard */,
+				A8ED43321A47F6F100053246 /* DoughnutChartContainerView.h */,
+				A8ED43331A47F6F100053246 /* DoughnutChartContainerView.m */,
+				A8ED433A1A47F6F100053246 /* XYDoughnutChart-Prefix.pch */,
+				A8ED433B1A47F6F100053246 /* XYDoughnutChartAppDelegate.h */,
+				A8ED433C1A47F6F100053246 /* XYDoughnutChartAppDelegate.m */,
+				A8ED433D1A47F6F100053246 /* XYDoughnutChartViewController.h */,
+				A8ED433E1A47F6F100053246 /* XYDoughnutChartViewController.m */,
+				A8ED43121A47F63900053246 /* Images.xcassets */,
+				A8ED43051A47F63900053246 /* Supporting Files */,
+			);
+			path = XYDoughnutChartDemo;
+			sourceTree = "<group>";
+		};
+		A8ED43051A47F63900053246 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A8ED43341A47F6F100053246 /* en.lproj */,
+				A8ED43391A47F6F100053246 /* XYDoughnutChartDemo-Info.plist */,
+				A8ED43071A47F63900053246 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A8ED431E1A47F63900053246 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				A8ED43211A47F63900053246 /* ChartViewSnapshotTests.m */,
+				A8ED431F1A47F63900053246 /* Supporting Files */,
+			);
+			name = Tests;
+			path = XYDoughnutChartDemoTests;
+			sourceTree = "<group>";
+		};
+		A8ED431F1A47F63900053246 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A8E0693D1A4802B9007C7737 /* InfoPlist.strings */,
+				A8E0693A1A4802AE007C7737 /* Tests-Info.plist */,
+				A8E0693B1A4802AE007C7737 /* Tests-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A8ED43341A47F6F100053246 /* en.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				A8ED43351A47F6F100053246 /* InfoPlist.strings */,
+			);
+			path = en.lproj;
+			sourceTree = "<group>";
+		};
+		E01C450E0196D84BB46374AE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A8E0692D1A48001C007C7737 /* XYDoughnutChart.framework */,
+				A8E069251A47FF53007C7737 /* XYDoughnutChart.framework */,
+				4F5A29C6D5646BD442F4297F /* libPods-Tests.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F999DF91B8306D9282BEF2EE /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5C9E97081F3BE8F52FAB858D /* Pods-Tests.debug.xcconfig */,
+				5DD003F043E195C6A060FE8F /* Pods-Tests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A8ED43011A47F63900053246 /* XYDoughnutChartDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A8ED43251A47F63900053246 /* Build configuration list for PBXNativeTarget "XYDoughnutChartDemo" */;
+			buildPhases = (
+				A8ED42FE1A47F63900053246 /* Sources */,
+				A8ED42FF1A47F63900053246 /* Frameworks */,
+				A8ED43001A47F63900053246 /* Resources */,
+				A8E069241A47FD58007C7737 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A8E0694E1A480439007C7737 /* PBXTargetDependency */,
+			);
+			name = XYDoughnutChartDemo;
+			productName = XYDoughnutChartDemo;
+			productReference = A8ED43021A47F63900053246 /* XYDoughnutChartDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		A8ED431A1A47F63900053246 /* Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A8ED43281A47F63900053246 /* Build configuration list for PBXNativeTarget "Tests" */;
+			buildPhases = (
+				1A7105BEC12EA50F7703BE2C /* Check Pods Manifest.lock */,
+				A8ED43171A47F63900053246 /* Sources */,
+				A8ED43181A47F63900053246 /* Frameworks */,
+				A8ED43191A47F63900053246 /* Resources */,
+				E1A6E2C3D9D6EC13120B0EC6 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A8ED431D1A47F63900053246 /* PBXTargetDependency */,
+			);
+			name = Tests;
+			productName = XYDoughnutChartDemoTests;
+			productReference = A8ED431B1A47F63900053246 /* Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A8ED42FA1A47F63900053246 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = yasuoza;
+				TargetAttributes = {
+					A8ED43011A47F63900053246 = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+					A8ED431A1A47F63900053246 = {
+						CreatedOnToolsVersion = 6.1.1;
+						TestTargetID = A8ED43011A47F63900053246;
+					};
+				};
+			};
+			buildConfigurationList = A8ED42FD1A47F63900053246 /* Build configuration list for PBXProject "XYDoughnutChartDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A8ED42F91A47F63900053246;
+			productRefGroup = A8ED43031A47F63900053246 /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = A8E069461A480427007C7737 /* Products */;
+					ProjectRef = A8E069451A480427007C7737 /* XYDoughnutChart.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				A8ED43011A47F63900053246 /* XYDoughnutChartDemo */,
+				A8ED431A1A47F63900053246 /* Tests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		A8E0694A1A480427007C7737 /* XYDoughnutChart.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = XYDoughnutChart.framework;
+			remoteRef = A8E069491A480427007C7737 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A8ED43001A47F63900053246 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A8F7A06E1A47F9DA00265C93 /* Launch Screen.xib in Resources */,
+				A8F7A06F1A47F9DA00265C93 /* Main_iPad.storyboard in Resources */,
+				A8F7A0701A47F9DA00265C93 /* Main_iPhone.storyboard in Resources */,
+				A8ED43131A47F63900053246 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A8ED43191A47F63900053246 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A8E069411A4802C9007C7737 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1A7105BEC12EA50F7703BE2C /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		E1A6E2C3D9D6EC13120B0EC6 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Tests/Pods-Tests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A8ED42FE1A47F63900053246 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A8ED43471A47F6F100053246 /* XYDoughnutChartAppDelegate.m in Sources */,
+				A8ED43081A47F63900053246 /* main.m in Sources */,
+				A8ED43481A47F6F100053246 /* XYDoughnutChartViewController.m in Sources */,
+				A8ED43421A47F6F100053246 /* DoughnutChartContainerView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A8ED43171A47F63900053246 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A8E069441A480388007C7737 /* ChartViewSnapshotTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A8E0694E1A480439007C7737 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = XYDoughnutChart;
+			targetProxy = A8E0694D1A480439007C7737 /* PBXContainerItemProxy */;
+		};
+		A8ED431D1A47F63900053246 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A8ED43011A47F63900053246 /* XYDoughnutChartDemo */;
+			targetProxy = A8ED431C1A47F63900053246 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		A8E0693D1A4802B9007C7737 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A8E0693E1A4802B9007C7737 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		A8ED432C1A47F6F100053246 /* Launch Screen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A8ED432D1A47F6F100053246 /* Base */,
+			);
+			name = "Launch Screen.xib";
+			path = Base.lproj;
+			sourceTree = "<group>";
+		};
+		A8ED432E1A47F6F100053246 /* Main_iPad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A8ED432F1A47F6F100053246 /* Base */,
+			);
+			name = Main_iPad.storyboard;
+			path = Base.lproj;
+			sourceTree = "<group>";
+		};
+		A8ED43301A47F6F100053246 /* Main_iPhone.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A8ED43311A47F6F100053246 /* Base */,
+			);
+			name = Main_iPhone.storyboard;
+			path = Base.lproj;
+			sourceTree = "<group>";
+		};
+		A8ED43351A47F6F100053246 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A8ED43361A47F6F100053246 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		A8ED43231A47F63900053246 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A8ED43241A47F63900053246 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A8ED43261A47F63900053246 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "$(SRCROOT)/XYDoughnutChartDemo/XYDoughnutChartDemo-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		A8ED43271A47F63900053246 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "$(SRCROOT)/XYDoughnutChartDemo/XYDoughnutChartDemo-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		A8ED43291A47F63900053246 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5C9E97081F3BE8F52FAB858D /* Pods-Tests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					"FB_REFERENCE_IMAGE_DIR=\"\\\"$(SOURCE_ROOT)/Tests/ReferenceImages\\\"\"",
+				);
+				INFOPLIST_FILE = "Tests/Tests-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/XYDoughnutChartDemo.app/XYDoughnutChartDemo";
+			};
+			name = Debug;
+		};
+		A8ED432A1A47F63900053246 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5DD003F043E195C6A060FE8F /* Pods-Tests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Tests/Tests-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/XYDoughnutChartDemo.app/XYDoughnutChartDemo";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A8ED42FD1A47F63900053246 /* Build configuration list for PBXProject "XYDoughnutChartDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A8ED43231A47F63900053246 /* Debug */,
+				A8ED43241A47F63900053246 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A8ED43251A47F63900053246 /* Build configuration list for PBXNativeTarget "XYDoughnutChartDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A8ED43261A47F63900053246 /* Debug */,
+				A8ED43271A47F63900053246 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A8ED43281A47F63900053246 /* Build configuration list for PBXNativeTarget "Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A8ED43291A47F63900053246 /* Debug */,
+				A8ED432A1A47F63900053246 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A8ED42FA1A47F63900053246 /* Project object */;
+}
