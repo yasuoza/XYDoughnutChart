@@ -461,12 +461,14 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
     NSArray *pieLayers = [parentLayer sublayers];
 
     [CATransaction setDisableActions:YES];
-    for (SliceLayer *pieLayer in pieLayers) {
-        UIColor *color = [UIColor colorWithCGColor:pieLayer.fillColor];
-        [pieLayer setFillColor:[color colorWithAlphaComponent:1.0].CGColor];
+
+    [pieLayers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        SliceLayer *pieLayer = (SliceLayer *)obj;
+        UIColor *color = [_dataSource doughnutChart:self colorForSliceAtIndex:idx];
+        [pieLayer setFillColor:color.CGColor];
         [pieLayer setZPosition:kDefaultSliceZOrder];
         [pieLayer setLineWidth:0.0];
-    }
+    }];
     [CATransaction setDisableActions:NO];
 }
 
