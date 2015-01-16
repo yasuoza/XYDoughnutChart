@@ -128,8 +128,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
     _animations = [[NSMutableArray alloc] init];
 
     _animationDuration = 0.5f;
-    _startPieAngle = M_PI_2*3;
-    _selectedSliceStroke = 3.0;
+    _startPieAngle = M_PI_2 * 3;
 
     self.pieRadius = MIN(self.frame.size.width/2, self.frame.size.height/2) - 10;
     self.pieCenter = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
@@ -294,17 +293,17 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
 
         layer.value = values[index];
         layer.percentage = (sum)?layer.value/sum:0;
-        UIColor *color = nil;
-        if([_dataSource respondsToSelector:@selector(doughnutChart:colorForSliceAtIndex:)]) {
-            color = [_dataSource doughnutChart:self colorForSliceAtIndex:index];
-        }
 
-        if(!color) {
+        UIColor *color = nil;
+        if ([_delegate respondsToSelector:@selector(doughnutChart:colorForSliceAtIndex:)]) {
+            color = [_delegate doughnutChart:self colorForSliceAtIndex:index];
+        }
+        if (!color) {
             color = [UIColor colorWithHue:((index/8)%20)/20.0+0.02 saturation:(index%8+3)/10.0 brightness:91/100.0 alpha:1];
         }
-
         [layer setFillColor:color.CGColor];
-        if([_dataSource respondsToSelector:@selector(doughnutChart:textForSliceAtIndex:)]) {
+
+        if ([_dataSource respondsToSelector:@selector(doughnutChart:textForSliceAtIndex:)]) {
             layer.text = [_dataSource doughnutChart:self textForSliceAtIndex:index];
         }
 
@@ -404,15 +403,24 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
     CALayer *parentLayer = [_pieView layer];
     NSArray *pieLayers = [parentLayer sublayers];
 
-    [pieLayers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        SliceLayer *pieLayer = (SliceLayer *)obj;
+    [pieLayers enumerateObjectsUsingBlock:^(SliceLayer *pieLayer, NSUInteger idx, BOOL *stop) {
         CGPathRef path = [pieLayer path];
 
         if (CGPathContainsPoint(path, &transform, point, 0)) {
-            [pieLayer setLineWidth:_selectedSliceStroke];
+            CGFloat strokeWidth = 0.0;
+            if ([_delegate respondsToSelector:@selector(doughnutChart:selectedStrokeWidthForSliceAtIndex:)]) {
+                strokeWidth = [_delegate doughnutChart:self selectedStrokeWidthForSliceAtIndex:idx];
+            }
+            [pieLayer setLineWidth:strokeWidth];
             UIColor *color = [UIColor colorWithCGColor:pieLayer.fillColor];
             [pieLayer setFillColor:[color colorWithAlphaComponent:1.0].CGColor];
-            [pieLayer setStrokeColor:[UIColor whiteColor].CGColor];
+
+            CGColorRef colorRef = [UIColor whiteColor].CGColor;
+            if ([_delegate respondsToSelector:@selector(doughnutChart:selectedStrokeColorForSliceAtIndex:)]) {
+                colorRef = [_delegate doughnutChart:self selectedStrokeColorForSliceAtIndex:idx].CGColor;
+            }
+            [pieLayer setStrokeColor:colorRef];
+
             [pieLayer setLineJoin:kCALineJoinBevel];
             [pieLayer setZPosition:MAXFLOAT];
             selectedIndex = idx;
@@ -462,9 +470,8 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
 
     [CATransaction setDisableActions:YES];
 
-    [pieLayers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        SliceLayer *pieLayer = (SliceLayer *)obj;
-        UIColor *color = [_dataSource doughnutChart:self colorForSliceAtIndex:idx];
+    [pieLayers enumerateObjectsUsingBlock:^(SliceLayer *pieLayer, NSUInteger idx, BOOL *stop) {
+        UIColor *color = [_delegate doughnutChart:self colorForSliceAtIndex:idx];
         [pieLayer setFillColor:color.CGColor];
         [pieLayer setZPosition:kDefaultSliceZOrder];
         [pieLayer setLineWidth:0.0];
@@ -529,7 +536,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
 {
     SliceLayer *pieLayer = [SliceLayer layer];
     [pieLayer setZPosition:0];
-    [pieLayer setStrokeColor:NULL];
+    [pieLayer setStrokeColor:nil];
     SliceTextLayer *textLayer = [SliceTextLayer layer];
     textLayer.contentsScale = [[UIScreen mainScreen] scale];
     CGFontRef font = nil;
@@ -584,6 +591,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
 
         CGPathRef path = CGPathCreateArc(_pieCenter, _pieRadius, interpolatedStartAngle, interpolatedEndAngle);
         [sliceLayer setPath:path];
+        [sliceLayer setLineWidth:0.0];
         CFRelease(path);
 
         {

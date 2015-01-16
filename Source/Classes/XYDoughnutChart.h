@@ -7,7 +7,6 @@
 - (NSUInteger)numberOfSlicesInDoughnutChart:(XYDoughnutChart *)doughnutChart;
 - (CGFloat)doughnutChart:(XYDoughnutChart *)doughnutChart valueForSliceAtIndex:(NSUInteger)index;
 @optional
-- (UIColor *)doughnutChart:(XYDoughnutChart *)doughnutChart colorForSliceAtIndex:(NSUInteger)index;
 - (NSString *)doughnutChart:(XYDoughnutChart *)doughnutChart textForSliceAtIndex:(NSUInteger)index;
 @end
 
@@ -17,6 +16,9 @@
 - (void)doughnutChart:(XYDoughnutChart *)doughnutChart didSelectSliceAtIndex:(NSUInteger)index;
 - (void)doughnutChart:(XYDoughnutChart *)doughnutChart willDeselectSliceAtIndex:(NSUInteger)index;
 - (void)doughnutChart:(XYDoughnutChart *)doughnutChart didDeselectSliceAtIndex:(NSUInteger)index;
+- (UIColor *)doughnutChart:(XYDoughnutChart *)doughnutChart colorForSliceAtIndex:(NSUInteger)index;
+- (UIColor *)doughnutChart:(XYDoughnutChart *)doughnutChart selectedStrokeColorForSliceAtIndex:(NSUInteger)index;
+- (CGFloat)doughnutChart:(XYDoughnutChart *)doughnutChart selectedStrokeWidthForSliceAtIndex:(NSUInteger)index;
 @end
 
 @interface XYDoughnutChart : UIView
@@ -29,7 +31,6 @@
 @property(nonatomic, strong) UIColor *labelColor;
 @property(nonatomic, strong) UIColor *labelShadowColor;
 @property(nonatomic, assign) CGFloat labelRadius;
-@property(nonatomic, assign) CGFloat selectedSliceStroke;
 @property(nonatomic, assign) BOOL    showPercentage;
 
 - (void)reloadData;
