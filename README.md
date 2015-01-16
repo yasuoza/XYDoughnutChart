@@ -1,9 +1,6 @@
 # XYDoughnutChart
 
 [![CI Status](http://img.shields.io/travis/yasuoza/XYDoughnutChart.svg?style=flat)](https://travis-ci.org/yasuoza/XYDoughnutChart)
-[![Version](https://img.shields.io/cocoapods/v/XYDoughnutChart.svg?style=flat)](http://cocoadocs.org/docsets/XYDoughnutChart)
-[![License](https://img.shields.io/cocoapods/l/XYDoughnutChart.svg?style=flat)](http://cocoadocs.org/docsets/XYDoughnutChart)
-[![Platform](https://img.shields.io/cocoapods/p/XYDoughnutChart.svg?style=flat)](http://cocoadocs.org/docsets/XYDoughnutChart)
 
 ## Usage
 
