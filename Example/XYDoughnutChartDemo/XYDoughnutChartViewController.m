@@ -13,6 +13,8 @@
 {
     [super viewDidLoad];
 
+    self.view.backgroundColor = [UIColor darkGrayColor];
+
     self.slices = [NSMutableArray arrayWithCapacity:10];
 
     for(int i = 0; i < 4; i ++) {
@@ -65,11 +67,6 @@
     return [[self.slices objectAtIndex:(index % self.slices.count)] intValue];
 }
 
-- (UIColor *)doughnutChart:(XYDoughnutChart *)doughnutChart colorForSliceAtIndex:(NSUInteger)index
-{
-    return [self.sliceColors objectAtIndex:(index % self.sliceColors.count)];
-}
-
 #pragma mark - XYDoughnutChart Delegate
 
 - (void)doughnutChart:(XYDoughnutChart *)doughnutChart willSelectSliceAtIndex:(NSUInteger)index
@@ -91,6 +88,19 @@
 - (void)doughnutChart:(XYDoughnutChart *)doughnutChart didSelectSliceAtIndex:(NSUInteger)index
 {
     NSLog(@"did Select slice at index %lu", (unsigned long)index);
+}
+
+- (UIColor *)doughnutChart:(XYDoughnutChart *)doughnutChart colorForSliceAtIndex:(NSUInteger)index
+{
+    return [self.sliceColors objectAtIndex:(index % self.sliceColors.count)];
+}
+
+- (UIColor *)doughnutChart:(XYDoughnutChart *)doughnutChart selectedStrokeColorForSliceAtIndex:(NSUInteger)index {
+    return [UIColor whiteColor];
+}
+
+- (CGFloat)doughnutChart:(XYDoughnutChart *)doughnutChart selectedStrokeWidthForSliceAtIndex:(NSUInteger)index {
+    return 2.0;
 }
 
 @end
