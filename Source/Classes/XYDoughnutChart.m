@@ -32,10 +32,10 @@
     CABasicAnimation *arcAnimation = [CABasicAnimation animationWithKeyPath:key];
     NSNumber *currentAngle = [[self presentationLayer] valueForKey:key];
     if(!currentAngle) currentAngle = from;
-    [arcAnimation setFromValue:currentAngle];
-    [arcAnimation setToValue:to];
-    [arcAnimation setDelegate:delegate];
-    [arcAnimation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionDefault]];
+    arcAnimation.fromValue = currentAngle;
+    arcAnimation.toValue = to;
+    arcAnimation.delegate = delegate;
+    arcAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionDefault];
     [self addAnimation:arcAnimation forKey:key];
     [self setValue:to forKey:key];
 }
@@ -122,7 +122,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
 - (void)constructChartView
 {
     _pieView = [[UIView alloc] initWithFrame:self.frame];
-    [_pieView setBackgroundColor:[UIColor clearColor]];
+    _pieView.backgroundColor = [UIColor clearColor];
     [self addSubview:_pieView];
 
     _selectedSliceIndex = -1;
@@ -144,7 +144,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
 
 - (void)setPieCenter:(CGPoint)pieCenter
 {
-    [_pieView setCenter:pieCenter];
+    _pieView.center = pieCenter;
 }
 
 - (void)setPieRadius:(CGFloat)pieRadius
@@ -156,13 +156,13 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
                               pieRadius * 2,
                               pieRadius * 2);
     _pieCenter = CGPointMake(frame.size.width/2, frame.size.height/2);
-    [_pieView setFrame:frame];
-    [_pieView.layer setCornerRadius:_pieRadius];
+    _pieView.frame = frame;
+    _pieView.layer.cornerRadius = _pieRadius;
 }
 
-- (void)setPieBackgroundColor:(UIColor *)color
+- (void)setBackgroundColor:(UIColor *)color
 {
-    [_pieView setBackgroundColor:color];
+    _pieView.backgroundColor = color;
 }
 
 # pragma mark - Pie Reload Data With Animation
@@ -216,7 +216,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
         [CATransaction setAnimationDuration:_animationDuration];
     }
 
-    [_pieView setUserInteractionEnabled:NO];
+    _pieView.userInteractionEnabled = NO;
 
     __block NSMutableArray *layersToRemove = nil;
 
@@ -302,8 +302,8 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
         if (!color) {
             color = [UIColor colorWithHue:((index/8)%20)/20.0+0.02 saturation:(index%8+3)/10.0 brightness:91/100.0 alpha:1];
         }
-        [layer setFillColor:color.CGColor];
-        [layer setLayerColor:color.CGColor];
+        layer.fillColor = color.CGColor;
+        layer.layerColor = color.CGColor;
 
         if ([_dataSource respondsToSelector:@selector(doughnutChart:textForSliceAtIndex:)]) {
             layer.text = [_dataSource doughnutChart:self textForSliceAtIndex:index];
@@ -334,11 +334,11 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
     }
 
     for(SliceLayer *layer in layersToRemove) {
-        [layer setFillColor:[self backgroundColor].CGColor];
-        [layer setDelegate:nil];
-        [layer setZPosition:0];
+        layer.fillColor = [self backgroundColor].CGColor;
+        layer.delegate = nil;
+        layer.zPosition = 0;
         SliceTextLayer *textLayer = [[layer sublayers] objectAtIndex:0];
-        [textLayer setHidden:YES];
+        textLayer.hidden = YES;
     }
 
     [layersToRemove enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -350,10 +350,10 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
     [layersToRemove removeAllObjects];
 
     for (SliceLayer *layer in _pieView.layer.sublayers) {
-        [layer setZPosition:kDefaultSliceZOrder];
+        layer.zPosition = kDefaultSliceZOrder;
     }
 
-    [_pieView setUserInteractionEnabled:YES];
+    _pieView.userInteractionEnabled = YES;
 
     if (animated) {
         [CATransaction setDisableActions:NO];
@@ -409,28 +409,28 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
         CGPathRef path = [pieLayer path];
 
         if (CGPathContainsPoint(path, &transform, point, 0)) {
-            CGFloat strokeWidth = 0.0;
+            CGFloat strokeWidth = 1.0;
             if ([_delegate respondsToSelector:@selector(doughnutChart:selectedStrokeWidthForSliceAtIndex:)]) {
                 strokeWidth = [_delegate doughnutChart:self selectedStrokeWidthForSliceAtIndex:idx];
             }
-            [pieLayer setLineWidth:strokeWidth];
+            pieLayer.lineWidth = strokeWidth;
             UIColor *color = [UIColor colorWithCGColor:pieLayer.fillColor];
-            [pieLayer setFillColor:[color colorWithAlphaComponent:1.0].CGColor];
+            pieLayer.fillColor = [color colorWithAlphaComponent:1.0].CGColor;
 
-            CGColorRef colorRef = [UIColor whiteColor].CGColor;
+            CGColorRef strokeColor = [UIColor whiteColor].CGColor;
             if ([_delegate respondsToSelector:@selector(doughnutChart:selectedStrokeColorForSliceAtIndex:)]) {
-                colorRef = [_delegate doughnutChart:self selectedStrokeColorForSliceAtIndex:idx].CGColor;
+                strokeColor = [_delegate doughnutChart:self selectedStrokeColorForSliceAtIndex:idx].CGColor;
             }
-            [pieLayer setStrokeColor:colorRef];
+            pieLayer.strokeColor = strokeColor;
 
-            [pieLayer setLineJoin:kCALineJoinBevel];
-            [pieLayer setZPosition:MAXFLOAT];
+            pieLayer.lineJoin = kCALineJoinBevel;
+            pieLayer.zPosition = MAXFLOAT;
             selectedIndex = idx;
         } else {
-            [pieLayer setZPosition:kDefaultSliceZOrder];
-            [pieLayer setFillColor:[[UIColor colorWithCGColor:pieLayer.layerColor]
-                                    colorWithAlphaComponent:CGColorGetAlpha(pieLayer.layerColor)/4].CGColor];
-            [pieLayer setLineWidth:0.0];
+            pieLayer.zPosition = kDefaultSliceZOrder;
+            pieLayer.fillColor = [[UIColor colorWithCGColor:pieLayer.layerColor]
+                                  colorWithAlphaComponent:CGColorGetAlpha(pieLayer.layerColor)/4].CGColor;
+            pieLayer.lineWidth = 0.0;
         }
     }];
     return selectedIndex;
@@ -471,11 +471,10 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
     NSArray *pieLayers = [parentLayer sublayers];
 
     [CATransaction setDisableActions:YES];
-
     [pieLayers enumerateObjectsUsingBlock:^(SliceLayer *pieLayer, NSUInteger idx, BOOL *stop) {
-        [pieLayer setFillColor:pieLayer.layerColor];
-        [pieLayer setZPosition:kDefaultSliceZOrder];
-        [pieLayer setLineWidth:0.0];
+        pieLayer.fillColor = pieLayer.layerColor;
+        pieLayer.zPosition = kDefaultSliceZOrder;
+        pieLayer.lineWidth = 0.0;
     }];
     [CATransaction setDisableActions:NO];
 }
@@ -536,8 +535,8 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
 - (SliceLayer *)createSliceLayer
 {
     SliceLayer *pieLayer = [SliceLayer layer];
-    [pieLayer setZPosition:0];
-    [pieLayer setStrokeColor:nil];
+    pieLayer.zPosition = 0;
+    pieLayer.strokeColor = nil;
     SliceTextLayer *textLayer = [SliceTextLayer layer];
     textLayer.contentsScale = [[UIScreen mainScreen] scale];
     CGFontRef font = nil;
@@ -547,24 +546,24 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
         font = CGFontCreateWithFontName((__bridge CFStringRef)[self.labelFont fontName]);
     }
     if (font) {
-        [textLayer setFont:font];
+        textLayer.font = font;
         CFRelease(font);
     }
-    [textLayer setFontSize:self.labelFont.pointSize];
-    [textLayer setAnchorPoint:CGPointMake(0.5, 0.5)];
-    [textLayer setAlignmentMode:kCAAlignmentCenter];
-    [textLayer setBackgroundColor:[UIColor clearColor].CGColor];
-    [textLayer setForegroundColor:self.labelColor.CGColor];
+    textLayer.fontSize = self.labelFont.pointSize;
+    textLayer.anchorPoint = CGPointMake(0.5, 0.5);
+    textLayer.alignmentMode = kCAAlignmentCenter;
+    textLayer.backgroundColor = [UIColor clearColor].CGColor;
+    textLayer.foregroundColor = self.labelColor.CGColor;
     if (self.labelShadowColor) {
-        [textLayer setShadowColor:self.labelShadowColor.CGColor];
-        [textLayer setShadowOffset:CGSizeZero];
-        [textLayer setShadowOpacity:1.0f];
-        [textLayer setShadowRadius:2.0f];
+        textLayer.shadowColor = self.labelShadowColor.CGColor;
+        textLayer.shadowOffset = CGSizeZero;
+        textLayer.shadowOpacity = 1.0f;
+        textLayer.shadowRadius = 2.0f;
     }
     CGSize size = [@"0" sizeWithAttributes:@{NSFontAttributeName: self.labelFont}];
     [CATransaction setDisableActions:YES];
-    [textLayer setFrame:CGRectMake(0, 0, size.width, size.height)];
-    [textLayer setPosition:CGPointMake(_pieCenter.x + (_labelRadius * cos(0)), _pieCenter.y + (_labelRadius * sin(0)))];
+    textLayer.frame = CGRectMake(0, 0, size.width, size.height);
+    textLayer.position = CGPointMake(_pieCenter.x + (_labelRadius * cos(0)), _pieCenter.y + (_labelRadius * sin(0)));
     [CATransaction setDisableActions:NO];
     [pieLayer addSublayer:textLayer];
     return pieLayer;
@@ -576,7 +575,6 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
     NSArray *pieLayers = [parentLayer sublayers];
 
     [CATransaction setDisableActions:YES];
-
     [pieLayers enumerateObjectsUsingBlock:^(SliceLayer *sliceLayer, NSUInteger idx, BOOL *stop) {
         NSNumber *presentationLayerStartAngle = [sliceLayer valueForKey:@"startAngle"];
         if (animated) {
@@ -591,8 +589,8 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
         CGFloat interpolatedEndAngle = [presentationLayerEndAngle doubleValue];
 
         CGPathRef path = CGPathCreateArc(_pieCenter, _pieRadius, interpolatedStartAngle, interpolatedEndAngle);
-        [sliceLayer setPath:path];
-        [sliceLayer setLineWidth:0.0];
+        sliceLayer.path = path;
+        sliceLayer.lineWidth = 0.0;
         CFRelease(path);
 
         {
@@ -607,15 +605,15 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
             if (_showLabel) {
                 labelLayer.hidden = NO;
 
-                [labelLayer setPosition:CGPointMake(_pieCenter.x + (_labelRadius * cos(interpolatedMidAngle)),
-                                                    _pieCenter.y + (_labelRadius * sin(interpolatedMidAngle)))];
+                labelLayer.position = CGPointMake(_pieCenter.x + (_labelRadius * cos(interpolatedMidAngle)),
+                                                  _pieCenter.y + (_labelRadius * sin(interpolatedMidAngle)));
 
                 NSString *valueText = [labelLayer valueAtSliceLayer:sliceLayer byPercentage:_showPercentage];
 
                 CGSize size = [valueText sizeWithAttributes:@{NSFontAttributeName: self.labelFont}];
-                [labelLayer setBounds:CGRectMake(0, 0, size.width, size.height)];
+                labelLayer.bounds = CGRectMake(0, 0, size.width, size.height);
                 CGFloat labelLayerWidth = abs(_labelRadius * cos(interpolatedStartAngle)
-                                         - _labelRadius * cos(interpolatedEndAngle));
+                                              - _labelRadius * cos(interpolatedEndAngle));
                 CGFloat labelLayerHeight = abs(_labelRadius * sin(interpolatedStartAngle)
                                           - _labelRadius * sin(interpolatedEndAngle));
                 if (MAX(labelLayerWidth, labelLayerHeight) < MAX(size.width,size.height) || sliceLayer.value <= 0) {
@@ -633,7 +631,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
 {
     SliceTextLayer *labelLayer = [[sliceLayer sublayers] objectAtIndex:0];
 
-    [labelLayer setHidden:!_showLabel];
+    labelLayer.hidden = !_showLabel;
 
     if(!_showLabel) return;
 
@@ -643,7 +641,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
 
     [CATransaction setDisableActions:YES];
 
-    [labelLayer setBounds:CGRectMake(0, 0, size.width, size.height)];
+    labelLayer.bounds = CGRectMake(0, 0, size.width, size.height);
 
     if (M_PI*2*_labelRadius*sliceLayer.percentage < MAX(size.width,size.height) || sliceLayer.value <= 0) {
         labelLayer.string = @"";
