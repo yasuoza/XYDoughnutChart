@@ -83,10 +83,6 @@
     NSInteger _selectedSliceIndex;
     //pie view, contains all slices
     UIView  *_doughnutView;
-
-    //animation control
-    NSTimer *_animationTimer;
-    NSMutableArray *_animations;
 }
 
 static NSUInteger kDefaultSliceZOrder = 100;
@@ -131,7 +127,6 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
     [self addSubview:_doughnutView];
 
     _selectedSliceIndex = -1;
-    _animations = [[NSMutableArray alloc] init];
 
     _animationDuration = 0.5f;
     _startDoughnutAngle = M_PI_2 * 3;
@@ -370,26 +365,11 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
 
 - (void)animationDidStart:(CAAnimation *)anim
 {
-    if (_animationTimer == nil) {
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
         static float timeInterval = 1.0/60.0;
-        // Run the animation timer on the main thread.
-        // We want to allow the user to interact with the UI while this timer is running.
-        // If we run it on this thread, the timer will be halted while the user is touching the screen (that's why the chart was disappearing in our collection view).
-        _animationTimer= [NSTimer timerWithTimeInterval:timeInterval target:self selector:@selector(updateTimerFired:) userInfo:nil repeats:YES];
-        [[NSRunLoop mainRunLoop] addTimer:_animationTimer forMode:NSRunLoopCommonModes];
-    }
-
-    [_animations addObject:anim];
-}
-
-- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)animationCompleted
-{
-    [_animations removeObject:anim];
-
-    if ([_animations count] == 0) {
-        [_animationTimer invalidate];
-        _animationTimer = nil;
-    }
+        NSTimer *aTimer = [NSTimer timerWithTimeInterval:timeInterval target:self selector:@selector(updateTimerFired:) userInfo:nil repeats:YES];
+        [[NSRunLoop mainRunLoop] addTimer:aTimer forMode:NSRunLoopCommonModes];
+    }];
 }
 
 # pragma mark - Touch Handing (Selection Notification)
