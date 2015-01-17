@@ -67,8 +67,8 @@
 
 @interface XYDoughnutChart ()
 
-@property(nonatomic, assign) CGPoint pieCenter;
-@property(nonatomic, assign) CGFloat pieRadius;
+@property(nonatomic, assign) CGPoint doughnutCenter;
+@property(nonatomic, assign) CGFloat doughnutRadius;
 @property(nonatomic, assign) CGFloat labelRadius;
 
 - (void)updateTimerFired:(NSTimer *)timer;
@@ -82,7 +82,7 @@
 {
     NSInteger _selectedSliceIndex;
     //pie view, contains all slices
-    UIView  *_pieView;
+    UIView  *_doughnutView;
 
     //animation control
     NSTimer *_animationTimer;
@@ -126,19 +126,19 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
 
 - (void)constructChartView
 {
-    _pieView = [[UIView alloc] initWithFrame:self.frame];
-    _pieView.backgroundColor = [UIColor clearColor];
-    [self addSubview:_pieView];
+    _doughnutView = [[UIView alloc] initWithFrame:self.frame];
+    _doughnutView.backgroundColor = [UIColor clearColor];
+    [self addSubview:_doughnutView];
 
     _selectedSliceIndex = -1;
     _animations = [[NSMutableArray alloc] init];
 
     _animationDuration = 0.5f;
-    _startPieAngle = M_PI_2 * 3;
+    _startDoughnutAngle = M_PI_2 * 3;
 
-    self.pieRadius = MIN(self.frame.size.width/2, self.frame.size.height/2) - 10;
-    self.pieCenter = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
-    self.labelFont = [UIFont boldSystemFontOfSize:MAX((int)self.pieRadius/10, 5)];
+    self.doughnutRadius = MIN(self.frame.size.width/2, self.frame.size.height/2) - 10;
+    self.doughnutCenter = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
+    self.labelFont = [UIFont boldSystemFontOfSize:MAX((int)self.doughnutRadius/10, 5)];
     _labelColor = [UIColor whiteColor];
 
     _showLabel = YES;
@@ -147,27 +147,27 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
 
 # pragma mark - Setter
 
-- (void)setPieCenter:(CGPoint)pieCenter
+- (void)setDoughnutCenter:(CGPoint)doughnutCenter
 {
-    _pieView.center = pieCenter;
+    _doughnutView.center = doughnutCenter;
 }
 
-- (void)setPieRadius:(CGFloat)pieRadius
+- (void)setDoughnutRadius:(CGFloat)doughnutRadius
 {
-    _pieRadius = pieRadius;
-    CGPoint origin = _pieView.frame.origin;
-    CGRect frame = CGRectMake(origin.x + _pieCenter.x - pieRadius,
-                              origin.y + _pieCenter.y - pieRadius,
-                              pieRadius * 2,
-                              pieRadius * 2);
-    _pieCenter = CGPointMake(frame.size.width/2, frame.size.height/2);
-    _pieView.frame = frame;
-    _pieView.layer.cornerRadius = _pieRadius;
+    _doughnutRadius = doughnutRadius;
+    CGPoint origin = _doughnutView.frame.origin;
+    CGRect frame = CGRectMake(origin.x + _doughnutCenter.x - doughnutRadius,
+                              origin.y + _doughnutCenter.y - doughnutRadius,
+                              doughnutRadius * 2,
+                              doughnutRadius * 2);
+    _doughnutCenter = CGPointMake(frame.size.width/2, frame.size.height/2);
+    _doughnutView.frame = frame;
+    _doughnutView.layer.cornerRadius = _doughnutRadius;
 }
 
 - (void)setBackgroundColor:(UIColor *)color
 {
-    _pieView.backgroundColor = color;
+    _doughnutView.backgroundColor = color;
 }
 
 # pragma mark - Pie Reload Data With Animation
@@ -183,11 +183,11 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
         return;
     }
 
-    self.pieRadius = MIN(self.bounds.size.width/2, self.bounds.size.height/2);
-    self.pieCenter = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
-    self.labelRadius = _pieRadius * 2 / 3;
+    self.doughnutRadius = MIN(self.bounds.size.width/2, self.bounds.size.height/2);
+    self.doughnutCenter = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
+    self.labelRadius = _doughnutRadius * 2 / 3;
 
-    CALayer *parentLayer = [_pieView layer];
+    CALayer *parentLayer = [_doughnutView layer];
     NSArray *slicelayers = [parentLayer sublayers];
 
     _selectedSliceIndex = -1;
@@ -221,7 +221,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
         [CATransaction setAnimationDuration:_animationDuration];
     }
 
-    _pieView.userInteractionEnabled = NO;
+    _doughnutView.userInteractionEnabled = NO;
 
     __block NSMutableArray *layersToRemove = nil;
 
@@ -231,20 +231,20 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
 
     BOOL onEnd = ([slicelayers count] && (sliceCount == 0 || sum <= 0));
     if (onEnd) {
-        for(SliceLayer *layer in _pieView.layer.sublayers) {
+        for(SliceLayer *layer in _doughnutView.layer.sublayers) {
             layer.value = 0.0;
             if (animated) {
                 [layer createArcAnimationForKey:@"startAngle"
-                                      fromValue:[NSNumber numberWithDouble:_startPieAngle]
-                                        toValue:[NSNumber numberWithDouble:_startPieAngle]
+                                      fromValue:[NSNumber numberWithDouble:_startDoughnutAngle]
+                                        toValue:[NSNumber numberWithDouble:_startDoughnutAngle]
                                        Delegate:self];
                 [layer createArcAnimationForKey:@"endAngle"
-                                      fromValue:[NSNumber numberWithDouble:_startPieAngle]
-                                        toValue:[NSNumber numberWithDouble:_startPieAngle]
+                                      fromValue:[NSNumber numberWithDouble:_startDoughnutAngle]
+                                        toValue:[NSNumber numberWithDouble:_startDoughnutAngle]
                                        Delegate:self];
             } else {
-                layer.startAngle = _startPieAngle;
-                layer.endAngle = _startPieAngle;
+                layer.startAngle = _startDoughnutAngle;
+                layer.endAngle = _startDoughnutAngle;
             }
         }
 
@@ -260,13 +260,13 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
         SliceLayer *layer;
         double angle = angles[index];
         endToAngle += angle;
-        double startFromAngle = _startPieAngle + startToAngle;
-        double endFromAngle = _startPieAngle + endToAngle;
+        double startFromAngle = _startDoughnutAngle + startToAngle;
+        double endFromAngle = _startDoughnutAngle + endToAngle;
 
         if ( index >= [slicelayers count] ) {
             layer = [self createSliceLayer];
             if (isOnStart) {
-                startFromAngle = endFromAngle = _startPieAngle;
+                startFromAngle = endFromAngle = _startDoughnutAngle;
             }
             [parentLayer addSublayer:layer];
             diff--;
@@ -278,7 +278,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
             }
             else if(diff > 0) {
                 layer = [self createSliceLayer];
-                startFromAngle = endFromAngle = _startPieAngle;
+                startFromAngle = endFromAngle = _startDoughnutAngle;
                 [parentLayer insertSublayer:layer atIndex:index];
                 diff--;
             }
@@ -312,16 +312,16 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
         if (animated) {
             [layer createArcAnimationForKey:@"startAngle"
                                   fromValue:[NSNumber numberWithDouble:startFromAngle]
-                                    toValue:[NSNumber numberWithDouble:startToAngle+_startPieAngle]
+                                    toValue:[NSNumber numberWithDouble:startToAngle+_startDoughnutAngle]
                                    Delegate:self];
             [layer createArcAnimationForKey:@"endAngle"
                                   fromValue:[NSNumber numberWithDouble:endFromAngle]
-                                    toValue:[NSNumber numberWithDouble:endToAngle+_startPieAngle]
+                                    toValue:[NSNumber numberWithDouble:endToAngle+_startDoughnutAngle]
                                    Delegate:self];
         } else {
             [self updateLabelForLayer:layer];
-            layer.startAngle = startToAngle + _startPieAngle;
-            layer.endAngle = endToAngle + _startPieAngle;
+            layer.startAngle = startToAngle + _startDoughnutAngle;
+            layer.endAngle = endToAngle + _startDoughnutAngle;
         }
 
         startToAngle = endToAngle;
@@ -347,11 +347,11 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
 
     [layersToRemove removeAllObjects];
 
-    for (SliceLayer *layer in _pieView.layer.sublayers) {
+    for (SliceLayer *layer in _doughnutView.layer.sublayers) {
         layer.zPosition = kDefaultSliceZOrder;
     }
 
-    _pieView.userInteractionEnabled = YES;
+    _doughnutView.userInteractionEnabled = YES;
 
     if (animated) {
         [CATransaction setDisableActions:NO];
@@ -400,36 +400,36 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
 
     CGAffineTransform transform = CGAffineTransformIdentity;
 
-    CALayer *parentLayer = [_pieView layer];
-    NSArray *pieLayers = [parentLayer sublayers];
+    CALayer *parentLayer = [_doughnutView layer];
+    NSArray *sliceLayers = [parentLayer sublayers];
 
-    [pieLayers enumerateObjectsUsingBlock:^(SliceLayer *pieLayer, NSUInteger idx, BOOL *stop) {
-        CGPathRef path = [pieLayer path];
+    [sliceLayers enumerateObjectsUsingBlock:^(SliceLayer *sliceLayer, NSUInteger idx, BOOL *stop) {
+        CGPathRef path = [sliceLayer path];
 
         if (CGPathContainsPoint(path, &transform, point, 0)) {
             CGFloat strokeWidth = 1.0;
             if ([_delegate respondsToSelector:@selector(doughnutChart:selectedStrokeWidthForSliceAtIndex:)]) {
                 strokeWidth = [_delegate doughnutChart:self selectedStrokeWidthForSliceAtIndex:idx];
             }
-            pieLayer.lineWidth = strokeWidth;
-            UIColor *color = [UIColor colorWithCGColor:pieLayer.fillColor];
-            pieLayer.fillColor = [color colorWithAlphaComponent:1.0].CGColor;
+            sliceLayer.lineWidth = strokeWidth;
+            UIColor *color = [UIColor colorWithCGColor:sliceLayer.fillColor];
+            sliceLayer.fillColor = [color colorWithAlphaComponent:1.0].CGColor;
 
             CGColorRef strokeColor = [UIColor whiteColor].CGColor;
             if ([_delegate respondsToSelector:@selector(doughnutChart:selectedStrokeColorForSliceAtIndex:)]) {
                 strokeColor = [_delegate doughnutChart:self selectedStrokeColorForSliceAtIndex:idx].CGColor;
             }
-            pieLayer.strokeColor = strokeColor;
+            sliceLayer.strokeColor = strokeColor;
 
-            pieLayer.lineJoin = kCALineJoinBevel;
-            pieLayer.zPosition = MAXFLOAT;
+            sliceLayer.lineJoin = kCALineJoinBevel;
+            sliceLayer.zPosition = MAXFLOAT;
             selectedIndex = idx;
         } else {
-            pieLayer.zPosition = kDefaultSliceZOrder;
+            sliceLayer.zPosition = kDefaultSliceZOrder;
             UIColor *color = [self sliceColorAtIndex:idx];
-            pieLayer.fillColor = [color
+            sliceLayer.fillColor = [color
                                   colorWithAlphaComponent:CGColorGetAlpha(color.CGColor)/4].CGColor;
-            pieLayer.lineWidth = 0.0;
+            sliceLayer.lineWidth = 0.0;
         }
     }];
     return selectedIndex;
@@ -443,7 +443,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
     UITouch *touch = [touches anyObject];
-    CGPoint point = [touch locationInView:_pieView];
+    CGPoint point = [touch locationInView:_doughnutView];
     NSInteger newlySelectedIndex = [self getCurrentSelectedOnTouch:point];
 
     if (newlySelectedIndex != _selectedSliceIndex) {
@@ -458,7 +458,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     UITouch *touch = [touches anyObject];
-    CGPoint point = [touch locationInView:_pieView];
+    CGPoint point = [touch locationInView:_doughnutView];
     NSInteger selectedIndex = [self getCurrentSelectedOnTouch:point];
     [self delegateOfSelectionChangeFrom:_selectedSliceIndex to:selectedIndex];
     [self touchesCancelled:touches withEvent:event];
@@ -466,14 +466,14 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    CALayer *parentLayer = [_pieView layer];
-    NSArray *pieLayers = [parentLayer sublayers];
+    CALayer *parentLayer = [_doughnutView layer];
+    NSArray *sliceLayers = [parentLayer sublayers];
 
     [CATransaction setDisableActions:YES];
-    [pieLayers enumerateObjectsUsingBlock:^(SliceLayer *pieLayer, NSUInteger idx, BOOL *stop) {
-        pieLayer.fillColor = [self sliceColorAtIndex:idx].CGColor;
-        pieLayer.zPosition = kDefaultSliceZOrder;
-        pieLayer.lineWidth = 0.0;
+    [sliceLayers enumerateObjectsUsingBlock:^(SliceLayer *sliceLayer, NSUInteger idx, BOOL *stop) {
+        sliceLayer.fillColor = [self sliceColorAtIndex:idx].CGColor;
+        sliceLayer.zPosition = kDefaultSliceZOrder;
+        sliceLayer.lineWidth = 0.0;
     }];
     [CATransaction setDisableActions:NO];
 }
@@ -495,7 +495,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
         }
     }
     else if (newSelection != -1){
-        SliceLayer *layer = [_pieView.layer.sublayers objectAtIndex:newSelection];
+        SliceLayer *layer = [_doughnutView.layer.sublayers objectAtIndex:newSelection];
         if (layer) {
             if (layer.selected) {
                 [self setSliceDeselectedAtIndex:newSelection];
@@ -515,7 +515,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
 
 - (void)setSliceSelectedAtIndex:(NSInteger)index
 {
-    SliceLayer *layer = [_pieView.layer.sublayers objectAtIndex:index];
+    SliceLayer *layer = [_doughnutView.layer.sublayers objectAtIndex:index];
     if (layer && !layer.selected) {
         layer.selected = YES;
     }
@@ -523,7 +523,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
 
 - (void)setSliceDeselectedAtIndex:(NSInteger)index
 {
-    SliceLayer *layer = [_pieView.layer.sublayers objectAtIndex:index];
+    SliceLayer *layer = [_doughnutView.layer.sublayers objectAtIndex:index];
     if (layer && layer.selected) {
         layer.selected = NO;
     }
@@ -533,9 +533,9 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
 
 - (SliceLayer *)createSliceLayer
 {
-    SliceLayer *pieLayer = [SliceLayer layer];
-    pieLayer.zPosition = 0;
-    pieLayer.strokeColor = nil;
+    SliceLayer *sliceLayer = [SliceLayer layer];
+    sliceLayer.zPosition = 0;
+    sliceLayer.strokeColor = nil;
     SliceTextLayer *textLayer = [SliceTextLayer layer];
     textLayer.contentsScale = [[UIScreen mainScreen] scale];
     CGFontRef font = nil;
@@ -562,19 +562,19 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
     CGSize size = [@"0" sizeWithAttributes:@{NSFontAttributeName: self.labelFont}];
     [CATransaction setDisableActions:YES];
     textLayer.frame = CGRectMake(0, 0, size.width, size.height);
-    textLayer.position = CGPointMake(_pieCenter.x + (_labelRadius * cos(0)), _pieCenter.y + (_labelRadius * sin(0)));
+    textLayer.position = CGPointMake(_doughnutCenter.x + (_labelRadius * cos(0)), _doughnutCenter.y + (_labelRadius * sin(0)));
     [CATransaction setDisableActions:NO];
-    [pieLayer addSublayer:textLayer];
-    return pieLayer;
+    [sliceLayer addSublayer:textLayer];
+    return sliceLayer;
 }
 
 - (void)updateLayerAngle:(BOOL)animated
 {
-    CALayer *parentLayer = [_pieView layer];
-    NSArray *pieLayers = [parentLayer sublayers];
+    CALayer *parentLayer = [_doughnutView layer];
+    NSArray *sliceLayers = [parentLayer sublayers];
 
     [CATransaction setDisableActions:YES];
-    [pieLayers enumerateObjectsUsingBlock:^(SliceLayer *sliceLayer, NSUInteger idx, BOOL *stop) {
+    [sliceLayers enumerateObjectsUsingBlock:^(SliceLayer *sliceLayer, NSUInteger idx, BOOL *stop) {
         NSNumber *presentationLayerStartAngle = [sliceLayer valueForKey:@"startAngle"];
         if (animated) {
             presentationLayerStartAngle = [[sliceLayer presentationLayer] valueForKey:@"startAngle"];
@@ -587,7 +587,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
         }
         CGFloat interpolatedEndAngle = [presentationLayerEndAngle doubleValue];
 
-        CGPathRef path = CGPathCreateArc(_pieCenter, _pieRadius, interpolatedStartAngle, interpolatedEndAngle);
+        CGPathRef path = CGPathCreateArc(_doughnutCenter, _doughnutRadius, interpolatedStartAngle, interpolatedEndAngle);
         sliceLayer.path = path;
         sliceLayer.lineWidth = 0.0;
         CFRelease(path);
@@ -604,8 +604,8 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
             if (_showLabel) {
                 labelLayer.hidden = NO;
 
-                labelLayer.position = CGPointMake(_pieCenter.x + (_labelRadius * cos(interpolatedMidAngle)),
-                                                  _pieCenter.y + (_labelRadius * sin(interpolatedMidAngle)));
+                labelLayer.position = CGPointMake(_doughnutCenter.x + (_labelRadius * cos(interpolatedMidAngle)),
+                                                  _doughnutCenter.y + (_labelRadius * sin(interpolatedMidAngle)));
 
                 NSString *valueText = [labelLayer valueAtSliceLayer:sliceLayer byPercentage:_showPercentage];
 
