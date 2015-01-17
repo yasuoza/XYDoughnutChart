@@ -6,7 +6,6 @@
 
 @property (nonatomic, assign) CGFloat   value;
 @property (nonatomic, assign) CGFloat   percentage;
-@property (nonatomic, assign) CGColorRef layerColor;
 @property (nonatomic, assign) double    startAngle;
 @property (nonatomic, assign) double    endAngle;
 @property (nonatomic, assign) BOOL      selected;
@@ -301,15 +300,8 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
         layer.value = values[index];
         layer.percentage = (sum)?layer.value/sum:0;
 
-        UIColor *color = nil;
-        if ([_delegate respondsToSelector:@selector(doughnutChart:colorForSliceAtIndex:)]) {
-            color = [_delegate doughnutChart:self colorForSliceAtIndex:index];
-        }
-        if (!color) {
-            color = [UIColor colorWithHue:((index/8)%20)/20.0+0.02 saturation:(index%8+3)/10.0 brightness:91/100.0 alpha:1];
-        }
-        layer.fillColor = color.CGColor;
-        layer.layerColor = color.CGColor;
+
+        layer.fillColor = [self sliceColorAtIndex:index].CGColor;
 
         if ([_dataSource respondsToSelector:@selector(doughnutChart:textForSliceAtIndex:)]) {
             layer.text = [_dataSource doughnutChart:self textForSliceAtIndex:index];
@@ -434,8 +426,9 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
             selectedIndex = idx;
         } else {
             pieLayer.zPosition = kDefaultSliceZOrder;
-            pieLayer.fillColor = [[UIColor colorWithCGColor:pieLayer.layerColor]
-                                  colorWithAlphaComponent:CGColorGetAlpha(pieLayer.layerColor)/4].CGColor;
+            UIColor *color = [self sliceColorAtIndex:idx];
+            pieLayer.fillColor = [color
+                                  colorWithAlphaComponent:CGColorGetAlpha(color.CGColor)/4].CGColor;
             pieLayer.lineWidth = 0.0;
         }
     }];
@@ -478,7 +471,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
 
     [CATransaction setDisableActions:YES];
     [pieLayers enumerateObjectsUsingBlock:^(SliceLayer *pieLayer, NSUInteger idx, BOOL *stop) {
-        pieLayer.fillColor = pieLayer.layerColor;
+        pieLayer.fillColor = [self sliceColorAtIndex:idx].CGColor;
         pieLayer.zPosition = kDefaultSliceZOrder;
         pieLayer.lineWidth = 0.0;
     }];
@@ -656,6 +649,14 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
     }
 
     [CATransaction setDisableActions:NO];
+}
+
+- (UIColor *)sliceColorAtIndex:(NSUInteger)index
+{
+    if ([_delegate respondsToSelector:@selector(doughnutChart:colorForSliceAtIndex:)]) {
+        return [_delegate doughnutChart:self colorForSliceAtIndex:index];
+    }
+    return [UIColor colorWithHue:((index/8)%20)/20.0+0.02 saturation:(index%8+3)/10.0 brightness:91/100.0 alpha:1];
 }
 
 @end
