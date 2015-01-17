@@ -2,6 +2,8 @@
 
 [![CI Status](http://img.shields.io/travis/yasuoza/XYDoughnutChart.svg?style=flat)](https://travis-ci.org/yasuoza/XYDoughnutChart)
 
+![](https://raw.githubusercontent.com/yasuoza/XYDoughnutChart/master/Example/screenshot.png)
+
 ## Usage
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
