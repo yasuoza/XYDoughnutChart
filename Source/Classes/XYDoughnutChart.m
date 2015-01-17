@@ -5,6 +5,7 @@
 @interface SliceLayer : CAShapeLayer
 @property (nonatomic, assign) CGFloat   value;
 @property (nonatomic, assign) CGFloat   percentage;
+@property (nonatomic, assign) CGColorRef layerColor;
 @property (nonatomic, assign) double    startAngle;
 @property (nonatomic, assign) double    endAngle;
 @property (nonatomic, assign) BOOL      selected;
@@ -302,6 +303,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
             color = [UIColor colorWithHue:((index/8)%20)/20.0+0.02 saturation:(index%8+3)/10.0 brightness:91/100.0 alpha:1];
         }
         [layer setFillColor:color.CGColor];
+        [layer setLayerColor:color.CGColor];
 
         if ([_dataSource respondsToSelector:@selector(doughnutChart:textForSliceAtIndex:)]) {
             layer.text = [_dataSource doughnutChart:self textForSliceAtIndex:index];
@@ -426,8 +428,8 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
             selectedIndex = idx;
         } else {
             [pieLayer setZPosition:kDefaultSliceZOrder];
-            UIColor *color = [UIColor colorWithCGColor:pieLayer.fillColor];
-            [pieLayer setFillColor:[color colorWithAlphaComponent:0.25].CGColor];
+            [pieLayer setFillColor:[[UIColor colorWithCGColor:pieLayer.layerColor]
+                                    colorWithAlphaComponent:CGColorGetAlpha(pieLayer.layerColor)/4].CGColor];
             [pieLayer setLineWidth:0.0];
         }
     }];
@@ -471,8 +473,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
     [CATransaction setDisableActions:YES];
 
     [pieLayers enumerateObjectsUsingBlock:^(SliceLayer *pieLayer, NSUInteger idx, BOOL *stop) {
-        UIColor *color = [_delegate doughnutChart:self colorForSliceAtIndex:idx];
-        [pieLayer setFillColor:color.CGColor];
+        [pieLayer setFillColor:pieLayer.layerColor];
         [pieLayer setZPosition:kDefaultSliceZOrder];
         [pieLayer setLineWidth:0.0];
     }];
