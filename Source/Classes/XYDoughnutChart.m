@@ -3,6 +3,7 @@
 
 
 @interface SliceLayer : CAShapeLayer
+
 @property (nonatomic, assign) CGFloat   value;
 @property (nonatomic, assign) CGFloat   percentage;
 @property (nonatomic, assign) CGColorRef layerColor;
@@ -43,7 +44,9 @@
 
 
 @interface SliceTextLayer : CATextLayer
+
 - (NSString *)valueAtSliceLayer:(SliceLayer *)sliceLayer byPercentage:(BOOL)byPercentage;
+
 @end
 
 @implementation SliceTextLayer
@@ -64,13 +67,16 @@
 
 
 @interface XYDoughnutChart ()
+
 @property(nonatomic, assign) CGPoint pieCenter;
 @property(nonatomic, assign) CGFloat pieRadius;
+@property(nonatomic, assign) CGFloat labelRadius;
 
 - (void)updateTimerFired:(NSTimer *)timer;
 - (SliceLayer *)createSliceLayer;
 - (void)updateLabelForLayer:(SliceLayer *)sliceLayer;
 - (void)delegateOfSelectionChangeFrom:(NSInteger)previousSelection to:(NSInteger)newSelection;
+
 @end
 
 @implementation XYDoughnutChart
