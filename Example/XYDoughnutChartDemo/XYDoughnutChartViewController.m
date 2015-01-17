@@ -69,17 +69,6 @@
 
 #pragma mark - XYDoughnutChart Delegate
 
-- (void)doughnutChart:(XYDoughnutChart *)doughnutChart willSelectSliceAtIndex:(NSUInteger)index
-{
-    NSLog(@"will select slice at index %lu", (unsigned long)index);
-}
-
-- (void)doughnutChart:(XYDoughnutChart *)doughnutChart willDeselectSliceAtIndex:(NSUInteger)index
-{
-
-    NSLog(@"will deselect slice at index %lu", (unsigned long)index);
-}
-
 - (void)doughnutChart:(XYDoughnutChart *)doughnutChart didDeselectSliceAtIndex:(NSUInteger)index
 {
     NSLog(@"did Deselect slice at index %lu", (unsigned long)index);
