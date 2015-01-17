@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>--ignore</key>
+	<array>
+		<string>*.m</string>
+		<string>**/*.m</string>
+	</array>
+	<key>--project-name</key>
+	<string>XYDoughnutChart</string>
+	<key>--project-company</key>
+	<string>yasuoza.com</string>
+	<key>--company-id</key>
+	<string>com.yasuoza</string>
+	<key>--project-version</key>
+	<string>1.0.0</string>
+	<key>--create-docset</key>
+	<true/>
+	<key>--create-html</key>
+	<true/>
+	<key>--install-docset</key>
+	<false/>
+	<key>--verbose</key>
+	<string>4</string>
+	<key>--logformat</key>
+	<integer>1</integer>
+	<key>--docset-install-path</key>
+	<string>docsets</string>
+	<key>--output</key>
+	<string>docset</string>
+</dict>
+</plist>

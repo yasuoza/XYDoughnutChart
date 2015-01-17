@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A8D10E471A691C9B007D87CA /* AppledocSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = A8D10E461A691C9B007D87CA /* AppledocSettings.plist */; };
 		A8E0690E1A47FB03007C7737 /* XYDoughnutChart.h in Headers */ = {isa = PBXBuildFile; fileRef = A8ED42DC1A47F3E200053246 /* XYDoughnutChart.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A8E069511A48077B007C7737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8E069501A48077B007C7737 /* UIKit.framework */; };
 		A8E069531A480780007C7737 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8E069521A480780007C7737 /* QuartzCore.framework */; };
@@ -14,6 +15,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A8D10E461A691C9B007D87CA /* AppledocSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AppledocSettings.plist; path = Source/AppledocSettings.plist; sourceTree = SOURCE_ROOT; };
 		A8E0690A1A47FA4D007C7737 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Source/Info.plist; sourceTree = SOURCE_ROOT; };
 		A8E069501A48077B007C7737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		A8E069521A480780007C7737 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -74,6 +76,7 @@
 		A8ED42DA1A47F3E200053246 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A8D10E461A691C9B007D87CA /* AppledocSettings.plist */,
 				A8E0690A1A47FA4D007C7737 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -147,6 +150,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A8D10E471A691C9B007D87CA /* AppledocSettings.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
