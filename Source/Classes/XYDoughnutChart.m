@@ -87,15 +87,24 @@
 
 static NSUInteger kDefaultSliceZOrder = 100;
 
-static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAngle, CGFloat endAngle)
+static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat radiusOffset,
+                                 CGFloat startAngle, CGFloat endAngle)
 {
     CGMutablePathRef path = CGPathCreateMutable();
 
-    CGPathMoveToPoint(path, NULL, center.x + radius / 3 * cos(startAngle), center.y + radius / 3 * sin(startAngle));
-    CGPathAddLineToPoint(path, NULL, center.x + radius * cos(startAngle), center.y + radius * sin(startAngle));
-    CGPathAddArc(path, NULL, center.x, center.y, radius, startAngle, endAngle, false);
-    CGPathAddLineToPoint(path, NULL, center.x + radius / 3 * cos(endAngle), center.y + radius / 3 * sin(endAngle));
-    CGPathAddArc(path, NULL, center.x, center.y, radius / 3, endAngle, startAngle, true);
+    CGPathMoveToPoint(path, NULL,
+                      center.x + radius * radiusOffset * cos(startAngle),
+                      center.y + radius * radiusOffset * sin(startAngle));
+    CGPathAddLineToPoint(path, NULL,
+                         center.x + radius * cos(startAngle),
+                         center.y + radius * sin(startAngle));
+    CGPathAddArc(path, NULL,
+                 center.x, center.y, radius,
+                 startAngle, endAngle, false);
+    CGPathAddLineToPoint(path, NULL,
+                         center.x + radius * radiusOffset * cos(endAngle),
+                         center.y + radius * radiusOffset * sin(endAngle));
+    CGPathAddArc(path, NULL, center.x, center.y, radius * radiusOffset, endAngle, startAngle, true);
 
     CGPathCloseSubpath(path);
 
@@ -130,6 +139,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
 
     _animationDuration = 0.5f;
     _startDoughnutAngle = M_PI_2 * 3;
+    _radiusOffset = 1.0 / 3.0;
 
     self.doughnutRadius = MIN(self.frame.size.width/2, self.frame.size.height/2) - 10;
     self.doughnutCenter = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
@@ -180,7 +190,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
 
     self.doughnutRadius = MIN(self.bounds.size.width/2, self.bounds.size.height/2);
     self.doughnutCenter = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
-    self.labelRadius = _doughnutRadius * 2 / 3;
+    self.labelRadius = (_doughnutRadius + _doughnutRadius * _radiusOffset) / 2;
 
     CALayer *parentLayer = [_doughnutView layer];
     NSArray *slicelayers = [parentLayer sublayers];
@@ -567,7 +577,8 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
         }
         CGFloat interpolatedEndAngle = [presentationLayerEndAngle doubleValue];
 
-        CGPathRef path = CGPathCreateArc(_doughnutCenter, _doughnutRadius, interpolatedStartAngle, interpolatedEndAngle);
+        CGPathRef path = CGPathCreateArc(_doughnutCenter, _doughnutRadius, _radiusOffset,
+                                         interpolatedStartAngle, interpolatedEndAngle);
         sliceLayer.path = path;
         sliceLayer.lineWidth = 0.0;
         CFRelease(path);

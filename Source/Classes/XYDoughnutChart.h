@@ -141,6 +141,12 @@
  */
 @property(nonatomic, assign) CGFloat startDoughnutAngle;
 
+/**
+ *  The doughnut center radius ratio. `0.0` draws chart as pie chart and `0.9` draws thin doughnut chart.
+ *  The default value is `1.0 / 3.0`.
+ */
+@property(nonatomic, assign) CGFloat radiusOffset;
+
 /** @name Setting and Getting Label Attributes */
 
 /**
