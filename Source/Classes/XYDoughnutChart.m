@@ -230,7 +230,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat radiusO
 
     __block NSMutableArray *layersToRemove = nil;
 
-    BOOL isOnStart = ([slicelayers count] == 0 && sliceCount);
+    BOOL onStart = ([slicelayers count] == 0 && sliceCount > 0);
     NSInteger diff = sliceCount - [slicelayers count];
     layersToRemove = [NSMutableArray arrayWithArray:slicelayers];
 
@@ -270,7 +270,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat radiusO
 
         if ( index >= [slicelayers count] ) {
             layer = [self createSliceLayer];
-            if (isOnStart) {
+            if (onStart) {
                 startFromAngle = endFromAngle = _startDoughnutAngle;
             }
             [parentLayer addSublayer:layer];
@@ -395,31 +395,8 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat radiusO
 
     [sliceLayers enumerateObjectsUsingBlock:^(SliceLayer *sliceLayer, NSUInteger idx, BOOL *stop) {
         CGPathRef path = [sliceLayer path];
-
         if (CGPathContainsPoint(path, &transform, point, 0)) {
-            CGFloat strokeWidth = 1.0;
-            if ([_delegate respondsToSelector:@selector(doughnutChart:selectedStrokeWidthForSliceAtIndex:)]) {
-                strokeWidth = [_delegate doughnutChart:self selectedStrokeWidthForSliceAtIndex:idx];
-            }
-            sliceLayer.lineWidth = strokeWidth;
-            UIColor *color = [UIColor colorWithCGColor:sliceLayer.fillColor];
-            sliceLayer.fillColor = [color colorWithAlphaComponent:1.0].CGColor;
-
-            CGColorRef strokeColor = [UIColor whiteColor].CGColor;
-            if ([_delegate respondsToSelector:@selector(doughnutChart:selectedStrokeColorForSliceAtIndex:)]) {
-                strokeColor = [_delegate doughnutChart:self selectedStrokeColorForSliceAtIndex:idx].CGColor;
-            }
-            sliceLayer.strokeColor = strokeColor;
-
-            sliceLayer.lineJoin = kCALineJoinBevel;
-            sliceLayer.zPosition = MAXFLOAT;
             selectedIndex = idx;
-        } else {
-            sliceLayer.zPosition = kDefaultSliceZOrder;
-            UIColor *color = [self sliceColorAtIndex:idx];
-            sliceLayer.fillColor = [color
-                                  colorWithAlphaComponent:CGColorGetAlpha(color.CGColor)/4].CGColor;
-            sliceLayer.lineWidth = 0.0;
         }
     }];
     return selectedIndex;
@@ -478,9 +455,15 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat radiusO
             [_delegate doughnutChart:self didDeselectSliceAtIndex:previousSelection];
             _selectedSliceIndex = -1;
         }
-        if (newSelection != -1){
-            [self setSliceSelectedAtIndex:newSelection];
+        if (newSelection != -1) {
             _selectedSliceIndex = newSelection;
+            if ([_delegate respondsToSelector:@selector(doughnutChart:willSelectSliceAtIndex:)]) {
+                if ([_delegate doughnutChart:self willSelectSliceAtIndex:newSelection]==-1) {
+                    return;
+                }
+            }
+            [self setSliceSelectedAtIndex:newSelection];
+            [self updateSliceLayersSelected:newSelection];
             [_delegate doughnutChart:self didSelectSliceAtIndex:newSelection];
         }
     }
@@ -494,8 +477,14 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat radiusO
                 _selectedSliceIndex = -1;
             }
         } else {
-            [self setSliceSelectedAtIndex:newSelection];
             _selectedSliceIndex = newSelection;
+            if ([_delegate respondsToSelector:@selector(doughnutChart:willSelectSliceAtIndex:)]) {
+                if ([_delegate doughnutChart:self willSelectSliceAtIndex:newSelection]==-1) {
+                    return;
+                }
+            }
+            [self setSliceSelectedAtIndex:newSelection];
+            [self updateSliceLayersSelected:newSelection];
             [_delegate doughnutChart:self didSelectSliceAtIndex:newSelection];
         }
     }
@@ -519,7 +508,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat radiusO
     }
 }
 
-# pragma mark - Pie Layer Creation Method
+# pragma mark - Slice Layer Creation Method
 
 - (SliceLayer *)createSliceLayer
 {
@@ -557,6 +546,8 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat radiusO
     [sliceLayer addSublayer:textLayer];
     return sliceLayer;
 }
+
+# pragma mark - Slice Layer Update Method
 
 - (void)updateLayerAngle:(BOOL)animated
 {
@@ -615,6 +606,39 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat radiusO
         }
     }];
     [CATransaction setDisableActions:NO];
+}
+
+- (void)updateSliceLayersSelected:(NSUInteger)selectedIndex
+{
+    CALayer *parentLayer = [_doughnutView layer];
+    NSArray *sliceLayers = [parentLayer sublayers];
+
+    [sliceLayers enumerateObjectsUsingBlock:^(SliceLayer *sliceLayer, NSUInteger idx, BOOL *stop) {
+        if (idx == selectedIndex) {
+            CGFloat strokeWidth = 1.0;
+            if ([_delegate respondsToSelector:@selector(doughnutChart:selectedStrokeWidthForSliceAtIndex:)]) {
+                strokeWidth = [_delegate doughnutChart:self selectedStrokeWidthForSliceAtIndex:idx];
+            }
+            sliceLayer.lineWidth = strokeWidth;
+            UIColor *color = [UIColor colorWithCGColor:sliceLayer.fillColor];
+            sliceLayer.fillColor = [color colorWithAlphaComponent:1.0].CGColor;
+
+            CGColorRef strokeColor = [UIColor whiteColor].CGColor;
+            if ([_delegate respondsToSelector:@selector(doughnutChart:selectedStrokeColorForSliceAtIndex:)]) {
+                strokeColor = [_delegate doughnutChart:self selectedStrokeColorForSliceAtIndex:idx].CGColor;
+            }
+            sliceLayer.strokeColor = strokeColor;
+
+            sliceLayer.lineJoin = kCALineJoinBevel;
+            sliceLayer.zPosition = MAXFLOAT;
+        } else {
+            sliceLayer.zPosition = kDefaultSliceZOrder;
+            UIColor *color = [self sliceColorAtIndex:idx];
+            sliceLayer.fillColor = [color
+                                    colorWithAlphaComponent:CGColorGetAlpha(color.CGColor)/4].CGColor;
+            sliceLayer.lineWidth = 0.0;
+        }
+    }];
 }
 
 - (void)updateLabelForLayer:(SliceLayer *)sliceLayer

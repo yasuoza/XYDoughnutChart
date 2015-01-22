@@ -58,6 +58,8 @@
 
 /** @name Optional methods */
 
+- (NSUInteger)doughnutChart:(XYDoughnutChart *)doughnutChart willSelectSliceAtIndex:(NSUInteger)index;
+
 /**
  *  Fires just after a slice state is changed to selected.
  *
