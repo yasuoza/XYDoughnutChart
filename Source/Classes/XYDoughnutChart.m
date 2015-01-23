@@ -668,8 +668,6 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat radiusO
 
 - (UIColor *)sliceColorAtIndex:(NSInteger)index
 {
-
-    [NSIndexPath indexPathForSlice:index];
     if ([_delegate respondsToSelector:@selector(doughnutChart:colorForSliceAtIndexPath:)]) {
         return [_delegate doughnutChart:self colorForSliceAtIndexPath:[NSIndexPath indexPathForSlice:index]];
     }
