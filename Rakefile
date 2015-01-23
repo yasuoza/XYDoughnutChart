@@ -43,4 +43,14 @@ task :clean do
   end
 end
 
+namespace :framework do
+  desc 'build release framework'
+  task :build do
+    system <<-CMD
+      carthage build --no-skip-current
+      cd Carthage && zip -r -FS XYDoughnutChart.framework.zip Build && cd -
+    CMD
+  end
+end
+
 task default: %w[clean test]
