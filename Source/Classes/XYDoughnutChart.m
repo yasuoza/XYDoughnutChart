@@ -464,20 +464,26 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat radiusO
         }
         [self setSliceSelectedAtIndex:newIndexPath.slice];
         [self updateSliceLayersSelected:newIndexPath.slice];
-        [_delegate doughnutChart:self didSelectSliceAtIndexPath:newIndexPath];
+        if ([_delegate respondsToSelector:@selector(doughnutChart:didSelectSliceAtIndexPath:)]) {
+            [_delegate doughnutChart:self didSelectSliceAtIndexPath:newIndexPath];
+        }
         return;
     }
 
     if (newIndexPath == nil) {
         [self setSliceDeselectedAtIndex:previousIndexPath.slice];
-        [_delegate doughnutChart:self didDeselectSliceAtIndexPath:previousIndexPath];
+        if ([_delegate respondsToSelector:@selector(doughnutChart:didDeselectSliceAtIndexPath:)]) {
+            [_delegate doughnutChart:self didDeselectSliceAtIndexPath:previousIndexPath];
+        }
         _selectedIndexPath = nil;
         return;
     }
 
     if (previousIndexPath.slice != newIndexPath.slice) {
         [self setSliceDeselectedAtIndex:previousIndexPath.slice];
-        [_delegate doughnutChart:self didDeselectSliceAtIndexPath:previousIndexPath];
+        if ([_delegate respondsToSelector:@selector(doughnutChart:didDeselectSliceAtIndexPath:)]) {
+            [_delegate doughnutChart:self didDeselectSliceAtIndexPath:previousIndexPath];
+        }
         _selectedIndexPath = [NSIndexPath indexPathForSlice:newIndexPath.slice];
         if ([_delegate respondsToSelector:@selector(doughnutChart:willSelectSliceAtIndex:)]) {
             if (![_delegate doughnutChart:self willSelectSliceAtIndex:[NSIndexPath indexPathForSlice:newIndexPath.slice]]) {
@@ -486,7 +492,9 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat radiusO
         }
         [self setSliceSelectedAtIndex:newIndexPath.slice];
         [self updateSliceLayersSelected:newIndexPath.slice];
-        [_delegate doughnutChart:self didSelectSliceAtIndexPath:newIndexPath];
+        if ([_delegate respondsToSelector:@selector(doughnutChart:didSelectSliceAtIndexPath:)]) {
+            [_delegate doughnutChart:self didSelectSliceAtIndexPath:newIndexPath];
+        }
     }
 }
 
