@@ -10,15 +10,17 @@
 @end
 
 @implementation DummyChartSourceClass
-- (NSUInteger)numberOfSlicesInDoughnutChart:(XYDoughnutChart *)doughnutChart
+
+- (NSInteger)numberOfSlicesInDoughnutChart:(XYDoughnutChart *)doughnutChart
 {
     return 4;
 }
 
-- (CGFloat)doughnutChart:(XYDoughnutChart *)doughnutChart valueForSliceAtIndex:(NSUInteger)index
+- (CGFloat)doughnutChart:(XYDoughnutChart *)doughnutChart valueForSliceAtIndexPath:(NSIndexPath *)indexPath
 {
-    return (index + 1) * 10.0;
+    return (indexPath.slice + 1) * 10.0;
 }
+
 @end
 
 

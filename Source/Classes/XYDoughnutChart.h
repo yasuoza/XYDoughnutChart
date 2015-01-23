@@ -1,4 +1,5 @@
 #import <UIKit/UIKit.h>
+#import "NSIndexPath+XYDoughnutChart.h"
 
 @class XYDoughnutChart;
 
@@ -19,7 +20,7 @@
  *
  *  @return The number of slices in chart view.
  */
-- (NSUInteger)numberOfSlicesInDoughnutChart:(XYDoughnutChart *)doughnutChart;
+- (NSInteger)numberOfSlicesInDoughnutChart:(XYDoughnutChart *)doughnutChart;
 
 /**
  *  Asks the data source to return the value of the specified slice in the chart view.
@@ -29,7 +30,7 @@
  *
  *  @return A value of specified slice in the chart view.
  */
-- (CGFloat)doughnutChart:(XYDoughnutChart *)doughnutChart valueForSliceAtIndex:(NSUInteger)index;
+- (CGFloat)doughnutChart:(XYDoughnutChart *)doughnutChart valueForSliceAtIndexPath:(NSIndexPath *)indexPath;
 
 @optional
 
@@ -43,7 +44,7 @@
  *
  *  @return A text of specified slice in the chart view.
  */
-- (NSString *)doughnutChart:(XYDoughnutChart *)doughnutChart textForSliceAtIndex:(NSUInteger)index;
+- (NSString *)doughnutChart:(XYDoughnutChart *)doughnutChart textForSliceAtIndexPath:(NSIndexPath *)indexPath;
 
 @end
 
@@ -58,7 +59,15 @@
 
 /** @name Optional methods */
 
-- (NSUInteger)doughnutChart:(XYDoughnutChart *)doughnutChart willSelectSliceAtIndex:(NSUInteger)index;
+/**
+ *  Fires just before a slice state is changed to selected.
+ *
+ *  @param doughnutChart The doughnut chart object has been selected.
+ *  @param indexPath     The slice index will be selected.
+ *
+ *  @return Return `NSIndexPath` object for slice to be selected. Return `nil` for slice not to be selected.
+ */
+- (NSIndexPath *)doughnutChart:(XYDoughnutChart *)doughnutChart willSelectSliceAtIndex:(NSIndexPath *)indexPath;
 
 /**
  *  Fires just after a slice state is changed to selected.
@@ -66,7 +75,7 @@
  *  @param doughnutChart The doughnut chart object has been selected.
  *  @param index         The slice index has been selected.
  */
-- (void)doughnutChart:(XYDoughnutChart *)doughnutChart didSelectSliceAtIndex:(NSUInteger)index;
+- (void)doughnutChart:(XYDoughnutChart *)doughnutChart didSelectSliceAtIndexPath:(NSIndexPath *)indexPath;
 
 /**
  *  Fires just after a slice state is changed to not selected.
@@ -74,7 +83,7 @@
  *  @param doughnutChart The doughnut chart object has not be selected.
  *  @param index         The slice index has not beeen selected.
  */
-- (void)doughnutChart:(XYDoughnutChart *)doughnutChart didDeselectSliceAtIndex:(NSUInteger)index;
+- (void)doughnutChart:(XYDoughnutChart *)doughnutChart didDeselectSliceAtIndexPath:(NSIndexPath *)indexPath;
 
 /**
  *  Asks the delegate to return the color of the slice in the chart view.
@@ -86,7 +95,7 @@
  *
  *  @return UIColor object.
  */
-- (UIColor *)doughnutChart:(XYDoughnutChart *)doughnutChart colorForSliceAtIndex:(NSUInteger)index;
+- (UIColor *)doughnutChart:(XYDoughnutChart *)doughnutChart colorForSliceAtIndexPath:(NSIndexPath *)indexPath;
 
 /**
  *  Asks the delegate to return the color of the stroke color of the slice in the chart view.
@@ -98,7 +107,7 @@
  *
  *  @return UIColor object.
  */
-- (UIColor *)doughnutChart:(XYDoughnutChart *)doughnutChart selectedStrokeColorForSliceAtIndex:(NSUInteger)index;
+- (UIColor *)doughnutChart:(XYDoughnutChart *)doughnutChart selectedStrokeColorForSliceAtIndexPath:(NSIndexPath *)indexPath;
 
 /**
  *  Asks the delegate to return the width of the stroke color of the slice in the chart view. Default width is `1.0`.
@@ -109,7 +118,7 @@
  *
  *  @return A value for the stroke width.
  */
-- (CGFloat)doughnutChart:(XYDoughnutChart *)doughnutChart selectedStrokeWidthForSliceAtIndex:(NSUInteger)index;
+- (CGFloat)doughnutChart:(XYDoughnutChart *)doughnutChart selectedStrokeWidthForSliceAtIndexPath:(NSIndexPath *)indexPath;
 
 @end
 
