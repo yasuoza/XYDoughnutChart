@@ -1,46 +1,25 @@
 WORKSPACE = 'Example/XYDoughnutChartDemo.xcworkspace'
 SCHEME    = 'XYDoughnutChartDemo'
 ARCH_FLAG = 'ONLY_ACTIVE_ARCH=NO'
-DESTINATIONS = [
-  'platform=iOS Simulator,name=iPhone 6,OS=8.1',
-  'platform=iOS Simulator,name=iPhone 6 Plus,OS=8.1',
-]
-
 
 def run(command)
-  args = block_given?? yield : ''
   success = system %(set -o pipefail && xcodebuild #{command.to_s}  \
                                          -workspace #{WORKSPACE}    \
                                          -scheme #{SCHEME}          \
-                                         #{args}                    \
+                                         -sdk iphonesimulator       \
                                          #{ARCH_FLAG}               \
                                          | xcpretty -c)
   exit! unless success
 end
 
-def test(destinations: [DESTINATIONS[1]])
-  run 'clean test' do
-    %(#{destinations.map {|d| "-destination '#{d}'" }.join(' ')})
-  end
-end
-
-namespace :test do
-  desc 'run all tests'
-  task :all do
-    test(destinations: DESTINATIONS)
-  end
+desc 'clean'
+task :clean do
+  run 'clean'
 end
 
 desc 'run sweet test'
 task :test do
-  test
-end
-
-desc 'clean build'
-task :clean do
-  run :clean do
-    %(#{DESTINATIONS.map {|d| "-destination '#{d}'" }.join(' ')})
-  end
+  run 'build test'
 end
 
 namespace :framework do

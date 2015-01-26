@@ -46,4 +46,28 @@
     FBSnapshotVerifyView(chart, nil);
 }
 
+- (void)testChartViewWithZeroRadiusOffset
+{
+    XYDoughnutChart *chart = [[XYDoughnutChart alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
+    chart.radiusOffset = 0.0;
+    DummyChartSourceClass *source = [[DummyChartSourceClass alloc] init];
+    chart.delegate = source;
+    chart.dataSource = source;
+
+    [chart reloadData];
+    FBSnapshotVerifyView(chart, nil);
+}
+
+- (void)testChartViewWithHighRadiusOffset
+{
+    XYDoughnutChart *chart = [[XYDoughnutChart alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
+    chart.radiusOffset = 8.0 / 10;
+    DummyChartSourceClass *source = [[DummyChartSourceClass alloc] init];
+    chart.delegate = source;
+    chart.dataSource = source;
+
+    [chart reloadData];
+    FBSnapshotVerifyView(chart, nil);
+}
+
 @end
