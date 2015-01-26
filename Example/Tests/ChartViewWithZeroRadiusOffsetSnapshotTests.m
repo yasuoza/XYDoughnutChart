@@ -2,10 +2,10 @@
 #import <FBSnapshotTestCase/FBSnapshotTestCase.h>
 #import "DummyChartSourceClass.h"
 
-@interface ChartViewSnapshotTests : FBSnapshotTestCase
+@interface ChartViewWithZeroRadiusOffsetSnapshotTests : FBSnapshotTestCase
 @end
 
-@implementation ChartViewSnapshotTests
+@implementation ChartViewWithZeroRadiusOffsetSnapshotTests
 
 - (void)setUp
 {
@@ -13,9 +13,10 @@
     self.recordMode = NO;
 }
 
-- (void)testChartViewReloadData
+- (void)testChartViewWithZeroRadiusOffset
 {
     XYDoughnutChart *chart = [[XYDoughnutChart alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
+    chart.radiusOffset = 0.0;
     DummyChartSourceClass *source = [[DummyChartSourceClass alloc] init];
     chart.delegate = source;
     chart.dataSource = source;

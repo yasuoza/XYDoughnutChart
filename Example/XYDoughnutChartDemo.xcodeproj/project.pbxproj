@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		8386CA4AE322D08A5E4E2A28 /* libPods-Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F5A29C6D5646BD442F4297F /* libPods-Tests.a */; };
+		A83DB7261A762423001C5763 /* ChartViewWithZeroRadiusOffsetSnapshotTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A83DB7251A762423001C5763 /* ChartViewWithZeroRadiusOffsetSnapshotTests.m */; };
+		A83DB7291A762471001C5763 /* DummyChartSourceClass.m in Sources */ = {isa = PBXBuildFile; fileRef = A83DB7281A762471001C5763 /* DummyChartSourceClass.m */; };
+		A83DB72B1A762581001C5763 /* ChartViewWithHighRadiusOffsetSnapshotTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A83DB72A1A762581001C5763 /* ChartViewWithHighRadiusOffsetSnapshotTests.m */; };
 		A8E069411A4802C9007C7737 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A8E0693D1A4802B9007C7737 /* InfoPlist.strings */; };
 		A8E069441A480388007C7737 /* ChartViewSnapshotTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A8ED43211A47F63900053246 /* ChartViewSnapshotTests.m */; };
 		A8E0694B1A480439007C7737 /* XYDoughnutChart.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8E0694A1A480427007C7737 /* XYDoughnutChart.framework */; };
@@ -64,6 +67,10 @@
 		4F5A29C6D5646BD442F4297F /* libPods-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C9E97081F3BE8F52FAB858D /* Pods-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tests/Pods-Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DD003F043E195C6A060FE8F /* Pods-Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tests/Pods-Tests.release.xcconfig"; sourceTree = "<group>"; };
+		A83DB7251A762423001C5763 /* ChartViewWithZeroRadiusOffsetSnapshotTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChartViewWithZeroRadiusOffsetSnapshotTests.m; path = Tests/ChartViewWithZeroRadiusOffsetSnapshotTests.m; sourceTree = SOURCE_ROOT; };
+		A83DB7271A762471001C5763 /* DummyChartSourceClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DummyChartSourceClass.h; path = Tests/DummyChartSourceClass.h; sourceTree = SOURCE_ROOT; };
+		A83DB7281A762471001C5763 /* DummyChartSourceClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DummyChartSourceClass.m; path = Tests/DummyChartSourceClass.m; sourceTree = SOURCE_ROOT; };
+		A83DB72A1A762581001C5763 /* ChartViewWithHighRadiusOffsetSnapshotTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChartViewWithHighRadiusOffsetSnapshotTests.m; path = Tests/ChartViewWithHighRadiusOffsetSnapshotTests.m; sourceTree = SOURCE_ROOT; };
 		A8E069251A47FF53007C7737 /* XYDoughnutChart.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XYDoughnutChart.framework; path = "../build/Debug-iphoneos/XYDoughnutChart.framework"; sourceTree = "<group>"; };
 		A8E0692D1A48001C007C7737 /* XYDoughnutChart.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XYDoughnutChart.framework; path = "../build/Debug-iphoneos/XYDoughnutChart.framework"; sourceTree = "<group>"; };
 		A8E0693A1A4802AE007C7737 /* Tests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Tests-Info.plist"; path = "Tests/Tests-Info.plist"; sourceTree = SOURCE_ROOT; };
@@ -109,6 +116,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A83DB72C1A76272C001C5763 /* DummyChartSource */ = {
+			isa = PBXGroup;
+			children = (
+				A83DB7271A762471001C5763 /* DummyChartSourceClass.h */,
+				A83DB7281A762471001C5763 /* DummyChartSourceClass.m */,
+			);
+			name = DummyChartSource;
+			sourceTree = "<group>";
+		};
 		A8E069461A480427007C7737 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -171,6 +187,9 @@
 			isa = PBXGroup;
 			children = (
 				A8ED43211A47F63900053246 /* ChartViewSnapshotTests.m */,
+				A83DB7251A762423001C5763 /* ChartViewWithZeroRadiusOffsetSnapshotTests.m */,
+				A83DB72A1A762581001C5763 /* ChartViewWithHighRadiusOffsetSnapshotTests.m */,
+				A83DB72C1A76272C001C5763 /* DummyChartSource */,
 				A8ED431F1A47F63900053246 /* Supporting Files */,
 			);
 			name = Tests;
@@ -380,7 +399,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A83DB7261A762423001C5763 /* ChartViewWithZeroRadiusOffsetSnapshotTests.m in Sources */,
 				A8E069441A480388007C7737 /* ChartViewSnapshotTests.m in Sources */,
+				A83DB72B1A762581001C5763 /* ChartViewWithHighRadiusOffsetSnapshotTests.m in Sources */,
+				A83DB7291A762471001C5763 /* DummyChartSourceClass.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
