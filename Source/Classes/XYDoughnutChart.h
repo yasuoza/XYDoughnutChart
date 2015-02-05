@@ -139,7 +139,6 @@
  */
 @property(nonatomic, weak) id<XYDoughnutChartDelegate> delegate;
 
-
 /** @name Animating slices */
 
 /**

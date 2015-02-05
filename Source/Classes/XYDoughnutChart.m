@@ -43,6 +43,7 @@
 }
 @end
 
+# pragma mark - SliceTextLayer
 
 @interface SliceTextLayer : CATextLayer
 
@@ -67,7 +68,6 @@
 @end
 
 # pragma mark - XYDoughnutChart
-
 
 @interface XYDoughnutChart ()
 
@@ -308,16 +308,12 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat radiusO
         }
 
         layer.value = values[index];
-        layer.percentage = (sum)?layer.value/sum:0;
-
-
+        layer.percentage = sum ? layer.value / sum : 0;
         layer.fillColor = [self sliceColorAtIndex:index].CGColor;
 
         if ([_dataSource respondsToSelector:@selector(doughnutChart:textForSliceAtIndexPath:)]) {
             layer.text = [_dataSource doughnutChart:self textForSliceAtIndexPath:indexPath];
         }
-
-        layer.value = values[index];
 
         if (animated) {
             [layer createArcAnimationForKey:@"startAngle"
