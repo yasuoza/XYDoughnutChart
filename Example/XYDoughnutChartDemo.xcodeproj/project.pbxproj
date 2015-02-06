@@ -21,8 +21,7 @@
 		A8ED43471A47F6F100053246 /* XYDoughnutChartAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A8ED433C1A47F6F100053246 /* XYDoughnutChartAppDelegate.m */; };
 		A8ED43481A47F6F100053246 /* XYDoughnutChartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A8ED433E1A47F6F100053246 /* XYDoughnutChartViewController.m */; };
 		A8F7A06E1A47F9DA00265C93 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8ED432C1A47F6F100053246 /* Launch Screen.xib */; };
-		A8F7A06F1A47F9DA00265C93 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A8ED432E1A47F6F100053246 /* Main_iPad.storyboard */; };
-		A8F7A0701A47F9DA00265C93 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A8ED43301A47F6F100053246 /* Main_iPhone.storyboard */; };
+		A8F7A0701A47F9DA00265C93 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A8ED43301A47F6F100053246 /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,8 +82,7 @@
 		A8ED431B1A47F63900053246 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8ED43211A47F63900053246 /* ChartViewSnapshotTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ChartViewSnapshotTests.m; path = Tests/ChartViewSnapshotTests.m; sourceTree = SOURCE_ROOT; };
 		A8ED432D1A47F6F100053246 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "Launch Screen.xib"; sourceTree = "<group>"; };
-		A8ED432F1A47F6F100053246 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Main_iPad.storyboard; sourceTree = "<group>"; };
-		A8ED43311A47F6F100053246 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Main_iPhone.storyboard; sourceTree = "<group>"; };
+		A8ED43311A47F6F100053246 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Main.storyboard; sourceTree = "<group>"; };
 		A8ED43321A47F6F100053246 /* DoughnutChartContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoughnutChartContainerView.h; sourceTree = "<group>"; };
 		A8ED43331A47F6F100053246 /* DoughnutChartContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoughnutChartContainerView.m; sourceTree = "<group>"; };
 		A8ED43361A47F6F100053246 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = InfoPlist.strings; sourceTree = "<group>"; };
@@ -158,8 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				A8ED432C1A47F6F100053246 /* Launch Screen.xib */,
-				A8ED432E1A47F6F100053246 /* Main_iPad.storyboard */,
-				A8ED43301A47F6F100053246 /* Main_iPhone.storyboard */,
+				A8ED43301A47F6F100053246 /* Main.storyboard */,
 				A8ED43321A47F6F100053246 /* DoughnutChartContainerView.h */,
 				A8ED43331A47F6F100053246 /* DoughnutChartContainerView.m */,
 				A8ED433A1A47F6F100053246 /* XYDoughnutChart-Prefix.pch */,
@@ -334,8 +331,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A8F7A06E1A47F9DA00265C93 /* Launch Screen.xib in Resources */,
-				A8F7A06F1A47F9DA00265C93 /* Main_iPad.storyboard in Resources */,
-				A8F7A0701A47F9DA00265C93 /* Main_iPhone.storyboard in Resources */,
+				A8F7A0701A47F9DA00265C93 /* Main.storyboard in Resources */,
 				A8ED43131A47F63900053246 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -439,21 +435,12 @@
 			path = Base.lproj;
 			sourceTree = "<group>";
 		};
-		A8ED432E1A47F6F100053246 /* Main_iPad.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A8ED432F1A47F6F100053246 /* Base */,
-			);
-			name = Main_iPad.storyboard;
-			path = Base.lproj;
-			sourceTree = "<group>";
-		};
-		A8ED43301A47F6F100053246 /* Main_iPhone.storyboard */ = {
+		A8ED43301A47F6F100053246 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				A8ED43311A47F6F100053246 /* Base */,
 			);
-			name = Main_iPhone.storyboard;
+			name = Main.storyboard;
 			path = Base.lproj;
 			sourceTree = "<group>";
 		};
@@ -551,8 +538,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "$(SRCROOT)/XYDoughnutChartDemo/XYDoughnutChartDemo-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -561,8 +550,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "$(SRCROOT)/XYDoughnutChartDemo/XYDoughnutChartDemo-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
