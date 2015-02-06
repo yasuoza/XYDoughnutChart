@@ -22,9 +22,13 @@
     chart.dataSource = source;
 
     [chart reloadData];
-    [chart setNeedsDisplay];
-    sleep(0.5);
-    FBSnapshotVerifyView(chart, nil);
+
+    XCTestExpectation *reloadChartExpectation = [self expectationWithDescription:@"reload chart"];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        FBSnapshotVerifyView(chart, nil);
+        [reloadChartExpectation fulfill];
+    });
+    [self waitForExpectationsWithTimeout:1.5 handler:nil];
 }
 
 @end
