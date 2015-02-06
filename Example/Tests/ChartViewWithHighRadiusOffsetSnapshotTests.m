@@ -23,6 +23,7 @@
 
     [chart reloadData];
     [chart setNeedsDisplay];
+    sleep(0.5);
     FBSnapshotVerifyView(chart, nil);
 }
 
