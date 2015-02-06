@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:XYDoughnutChart.playground">
+   </FileRef>
+   <FileRef
       location = "group:../XYDoughnutChart.xcodeproj">
    </FileRef>
    <FileRef
