@@ -11,7 +11,13 @@
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
+Document is available at [CocoaDocs](http://cocoadocs.org/docsets/XYDoughnutChart/1.1.0/).
+
+Tests are also helpful documentation for you, see Tests in Example directory and run it from Xcode.
+
 ## Requirements
+
+- iOS >= 7.1
 
 ## Installation
 
@@ -20,9 +26,11 @@ it, simply add the following line to your Podfile:
 
     pod "XYDoughnutChart"
 
-## Author
+And XYDoughnutChart is also available through [Carthage](https://github.com/Carthage/Carthage). To install, add 
 
-Yasuharu Ozaki, yasuharu.ozaki@gmail.com
+    github "yasuoza/XYDoughnutChart" ~> 1.1.1
+    
+to your Cartfile.
 
 ## License
 
