@@ -1,4 +1,4 @@
-#import <QuartzCore/QuartzCore.h>
+@import QuartzCore;
 #import "XYDoughnutChart.h"
 #import "NSIndexPath+XYDoughnutChart.h"
 
