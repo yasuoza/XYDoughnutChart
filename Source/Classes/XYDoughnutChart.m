@@ -174,7 +174,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat radiusO
     _doughnutView.layer.cornerRadius = _doughnutRadius;
 }
 
-- (void)setBackgroundColor:(UIColor *)color
+-(void)setBackgroundColor:(__nullable UIColor *)color
 {
     _doughnutView.backgroundColor = color;
 }
@@ -597,9 +597,9 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat radiusO
 
                 CGSize size = [valueText sizeWithAttributes:@{NSFontAttributeName: self.labelFont}];
                 labelLayer.bounds = CGRectMake(0, 0, size.width, size.height);
-                CGFloat labelLayerWidth = abs(_labelRadius * cos(interpolatedStartAngle)
+                CGFloat labelLayerWidth = fabs(_labelRadius * cos(interpolatedStartAngle)
                                               - _labelRadius * cos(interpolatedEndAngle));
-                CGFloat labelLayerHeight = abs(_labelRadius * sin(interpolatedStartAngle)
+                CGFloat labelLayerHeight = fabs(_labelRadius * sin(interpolatedStartAngle)
                                           - _labelRadius * sin(interpolatedEndAngle));
                 if (MAX(labelLayerWidth, labelLayerHeight) < MAX(size.width,size.height) || sliceLayer.value <= 0) {
                     labelLayer.string = @"";

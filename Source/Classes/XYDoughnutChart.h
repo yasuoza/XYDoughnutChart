@@ -20,7 +20,7 @@
  *
  *  @return The number of slices in chart view.
  */
-- (NSInteger)numberOfSlicesInDoughnutChart:(XYDoughnutChart *)doughnutChart;
+- (NSInteger)numberOfSlicesInDoughnutChart:(__nonnull XYDoughnutChart *)doughnutChart;
 
 /**
  *  Asks the data source to return the value of the specified slice in the chart view.
@@ -30,7 +30,7 @@
  *
  *  @return A value of specified slice in the chart view.
  */
-- (CGFloat)doughnutChart:(XYDoughnutChart *)doughnutChart valueForSliceAtIndexPath:(NSIndexPath *)indexPath;
+- (CGFloat)doughnutChart:(__nonnull XYDoughnutChart *)doughnutChart valueForSliceAtIndexPath:(__nonnull NSIndexPath *)indexPath;
 
 @optional
 
@@ -44,7 +44,7 @@
  *
  *  @return A text of specified slice in the chart view.
  */
-- (NSString *)doughnutChart:(XYDoughnutChart *)doughnutChart textForSliceAtIndexPath:(NSIndexPath *)indexPath;
+- (nullable NSString *)doughnutChart:(__nonnull XYDoughnutChart *)doughnutChart textForSliceAtIndexPath:(__nonnull NSIndexPath *)indexPath;
 
 @end
 
@@ -67,7 +67,7 @@
  *
  *  @return Return `NSIndexPath` object for slice to be selected. Return `nil` for slice not to be selected.
  */
-- (NSIndexPath *)doughnutChart:(XYDoughnutChart *)doughnutChart willSelectSliceAtIndex:(NSIndexPath *)indexPath;
+- (nullable NSIndexPath *)doughnutChart:(__nonnull XYDoughnutChart *)doughnutChart willSelectSliceAtIndex:(__nonnull NSIndexPath *)indexPath;
 
 /**
  *  Fires just after a slice state is changed to selected.
@@ -75,7 +75,7 @@
  *  @param doughnutChart The doughnut chart object has been selected.
  *  @param index         The slice index has been selected.
  */
-- (void)doughnutChart:(XYDoughnutChart *)doughnutChart didSelectSliceAtIndexPath:(NSIndexPath *)indexPath;
+- (void)doughnutChart:(__nonnull XYDoughnutChart *)doughnutChart didSelectSliceAtIndexPath:(__nonnull NSIndexPath *)indexPath;
 
 /**
  *  Fires just after a slice state is changed to not selected.
@@ -83,7 +83,7 @@
  *  @param doughnutChart The doughnut chart object has not be selected.
  *  @param index         The slice index has not beeen selected.
  */
-- (void)doughnutChart:(XYDoughnutChart *)doughnutChart didDeselectSliceAtIndexPath:(NSIndexPath *)indexPath;
+- (void)doughnutChart:(__nonnull XYDoughnutChart *)doughnutChart didDeselectSliceAtIndexPath:(__nonnull NSIndexPath *)indexPath;
 
 /**
  *  Asks the delegate to return the color of the slice in the chart view.
@@ -95,7 +95,7 @@
  *
  *  @return UIColor object.
  */
-- (UIColor *)doughnutChart:(XYDoughnutChart *)doughnutChart colorForSliceAtIndexPath:(NSIndexPath *)indexPath;
+- (nonnull UIColor *)doughnutChart:(__nonnull XYDoughnutChart *)doughnutChart colorForSliceAtIndexPath:(__nonnull NSIndexPath *)indexPath;
 
 /**
  *  Asks the delegate to return the color of the stroke color of the slice in the chart view.
@@ -107,7 +107,7 @@
  *
  *  @return UIColor object.
  */
-- (UIColor *)doughnutChart:(XYDoughnutChart *)doughnutChart selectedStrokeColorForSliceAtIndexPath:(NSIndexPath *)indexPath;
+- (nonnull UIColor *)doughnutChart:(__nonnull XYDoughnutChart *)doughnutChart selectedStrokeColorForSliceAtIndexPath:(__nonnull NSIndexPath *)indexPath;
 
 /**
  *  Asks the delegate to return the width of the stroke color of the slice in the chart view. Default width is `1.0`.
@@ -118,7 +118,7 @@
  *
  *  @return A value for the stroke width.
  */
-- (CGFloat)doughnutChart:(XYDoughnutChart *)doughnutChart selectedStrokeWidthForSliceAtIndexPath:(NSIndexPath *)indexPath;
+- (CGFloat)doughnutChart:(__nonnull XYDoughnutChart *)doughnutChart selectedStrokeWidthForSliceAtIndexPath:(__nonnull NSIndexPath *)indexPath;
 
 @end
 
@@ -132,12 +132,12 @@
 /**
  *  The object that acts as the data source of the receiving doughnut chart view.
  */
-@property(nonatomic, weak) id<XYDoughnutChartDataSource> dataSource;
+@property(nonatomic, weak, nullable) id<XYDoughnutChartDataSource> dataSource;
 
 /**
  *  The object that acts as the delegate of the receiving doughnut chart view.
  */
-@property(nonatomic, weak) id<XYDoughnutChartDelegate> delegate;
+@property(nonatomic, weak, nullable) id<XYDoughnutChartDelegate> delegate;
 
 /** @name Animating slices */
 
@@ -162,17 +162,17 @@
 /**
  *  Font for the slice label. The default font is System bold.
  */
-@property(nonatomic, strong) UIFont  *labelFont;
+@property(nonatomic, strong, nullable) UIFont  *labelFont;
 
 /**
  * Color for the slice label. The default color is white color.
  */
-@property(nonatomic, strong) UIColor *labelColor;
+@property(nonatomic, strong, nullable) UIColor *labelColor;
 
 /**
  *  Color for the shadow of slice label. The default color is clear color.
  */
-@property(nonatomic, strong) UIColor *labelShadowColor;
+@property(nonatomic, strong, nullable) UIColor *labelShadowColor;
 
 /**
  *  `YES` shows the labels in each slices. `NO` does not shows. The default is `YES`.
@@ -202,6 +202,6 @@
  *
  *  @param color A color object to be set as chart's background color. Default color is clear color.
  */
-- (void)setBackgroundColor:(UIColor *)color;
+- (void)setBackgroundColor:(__nullable UIColor *)color;
 
 @end;
