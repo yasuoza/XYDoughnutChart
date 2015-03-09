@@ -11,7 +11,7 @@
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
-Document is available at [CocoaDocs](http://cocoadocs.org/docsets/XYDoughnutChart/1.1.0/).
+Document is available at [CocoaDocs](http://cocoadocs.org/docsets/XYDoughnutChart/).
 
 Tests are also helpful documentation for you, see Tests in Example directory and run it from Xcode.
 
@@ -35,4 +35,3 @@ to your Cartfile.
 ## License
 
 XYDoughnutChart is available under the MIT license. See the LICENSE file for more info.
-
