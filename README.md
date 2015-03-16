@@ -1,6 +1,6 @@
 # XYDoughnutChart
 
-[![CI Status](http://img.shields.io/travis/yasuoza/XYDoughnutChart.svg?style=flat)](https://travis-ci.org/yasuoza/XYDoughnutChart)
+[![Build Status](https://travis-ci.org/yasuoza/XYDoughnutChart.svg?branch=master)](https://travis-ci.org/yasuoza/XYDoughnutChart)
 [![Version](https://img.shields.io/cocoapods/v/XYDoughnutChart.svg?style=flat)](http://cocoadocs.org/docsets/XYDoughnutChart)
 [![License](https://img.shields.io/cocoapods/l/XYDoughnutChart.svg?style=flat)](http://cocoadocs.org/docsets/XYDoughnutChart)
 [![Platform](https://img.shields.io/cocoapods/p/XYDoughnutChart.svg?style=flat)](http://cocoadocs.org/docsets/XYDoughnutChart)
@@ -11,7 +11,7 @@
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
-Document is available at [CocoaDocs](http://cocoadocs.org/docsets/XYDoughnutChart/1.1.0/).
+Document is available at [CocoaDocs](http://cocoadocs.org/docsets/XYDoughnutChart/).
 
 Tests are also helpful documentation for you, see Tests in Example directory and run it from Xcode.
 
@@ -35,4 +35,3 @@ to your Cartfile.
 ## License
 
 XYDoughnutChart is available under the MIT license. See the LICENSE file for more info.
-

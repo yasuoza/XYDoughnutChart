@@ -1,4 +1,4 @@
-WORKSPACE = 'Example/XYDoughnutChartDemo.xcworkspace'
+WORKSPACE = 'XYDoughnutChart.xcworkspace'
 SCHEME    = 'XYDoughnutChartDemo'
 ARCH_FLAG = 'ONLY_ACTIVE_ARCH=NO'
 DESTINATIONS = [
