@@ -1,6 +1,7 @@
 # XYDoughnutChart
 
 [![Build Status](https://travis-ci.org/yasuoza/XYDoughnutChart.svg?branch=master)](https://travis-ci.org/yasuoza/XYDoughnutChart)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Version](https://img.shields.io/cocoapods/v/XYDoughnutChart.svg?style=flat)](http://cocoadocs.org/docsets/XYDoughnutChart)
 [![License](https://img.shields.io/cocoapods/l/XYDoughnutChart.svg?style=flat)](http://cocoadocs.org/docsets/XYDoughnutChart)
 [![Platform](https://img.shields.io/cocoapods/p/XYDoughnutChart.svg?style=flat)](http://cocoadocs.org/docsets/XYDoughnutChart)
