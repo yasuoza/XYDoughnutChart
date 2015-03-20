@@ -71,7 +71,7 @@
 
 - (NSIndexPath *)doughnutChart:(XYDoughnutChart *)doughnutChart willSelectSliceAtIndex:(NSIndexPath *)indexPath
 {
-    NSLog(@"will Select slice at index %lu", indexPath.slice);
+    NSLog(@"will Select slice at index %lu", (long)indexPath.slice);
     return indexPath;
 }
 
