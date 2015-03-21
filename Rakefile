@@ -2,9 +2,10 @@ WORKSPACE = 'XYDoughnutChart.xcworkspace'
 SCHEME    = 'XYDoughnutChartDemo'
 ARCH_FLAG = 'ONLY_ACTIVE_ARCH=NO'
 DESTINATIONS = [
-  'platform=iOS Simulator,name=iPad,OS=8.1',
   'platform=iOS Simulator,name=iPhone 6,OS=8.1',
   'platform=iOS Simulator,name=iPhone 6 Plus,OS=8.1',
+  'platform=iOS Simulator,name=iPhone 6,OS=8.2',
+  'platform=iOS Simulator,name=iPhone 6 Plus,OS=8.2',
 ]
 
 
