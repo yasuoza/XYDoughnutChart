@@ -174,7 +174,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat radiusO
     _doughnutView.layer.cornerRadius = _doughnutRadius;
 }
 
--(void)setBackgroundColor:(__nullable UIColor *)color
+-(void)setBackgroundColor:(UIColor * __nullable)color
 {
     _doughnutView.backgroundColor = color;
 }

@@ -20,7 +20,7 @@
  *
  *  @return The number of slices in chart view.
  */
-- (NSInteger)numberOfSlicesInDoughnutChart:(__nonnull XYDoughnutChart *)doughnutChart;
+- (NSInteger)numberOfSlicesInDoughnutChart:(XYDoughnutChart * __nonnull)doughnutChart;
 
 /**
  *  Asks the data source to return the value of the specified slice in the chart view.
@@ -30,7 +30,7 @@
  *
  *  @return A value of specified slice in the chart view.
  */
-- (CGFloat)doughnutChart:(__nonnull XYDoughnutChart *)doughnutChart valueForSliceAtIndexPath:(__nonnull NSIndexPath *)indexPath;
+- (CGFloat)doughnutChart:(XYDoughnutChart * __nonnull)doughnutChart valueForSliceAtIndexPath:(NSIndexPath * __nonnull)indexPath;
 
 @optional
 
@@ -44,7 +44,7 @@
  *
  *  @return A text of specified slice in the chart view.
  */
-- (nullable NSString *)doughnutChart:(__nonnull XYDoughnutChart *)doughnutChart textForSliceAtIndexPath:(__nonnull NSIndexPath *)indexPath;
+- (nullable NSString *)doughnutChart:(XYDoughnutChart * __nonnull)doughnutChart textForSliceAtIndexPath:(NSIndexPath * __nonnull)indexPath;
 
 @end
 
@@ -67,7 +67,7 @@
  *
  *  @return Return `NSIndexPath` object for slice to be selected. Return `nil` for slice not to be selected.
  */
-- (nullable NSIndexPath *)doughnutChart:(__nonnull XYDoughnutChart *)doughnutChart willSelectSliceAtIndex:(__nonnull NSIndexPath *)indexPath;
+- (nullable NSIndexPath *)doughnutChart:(XYDoughnutChart * __nonnull)doughnutChart willSelectSliceAtIndex:(NSIndexPath * __nonnull)indexPath;
 
 /**
  *  Fires just after a slice state is changed to selected.
@@ -75,7 +75,7 @@
  *  @param doughnutChart The doughnut chart object has been selected.
  *  @param index         The slice index has been selected.
  */
-- (void)doughnutChart:(__nonnull XYDoughnutChart *)doughnutChart didSelectSliceAtIndexPath:(__nonnull NSIndexPath *)indexPath;
+- (void)doughnutChart:(XYDoughnutChart * __nonnull)doughnutChart didSelectSliceAtIndexPath:(NSIndexPath * __nonnull)indexPath;
 
 /**
  *  Fires just after a slice state is changed to not selected.
@@ -83,7 +83,7 @@
  *  @param doughnutChart The doughnut chart object has not be selected.
  *  @param index         The slice index has not beeen selected.
  */
-- (void)doughnutChart:(__nonnull XYDoughnutChart *)doughnutChart didDeselectSliceAtIndexPath:(__nonnull NSIndexPath *)indexPath;
+- (void)doughnutChart:(XYDoughnutChart * __nonnull)doughnutChart didDeselectSliceAtIndexPath:(NSIndexPath * __nonnull)indexPath;
 
 /**
  *  Asks the delegate to return the color of the slice in the chart view.
@@ -95,7 +95,7 @@
  *
  *  @return UIColor object.
  */
-- (nonnull UIColor *)doughnutChart:(__nonnull XYDoughnutChart *)doughnutChart colorForSliceAtIndexPath:(__nonnull NSIndexPath *)indexPath;
+- (nonnull UIColor *)doughnutChart:(XYDoughnutChart * __nonnull)doughnutChart colorForSliceAtIndexPath:(NSIndexPath * __nonnull)indexPath;
 
 /**
  *  Asks the delegate to return the color of the stroke color of the slice in the chart view.
@@ -107,7 +107,7 @@
  *
  *  @return UIColor object.
  */
-- (nonnull UIColor *)doughnutChart:(__nonnull XYDoughnutChart *)doughnutChart selectedStrokeColorForSliceAtIndexPath:(__nonnull NSIndexPath *)indexPath;
+- (nonnull UIColor *)doughnutChart:(XYDoughnutChart * __nonnull)doughnutChart selectedStrokeColorForSliceAtIndexPath:(NSIndexPath * __nonnull)indexPath;
 
 /**
  *  Asks the delegate to return the width of the stroke color of the slice in the chart view. Default width is `1.0`.
@@ -118,7 +118,7 @@
  *
  *  @return A value for the stroke width.
  */
-- (CGFloat)doughnutChart:(__nonnull XYDoughnutChart *)doughnutChart selectedStrokeWidthForSliceAtIndexPath:(__nonnull NSIndexPath *)indexPath;
+- (CGFloat)doughnutChart:(XYDoughnutChart * __nonnull)doughnutChart selectedStrokeWidthForSliceAtIndexPath:(NSIndexPath * __nonnull)indexPath;
 
 @end
 
@@ -202,6 +202,6 @@
  *
  *  @param color A color object to be set as chart's background color. Default color is clear color.
  */
-- (void)setBackgroundColor:(__nullable UIColor *)color;
+- (void)setBackgroundColor:( UIColor * __nullable)color;
 
 @end;
