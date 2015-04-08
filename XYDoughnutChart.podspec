@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "XYDoughnutChart"
-  s.version          = "1.1.2"
+  s.version          = "1.1.3"
   s.summary          = "Simple DoughnutChart library for iOS"
   s.description      = <<-DESC
                        Easy to use doughunut chart library for iOS platform.
