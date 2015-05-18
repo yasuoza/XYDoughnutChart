@@ -71,11 +71,11 @@
 
 @interface XYDoughnutChart ()
 
-@property(nonatomic, assign) CGPoint doughnutCenter;
-@property(nonatomic, assign) CGFloat doughnutRadius;
-@property(nonatomic, assign) CGFloat labelRadius;
+@property (nonatomic, assign) CGPoint doughnutCenter;
+@property (nonatomic, assign) CGFloat doughnutRadius;
+@property (nonatomic, assign) CGFloat labelRadius;
+@property (nonatomic, strong) CADisplayLink *displayLink;
 
-- (void)updateTimerFired:(NSTimer *)timer;
 - (SliceLayer *)createSliceLayer;
 - (void)updateLabelForLayer:(SliceLayer *)sliceLayer;
 - (void)delegateOfSelectionChangeFrom:(NSIndexPath *)previousIndexPath to:(NSIndexPath *)newIndexPath;
@@ -360,6 +360,10 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat radiusO
     _doughnutView.userInteractionEnabled = YES;
 
     if (animated) {
+        [_displayLink invalidate];
+        _displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(updateAnimatingLayerAngle:)];
+        [_displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
+
         [CATransaction setDisableActions:NO];
         [CATransaction commit];
     } else {
@@ -369,18 +373,14 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat radiusO
 
 # pragma mark - Animation Delegate + Run Loop Timer
 
-- (void)updateTimerFired:(NSTimer *)timer;
-{
+-(void)updateAnimatingLayerAngle:(CADisplayLink *)link {
     [self updateLayerAngle:YES];
 }
 
-- (void)animationDidStart:(CAAnimation *)anim
-{
-    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-        static float timeInterval = 1.0/60.0;
-        NSTimer *aTimer = [NSTimer timerWithTimeInterval:timeInterval target:self selector:@selector(updateTimerFired:) userInfo:nil repeats:YES];
-        [[NSRunLoop mainRunLoop] addTimer:aTimer forMode:NSRunLoopCommonModes];
-    }];
+- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
+    if (flag) {
+        [_displayLink invalidate];
+    }
 }
 
 # pragma mark - Touch Handing (Selection Notification)
