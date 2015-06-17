@@ -202,6 +202,6 @@
  *
  *  @param color A color object to be set as chart's background color. Default color is clear color.
  */
-- (void)setBackgroundColor:( UIColor * __nullable)color;
+- (void)setBackgroundColor:(UIColor * __nullable)color;
 
 @end;

@@ -1,4 +1,4 @@
-#import <UIKit/UIKit.h>
+@import Foundation;
 
 /**
  *  Adds programming framework to NSIndexPath for XYDoughnutChart.
