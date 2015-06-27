@@ -258,6 +258,9 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat radiusO
         }
 
         if (animated) {
+            [_displayLink invalidate];
+            _displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(updateAnimatingLayerAngle:)];
+            [_displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
             [CATransaction commit];
         } else {
             [self updateLayerAngle:NO];
