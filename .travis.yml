@@ -1,13 +1,22 @@
 language: objective-c
-cache: cocoapods
+osx_image: xcode6.4
+env:
+  matrix:
+    - DESTINATION="OS=8.1,name=iPhone 6" SDK=iphonesimulator8.4
+    - DESTINATION="OS=8.2,name=iPhone 6" SDK=iphonesimulator8.4
+    - DESTINATION="OS=8.3,name=iPhone 6" SDK=iphonesimulator8.4
+    - DESTINATION="OS=8.4,name=iPhone 6" SDK=iphonesimulator8.4
+    - DESTINATION="OS=8.1,name=iPhone 6 Plus" SDK=iphonesimulator8.4
+    - DESTINATION="OS=8.2,name=iPhone 6 Plus" SDK=iphonesimulator8.4
+    - DESTINATION="OS=8.3,name=iPhone 6 Plus" SDK=iphonesimulator8.4
+    - DESTINATION="OS=8.4,name=iPhone 6 Plus" SDK=iphonesimulator8.4
 before_install:
   - gem install cocoapods --no-rdoc --no-ri --no-document --quiet
-  - cd Example && pod install && cd -
-notifications:
-  email:
-    on_success: never
-    on_failure: change
-install:
   - gem install xcpretty --no-rdoc --no-ri --no-document --quiet
+  - cd Example && pod install && cd -
 script:
-  - rake
+  - set -o pipefail
+  - xcodebuild -workspace XYDoughnutChart.xcworkspace -scheme XYDoughnutChartDemo -sdk "$SDK" -destination "$DESTINATION"
+    -configuration Debug ONLY_ACTIVE_ARCH=NO test | xcpretty -c
+  - xcodebuild -workspace XYDoughnutChart.xcworkspace -scheme XYDoughnutChartDemo -sdk "$SDK" -destination "$DESTINATION"
+    -configuration Release ONLY_ACTIVE_ARCH=NO test | xcpretty -c
