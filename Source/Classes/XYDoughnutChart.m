@@ -515,6 +515,22 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat radiusO
     }
 }
 
+# pragma mark - Selection Programmatically With Notification
+
+- (void)selectSliceAtIndex:(NSInteger)index
+{
+  if (_dataSource == nil) {
+    return;
+  }
+
+  NSInteger sliceCount = [_dataSource numberOfSlicesInDoughnutChart:self];
+
+  if (index < sliceCount) {
+    NSIndexPath *newIndexPath = [NSIndexPath indexPathForSlice:index];
+    [self delegateOfSelectionChangeFrom:_selectedIndexPath to:newIndexPath];
+  }
+}
+
 # pragma mark - Slice Layer Creation Method
 
 - (SliceLayer *)createSliceLayer

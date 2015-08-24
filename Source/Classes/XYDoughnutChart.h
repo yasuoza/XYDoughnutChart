@@ -204,4 +204,11 @@
  */
 - (void)setBackgroundColor:(UIColor * __nullable)color;
 
+/**
+ *  Selects a slice in the chart.
+ *
+ *  @param index The index to be selected.
+ */
+- (void)selectSliceAtIndex:(NSInteger)index;
+
 @end;
