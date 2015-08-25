@@ -536,6 +536,12 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat radiusO
   }
 }
 
+- (void)deselectAllSlices
+{
+  [self delegateOfSelectionChangeFrom:_selectedIndexPath to:nil];
+  [self touchesCancelled:nil withEvent:nil];
+}
+
 - (BOOL)isCurrentlyBeingSelected
 {
   return _selectedIndexPath != nil;

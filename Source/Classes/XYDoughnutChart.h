@@ -212,6 +212,11 @@
 - (void)selectSliceAtIndex:(NSInteger)index;
 
 /**
+ *  Programatically unselect all the slices and return the graph to it's normal state.
+ */
+- (void)deselectAllSlices;
+
+/**
  *  If the graph is currently highlighting a selected slice.
  *
  *  @return If any slice is being selected.
