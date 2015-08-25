@@ -211,4 +211,11 @@
  */
 - (void)selectSliceAtIndex:(NSInteger)index;
 
+/**
+ *  If the graph is currently highlighting a selected slice.
+ *
+ *  @return If any slice is being selected.
+ */
+- (BOOL)isCurrentlyBeingSelected;
+
 @end;
