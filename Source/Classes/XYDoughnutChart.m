@@ -471,10 +471,15 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat radiusO
 
     if (newIndexPath == nil) {
         [self setSliceDeselectedAtIndex:previousIndexPath.slice];
+
+        // Set to nil before calling the delegate to it can check if any other
+        // slices are selected or if the user had fully deselected all slices.
+        _selectedIndexPath = nil;
+
         if ([_delegate respondsToSelector:@selector(doughnutChart:didDeselectSliceAtIndexPath:)]) {
             [_delegate doughnutChart:self didDeselectSliceAtIndexPath:previousIndexPath];
         }
-        _selectedIndexPath = nil;
+
         return;
     }
 
@@ -513,6 +518,33 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat radiusO
     if (layer && layer.selected) {
         layer.selected = NO;
     }
+}
+
+# pragma mark - Selection Programmatically With Notification
+
+- (void)selectSliceAtIndex:(NSInteger)index
+{
+  if (_dataSource == nil) {
+    return;
+  }
+
+  NSInteger sliceCount = [_dataSource numberOfSlicesInDoughnutChart:self];
+
+  if (index < sliceCount) {
+    NSIndexPath *newIndexPath = [NSIndexPath indexPathForSlice:index];
+    [self delegateOfSelectionChangeFrom:_selectedIndexPath to:newIndexPath];
+  }
+}
+
+- (void)deselectAllSlices
+{
+  [self delegateOfSelectionChangeFrom:_selectedIndexPath to:nil];
+  [self touchesCancelled:nil withEvent:nil];
+}
+
+- (BOOL)isCurrentlyBeingSelected
+{
+  return _selectedIndexPath != nil;
 }
 
 # pragma mark - Slice Layer Creation Method
