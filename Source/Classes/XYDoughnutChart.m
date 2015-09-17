@@ -344,7 +344,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat radiusO
         layer.fillColor = [self backgroundColor].CGColor;
         layer.delegate = nil;
         layer.zPosition = 0;
-        SliceTextLayer *textLayer = [[layer sublayers] objectAtIndex:0];
+        SliceTextLayer *textLayer = (SliceTextLayer *)[[layer sublayers] objectAtIndex:0];
         textLayer.hidden = YES;
     }
 
@@ -506,7 +506,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat radiusO
 
 - (void)setSliceSelectedAtIndex:(NSInteger)index
 {
-    SliceLayer *layer = [_doughnutView.layer.sublayers objectAtIndex:index];
+    SliceLayer *layer = (SliceLayer *)[_doughnutView.layer.sublayers objectAtIndex:index];
     if (layer && !layer.selected) {
         layer.selected = YES;
     }
@@ -514,7 +514,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat radiusO
 
 - (void)setSliceDeselectedAtIndex:(NSInteger)index
 {
-    SliceLayer *layer = [_doughnutView.layer.sublayers objectAtIndex:index];
+    SliceLayer *layer = (SliceLayer *)[_doughnutView.layer.sublayers objectAtIndex:index];
     if (layer && layer.selected) {
         layer.selected = NO;
     }
@@ -614,7 +614,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat radiusO
         CFRelease(path);
 
         {
-            SliceTextLayer *labelLayer = [[sliceLayer sublayers] objectAtIndex:0];
+            SliceTextLayer *labelLayer = (SliceTextLayer *)[[sliceLayer sublayers] objectAtIndex:0];
             CGFloat interpolatedMidAngle = (interpolatedEndAngle + interpolatedStartAngle) / 2;
 
             if (interpolatedEndAngle == interpolatedStartAngle) {
@@ -682,7 +682,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat radiusO
 
 - (void)updateLabelForLayer:(SliceLayer *)sliceLayer
 {
-    SliceTextLayer *labelLayer = [[sliceLayer sublayers] objectAtIndex:0];
+    SliceTextLayer *labelLayer = (SliceTextLayer *)[[sliceLayer sublayers] objectAtIndex:0];
 
     labelLayer.hidden = !_showLabel;
 

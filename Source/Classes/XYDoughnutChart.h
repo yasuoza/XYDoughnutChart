@@ -20,7 +20,7 @@
  *
  *  @return The number of slices in chart view.
  */
-- (NSInteger)numberOfSlicesInDoughnutChart:(XYDoughnutChart * __nonnull)doughnutChart;
+- (NSInteger)numberOfSlicesInDoughnutChart:(XYDoughnutChart * _Nonnull)doughnutChart;
 
 /**
  *  Asks the data source to return the value of the specified slice in the chart view.
@@ -30,7 +30,7 @@
  *
  *  @return A value of specified slice in the chart view.
  */
-- (CGFloat)doughnutChart:(XYDoughnutChart * __nonnull)doughnutChart valueForSliceAtIndexPath:(NSIndexPath * __nonnull)indexPath;
+- (CGFloat)doughnutChart:(XYDoughnutChart * _Nonnull)doughnutChart valueForSliceAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 
 @optional
 
@@ -44,7 +44,7 @@
  *
  *  @return A text of specified slice in the chart view.
  */
-- (nullable NSString *)doughnutChart:(XYDoughnutChart * __nonnull)doughnutChart textForSliceAtIndexPath:(NSIndexPath * __nonnull)indexPath;
+- (NSString * _Nullable)doughnutChart:(XYDoughnutChart * _Nonnull)doughnutChart textForSliceAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 
 @end
 
@@ -67,7 +67,7 @@
  *
  *  @return Return `NSIndexPath` object for slice to be selected. Return `nil` for slice not to be selected.
  */
-- (nullable NSIndexPath *)doughnutChart:(XYDoughnutChart * __nonnull)doughnutChart willSelectSliceAtIndex:(NSIndexPath * __nonnull)indexPath;
+- (NSIndexPath * _Nullable)doughnutChart:(XYDoughnutChart * _Nonnull)doughnutChart willSelectSliceAtIndex:(NSIndexPath * _Nonnull)indexPath;
 
 /**
  *  Fires just after a slice state is changed to selected.
@@ -75,7 +75,7 @@
  *  @param doughnutChart The doughnut chart object has been selected.
  *  @param index         The slice index has been selected.
  */
-- (void)doughnutChart:(XYDoughnutChart * __nonnull)doughnutChart didSelectSliceAtIndexPath:(NSIndexPath * __nonnull)indexPath;
+- (void)doughnutChart:(XYDoughnutChart * _Nonnull)doughnutChart didSelectSliceAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 
 /**
  *  Fires just after a slice state is changed to not selected.
@@ -83,7 +83,7 @@
  *  @param doughnutChart The doughnut chart object has not be selected.
  *  @param index         The slice index has not beeen selected.
  */
-- (void)doughnutChart:(XYDoughnutChart * __nonnull)doughnutChart didDeselectSliceAtIndexPath:(NSIndexPath * __nonnull)indexPath;
+- (void)doughnutChart:(XYDoughnutChart * _Nonnull)doughnutChart didDeselectSliceAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 
 /**
  *  Asks the delegate to return the color of the slice in the chart view.
@@ -95,7 +95,7 @@
  *
  *  @return UIColor object.
  */
-- (nonnull UIColor *)doughnutChart:(XYDoughnutChart * __nonnull)doughnutChart colorForSliceAtIndexPath:(NSIndexPath * __nonnull)indexPath;
+- (UIColor * _Nonnull)doughnutChart:(XYDoughnutChart * _Nonnull)doughnutChart colorForSliceAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 
 /**
  *  Asks the delegate to return the color of the stroke color of the slice in the chart view.
@@ -107,7 +107,7 @@
  *
  *  @return UIColor object.
  */
-- (nonnull UIColor *)doughnutChart:(XYDoughnutChart * __nonnull)doughnutChart selectedStrokeColorForSliceAtIndexPath:(NSIndexPath * __nonnull)indexPath;
+- (UIColor * _Nonnull)doughnutChart:(XYDoughnutChart * _Nonnull)doughnutChart selectedStrokeColorForSliceAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 
 /**
  *  Asks the delegate to return the width of the stroke color of the slice in the chart view. Default width is `1.0`.
@@ -118,7 +118,7 @@
  *
  *  @return A value for the stroke width.
  */
-- (CGFloat)doughnutChart:(XYDoughnutChart * __nonnull)doughnutChart selectedStrokeWidthForSliceAtIndexPath:(NSIndexPath * __nonnull)indexPath;
+- (CGFloat)doughnutChart:(XYDoughnutChart * _Nonnull)doughnutChart selectedStrokeWidthForSliceAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 
 @end
 
@@ -202,7 +202,7 @@
  *
  *  @param color A color object to be set as chart's background color. Default color is clear color.
  */
-- (void)setBackgroundColor:(UIColor * __nullable)color;
+- (void)setBackgroundColor:(UIColor * _Nullable)color;
 
 /**
  *  Selects a slice in the chart.
