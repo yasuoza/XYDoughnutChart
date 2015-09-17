@@ -27,11 +27,13 @@ it, simply add the following line to your Podfile:
 
     pod "XYDoughnutChart"
 
-And XYDoughnutChart is also available through [Carthage](https://github.com/Carthage/Carthage). To install, add 
+And XYDoughnutChart is also available through [Carthage](https://github.com/Carthage/Carthage). To install, add
 
-    github "yasuoza/XYDoughnutChart" ~> 1.1.1
-    
+    github "yasuoza/XYDoughnutChart"
+
 to your Cartfile.
+
+For Xcode 6.x, please use [1.2.2](https://github.com/yasuoza/XYDoughnutChart/releases/tag/1.2.2).
 
 ## License
 
