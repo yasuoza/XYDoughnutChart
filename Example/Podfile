@@ -1,5 +1,5 @@
 source 'https://github.com/CocoaPods/Specs.git'
 
 target 'Tests', :exclusive => true do
-  pod 'FBSnapshotTestCase'
+  pod 'FBSnapshotTestCase/Core', '~> 2.0'
 end

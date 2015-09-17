@@ -22,12 +22,7 @@
 
     [chart reloadData];
 
-    XCTestExpectation *reloadChartExpectation = [self expectationWithDescription:@"reload chart"];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        FBSnapshotVerifyView(chart, nil);
-        [reloadChartExpectation fulfill];
-    });
-    [self waitForExpectationsWithTimeout:1.5 handler:nil];
+    FBSnapshotVerifyView(chart, nil);
 }
 
 @end
