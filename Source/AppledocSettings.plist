@@ -14,7 +14,7 @@
         <key>--company-id</key>
         <string>com.yasuoza</string>
         <key>--project-version</key>
-        <string>1.3.0</string>
+        <string>1.3.1</string>
         <key>--create-docset</key>
         <true/>
         <key>--create-html</key>
