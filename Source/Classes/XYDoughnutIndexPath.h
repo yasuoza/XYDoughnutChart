@@ -1,9 +1,9 @@
 @import Foundation;
 
 /**
- *  Adds programming framework to NSIndexPath for XYDoughnutChart.
+ *  Adds programming framework to XYDoughnutIndexPath for XYDoughnutChart.
  */
-@interface NSIndexPath (XYDoughnutChart)
+@interface XYDoughnutIndexPath : NSIndexPath
 
 /** @name Creating an Index Path Object */
 
@@ -12,15 +12,15 @@
  *
  *  @param slice An index number identifying a slice in a `XYDoughnutChartView` object.
  *
- *  @return An `NSIndexPath` object or nil if the object could not be created.
+ *  @return An `XYDoughnutIndexPath` object or nil if the object could not be created.
  */
-+ (NSIndexPath *)indexPathForSlice:(NSInteger)slice;
++ (XYDoughnutIndexPath *)indexPathForSlice:(NSInteger)slice;
 
 /** @name Getting the Index of a Row or Item */
 
 /**
 *  An index number identifying a slice in a section of a doughnut chart view. (read-only)
 */
-@property (readonly) NSInteger slice;
+@property (assign, nonatomic) NSInteger slice;
 
 @end
