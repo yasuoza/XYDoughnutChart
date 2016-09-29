@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A8389A1F1A71E55100CFAB06 /* NSIndexPath+XYDoughnutChart.h in Headers */ = {isa = PBXBuildFile; fileRef = A8389A1D1A71E55100CFAB06 /* NSIndexPath+XYDoughnutChart.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A8389A201A71E55100CFAB06 /* NSIndexPath+XYDoughnutChart.m in Sources */ = {isa = PBXBuildFile; fileRef = A8389A1E1A71E55100CFAB06 /* NSIndexPath+XYDoughnutChart.m */; };
+		789E575E1D90746A0099E0DE /* XYDoughnutIndexPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 789E575C1D90746A0099E0DE /* XYDoughnutIndexPath.m */; };
+		789E575F1D9074960099E0DE /* XYDoughnutIndexPath.h in Headers */ = {isa = PBXBuildFile; fileRef = 789E575B1D90746A0099E0DE /* XYDoughnutIndexPath.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A8D10E471A691C9B007D87CA /* AppledocSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = A8D10E461A691C9B007D87CA /* AppledocSettings.plist */; };
 		A8E0690E1A47FB03007C7737 /* XYDoughnutChart.h in Headers */ = {isa = PBXBuildFile; fileRef = A8ED42DC1A47F3E200053246 /* XYDoughnutChart.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A8E069511A48077B007C7737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8E069501A48077B007C7737 /* UIKit.framework */; };
@@ -17,8 +17,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		A8389A1D1A71E55100CFAB06 /* NSIndexPath+XYDoughnutChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSIndexPath+XYDoughnutChart.h"; path = "Source/Classes/NSIndexPath+XYDoughnutChart.h"; sourceTree = SOURCE_ROOT; };
-		A8389A1E1A71E55100CFAB06 /* NSIndexPath+XYDoughnutChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSIndexPath+XYDoughnutChart.m"; path = "Source/Classes/NSIndexPath+XYDoughnutChart.m"; sourceTree = SOURCE_ROOT; };
+		789E575B1D90746A0099E0DE /* XYDoughnutIndexPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XYDoughnutIndexPath.h; path = Source/Classes/XYDoughnutIndexPath.h; sourceTree = SOURCE_ROOT; };
+		789E575C1D90746A0099E0DE /* XYDoughnutIndexPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XYDoughnutIndexPath.m; path = Source/Classes/XYDoughnutIndexPath.m; sourceTree = SOURCE_ROOT; };
 		A8D10E461A691C9B007D87CA /* AppledocSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AppledocSettings.plist; path = Source/AppledocSettings.plist; sourceTree = SOURCE_ROOT; };
 		A8E0690A1A47FA4D007C7737 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Source/Info.plist; sourceTree = SOURCE_ROOT; };
 		A8E069501A48077B007C7737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -69,8 +69,8 @@
 		A8ED42D91A47F3E200053246 /* XYDoughnutChart */ = {
 			isa = PBXGroup;
 			children = (
-				A8389A1D1A71E55100CFAB06 /* NSIndexPath+XYDoughnutChart.h */,
-				A8389A1E1A71E55100CFAB06 /* NSIndexPath+XYDoughnutChart.m */,
+				789E575B1D90746A0099E0DE /* XYDoughnutIndexPath.h */,
+				789E575C1D90746A0099E0DE /* XYDoughnutIndexPath.m */,
 				A8ED42DC1A47F3E200053246 /* XYDoughnutChart.h */,
 				A8ED42F31A47F4FF00053246 /* XYDoughnutChart.m */,
 				A8ED42DA1A47F3E200053246 /* Supporting Files */,
@@ -96,7 +96,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A8E0690E1A47FB03007C7737 /* XYDoughnutChart.h in Headers */,
-				A8389A1F1A71E55100CFAB06 /* NSIndexPath+XYDoughnutChart.h in Headers */,
+				789E575F1D9074960099E0DE /* XYDoughnutIndexPath.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,7 +168,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A8389A201A71E55100CFAB06 /* NSIndexPath+XYDoughnutChart.m in Sources */,
+				789E575E1D90746A0099E0DE /* XYDoughnutIndexPath.m in Sources */,
 				A8ED42F41A47F4FF00053246 /* XYDoughnutChart.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
