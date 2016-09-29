@@ -133,6 +133,15 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat radiusO
     return self;
 }
 
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+
+    self.doughnutRadius = MIN(self.bounds.size.width/2, self.bounds.size.height/2);
+    self.doughnutCenter = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
+    self.labelRadius = (_doughnutRadius + _doughnutRadius * _radiusOffset) / 2;
+}
+
 - (void)constructChartView
 {
     _doughnutView = [[UIView alloc] initWithFrame:self.frame];
