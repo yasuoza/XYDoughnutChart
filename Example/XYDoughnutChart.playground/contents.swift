@@ -13,7 +13,7 @@ class DataSource: NSObject, XYDoughnutChartDataSource {
         return 4
     }
 
-    func doughnutChart(doughnutChart: XYDoughnutChart, valueForSliceAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func doughnutChart(doughnutChart: XYDoughnutChart, valueForSliceAtIndexPath indexPath: XYDoughnutIndexPath) -> CGFloat {
         return CGFloat(indexPath.slice + 1) * 10
     }
 

@@ -1,6 +1,6 @@
 @import QuartzCore;
 #import "XYDoughnutChart.h"
-#import "NSIndexPath+XYDoughnutChart.h"
+#import "XYDoughnutIndexPath.h"
 
 # pragma mark - SliceLayer
 
@@ -78,13 +78,13 @@
 
 - (SliceLayer *)createSliceLayer;
 - (void)updateLabelForLayer:(SliceLayer *)sliceLayer;
-- (void)delegateOfSelectionChangeFrom:(NSIndexPath *)previousIndexPath to:(NSIndexPath *)newIndexPath;
+- (void)delegateOfSelectionChangeFrom:(XYDoughnutIndexPath *)previousIndexPath to:(XYDoughnutIndexPath *)newIndexPath;
 
 @end
 
 @implementation XYDoughnutChart
 {
-    NSIndexPath *_selectedIndexPath;
+    XYDoughnutIndexPath *_selectedIndexPath;
 
     UIView  *_doughnutView;
 }
@@ -224,7 +224,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat radiusO
     double sum = 0.0;
     double values[sliceCount];
     for (int index = 0; index < sliceCount; index++) {
-        values[index] = [_dataSource doughnutChart:self valueForSliceAtIndexPath:[NSIndexPath indexPathForSlice:index]];
+        values[index] = [_dataSource doughnutChart:self valueForSliceAtIndexPath:[XYDoughnutIndexPath indexPathForSlice:index]];
         sum += values[index];
     }
 
@@ -283,7 +283,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat radiusO
         endToAngle += angle;
         double startFromAngle = _startDoughnutAngle + startToAngle;
         double endFromAngle = _startDoughnutAngle + endToAngle;
-        NSIndexPath *indexPath = [NSIndexPath indexPathForSlice:index];
+        XYDoughnutIndexPath *indexPath = [XYDoughnutIndexPath indexPathForSlice:index];
 
         if ( index >= [slicelayers count] ) {
             layer = [self createSliceLayer];
@@ -397,9 +397,9 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat radiusO
 
 # pragma mark - Touch Handing (Selection Notification)
 
-- (NSIndexPath *)getCurrentSelectedOnTouch:(CGPoint)point
+- (XYDoughnutIndexPath *)getCurrentSelectedOnTouch:(CGPoint)point
 {
-    __block NSIndexPath *indexPath = nil;
+    __block XYDoughnutIndexPath *indexPath = nil;
 
     CGAffineTransform transform = CGAffineTransformIdentity;
 
@@ -409,7 +409,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat radiusO
     [sliceLayers enumerateObjectsUsingBlock:^(SliceLayer *sliceLayer, NSUInteger idx, BOOL *stop) {
         CGPathRef path = [sliceLayer path];
         if (CGPathContainsPoint(path, &transform, point, 0)) {
-            indexPath = [NSIndexPath indexPathForSlice:idx];
+            indexPath = [XYDoughnutIndexPath indexPathForSlice:idx];
         }
     }];
     return indexPath;
@@ -424,7 +424,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat radiusO
 {
     UITouch *touch = [touches anyObject];
     CGPoint point = [touch locationInView:_doughnutView];
-    NSIndexPath *newIndexPath = [self getCurrentSelectedOnTouch:point];
+    XYDoughnutIndexPath *newIndexPath = [self getCurrentSelectedOnTouch:point];
 
     if (!newIndexPath) {
         return [self touchesEnded:touches withEvent:event];
@@ -457,16 +457,16 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat radiusO
 
 # pragma mark - Selection Notification
 
-- (void)delegateOfSelectionChangeFrom:(NSIndexPath *)previousIndexPath to:(NSIndexPath *)newIndexPath
+- (void)delegateOfSelectionChangeFrom:(XYDoughnutIndexPath *)previousIndexPath to:(XYDoughnutIndexPath *)newIndexPath
 {
     if (previousIndexPath == nil && newIndexPath == nil) {
         return;
     }
 
     if (previousIndexPath == nil) {
-        _selectedIndexPath = [NSIndexPath indexPathForSlice:newIndexPath.slice];
+        _selectedIndexPath = [XYDoughnutIndexPath indexPathForSlice:newIndexPath.slice];
         if ([_delegate respondsToSelector:@selector(doughnutChart:willSelectSliceAtIndex:)]) {
-            if (![_delegate doughnutChart:self willSelectSliceAtIndex:[NSIndexPath indexPathForSlice:newIndexPath.slice]]) {
+            if (![_delegate doughnutChart:self willSelectSliceAtIndex:[XYDoughnutIndexPath indexPathForSlice:newIndexPath.slice]]) {
                 return;
             }
         }
@@ -497,9 +497,9 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat radiusO
         if ([_delegate respondsToSelector:@selector(doughnutChart:didDeselectSliceAtIndexPath:)]) {
             [_delegate doughnutChart:self didDeselectSliceAtIndexPath:previousIndexPath];
         }
-        _selectedIndexPath = [NSIndexPath indexPathForSlice:newIndexPath.slice];
+        _selectedIndexPath = [XYDoughnutIndexPath indexPathForSlice:newIndexPath.slice];
         if ([_delegate respondsToSelector:@selector(doughnutChart:willSelectSliceAtIndex:)]) {
-            if (![_delegate doughnutChart:self willSelectSliceAtIndex:[NSIndexPath indexPathForSlice:newIndexPath.slice]]) {
+            if (![_delegate doughnutChart:self willSelectSliceAtIndex:[XYDoughnutIndexPath indexPathForSlice:newIndexPath.slice]]) {
                 return;
             }
         }
@@ -540,7 +540,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat radiusO
   NSInteger sliceCount = [_dataSource numberOfSlicesInDoughnutChart:self];
 
   if (index < sliceCount) {
-    NSIndexPath *newIndexPath = [NSIndexPath indexPathForSlice:index];
+    XYDoughnutIndexPath *newIndexPath = [XYDoughnutIndexPath indexPathForSlice:index];
     [self delegateOfSelectionChangeFrom:_selectedIndexPath to:newIndexPath];
   }
 }
@@ -548,7 +548,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat radiusO
 - (void)deselectAllSlices
 {
   [self delegateOfSelectionChangeFrom:_selectedIndexPath to:nil];
-  [self touchesCancelled:nil withEvent:nil];
+  [self touchesCancelled:[NSSet set] withEvent:nil];
 }
 
 - (BOOL)isCurrentlyBeingSelected
@@ -665,7 +665,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat radiusO
         if (idx == selectedIndex) {
             CGFloat strokeWidth = 1.0;
             if ([_delegate respondsToSelector:@selector(doughnutChart:selectedStrokeWidthForSliceAtIndexPath:)]) {
-                strokeWidth = [_delegate doughnutChart:self selectedStrokeWidthForSliceAtIndexPath:[NSIndexPath indexPathForSlice:idx]];
+                strokeWidth = [_delegate doughnutChart:self selectedStrokeWidthForSliceAtIndexPath:[XYDoughnutIndexPath indexPathForSlice:idx]];
             }
             sliceLayer.lineWidth = strokeWidth;
             UIColor *color = [UIColor colorWithCGColor:sliceLayer.fillColor];
@@ -673,7 +673,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat radiusO
 
             CGColorRef strokeColor = [UIColor whiteColor].CGColor;
             if ([_delegate respondsToSelector:@selector(doughnutChart:selectedStrokeColorForSliceAtIndexPath:)]) {
-                strokeColor = [_delegate doughnutChart:self selectedStrokeColorForSliceAtIndexPath:[NSIndexPath indexPathForSlice:idx]].CGColor;
+                strokeColor = [_delegate doughnutChart:self selectedStrokeColorForSliceAtIndexPath:[XYDoughnutIndexPath indexPathForSlice:idx]].CGColor;
             }
             sliceLayer.strokeColor = strokeColor;
 
@@ -717,7 +717,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat radiusO
 - (UIColor *)sliceColorAtIndex:(NSInteger)index
 {
     if ([_delegate respondsToSelector:@selector(doughnutChart:colorForSliceAtIndexPath:)]) {
-        return [_delegate doughnutChart:self colorForSliceAtIndexPath:[NSIndexPath indexPathForSlice:index]];
+        return [_delegate doughnutChart:self colorForSliceAtIndexPath:[XYDoughnutIndexPath indexPathForSlice:index]];
     }
     return [UIColor colorWithHue:((index/8)%20)/20.0+0.02 saturation:(index%8+3)/10.0 brightness:91/100.0 alpha:1];
 }

@@ -62,42 +62,42 @@
     return self.slices.count;
 }
 
-- (CGFloat)doughnutChart:(XYDoughnutChart *)doughnutChart valueForSliceAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)doughnutChart:(XYDoughnutChart *)doughnutChart valueForSliceAtIndexPath:(XYDoughnutIndexPath *)indexPath
 {
     return [[self.slices objectAtIndex:(indexPath.slice % self.slices.count)] intValue];
 }
 
 #pragma mark - XYDoughnutChart Delegate
 
-- (NSIndexPath *)doughnutChart:(XYDoughnutChart *)doughnutChart willSelectSliceAtIndex:(NSIndexPath *)indexPath
+- (XYDoughnutIndexPath *)doughnutChart:(XYDoughnutChart *)doughnutChart willSelectSliceAtIndex:(XYDoughnutIndexPath *)indexPath
 {
     NSLog(@"will Select slice at index %lu", (long)indexPath.slice);
     return indexPath;
 }
 
-- (void)doughnutChart:(XYDoughnutChart *)doughnutChart didSelectSliceAtIndexPath:(NSIndexPath *)indexPath
+- (void)doughnutChart:(XYDoughnutChart *)doughnutChart didSelectSliceAtIndexPath:(XYDoughnutIndexPath *)indexPath
 {
     NSLog(@"did Select slice at index %ld", (long)indexPath.slice);
 }
 
 
-- (void)doughnutChart:(XYDoughnutChart *)doughnutChart didDeselectSliceAtIndexPath:(NSIndexPath *)indexPath
+- (void)doughnutChart:(XYDoughnutChart *)doughnutChart didDeselectSliceAtIndexPath:(XYDoughnutIndexPath *)indexPath
 {
     NSLog(@"did Deselect slice at index %ld", (long)indexPath.slice);
 }
 
 
-- (UIColor *)doughnutChart:(XYDoughnutChart *)doughnutChart colorForSliceAtIndexPath:(NSIndexPath *)indexPath
+- (UIColor *)doughnutChart:(XYDoughnutChart *)doughnutChart colorForSliceAtIndexPath:(XYDoughnutIndexPath *)indexPath
 {
     return [self.sliceColors objectAtIndex:(indexPath.slice % self.sliceColors.count)];
 }
 
-- (UIColor *)doughnutChart:(XYDoughnutChart *)doughnutChart selectedStrokeColorForSliceAtIndexPath:(NSIndexPath *)indexPath
+- (UIColor *)doughnutChart:(XYDoughnutChart *)doughnutChart selectedStrokeColorForSliceAtIndexPath:(XYDoughnutIndexPath *)indexPath
 {
     return [UIColor whiteColor];
 }
 
-- (CGFloat)doughnutChart:(XYDoughnutChart *)doughnutChart selectedStrokeWidthForSliceAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)doughnutChart:(XYDoughnutChart *)doughnutChart selectedStrokeWidthForSliceAtIndexPath:(XYDoughnutIndexPath *)indexPath
 {
     return 2.0;
 }

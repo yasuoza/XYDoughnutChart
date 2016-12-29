@@ -2,15 +2,15 @@ language: objective-c
 osx_image: xcode7.1
 env:
   matrix:
-    - DESTINATION="OS=9.1,name=iPhone 6s" SDK=iphonesimulator9.1
-    - DESTINATION="OS=9.1,name=iPhone 6s Plus" SDK=iphonesimulator9.1
+    - DESTINATION="OS=10.0,name=iPhone 6s" SDK=iphonesimulator10.0
+    - DESTINATION="OS=10.0,name=iPhone 6s Plus" SDK=iphonesimulator10.0
 branches:
   only:
     - master
 before_install:
   - gem install cocoapods --no-rdoc --no-ri --no-document --quiet
   - gem install xcpretty --no-rdoc --no-ri --no-document --quiet
-  - cd Example && pod install && cd -
+  - pod install --project-dir=Example
 script:
   - set -o pipefail
   - xcodebuild -workspace XYDoughnutChart.xcworkspace -scheme XYDoughnutChartDemo -sdk "$SDK" -destination "$DESTINATION"
