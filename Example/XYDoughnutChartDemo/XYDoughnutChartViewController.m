@@ -42,14 +42,14 @@
     [super viewDidAppear:animated];
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-        [_slices removeAllObjects];
+        [self.slices removeAllObjects];
         [self.chartContainer.chartView reloadData];
     });
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 7 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
         for(int i = 0; i < 7; i ++) {
             NSNumber *one = [NSNumber numberWithInt:rand()%60+20];
-            [_slices addObject:one];
+            [self.slices addObject:one];
         }
         [self.chartContainer.chartView reloadData:YES];
     });

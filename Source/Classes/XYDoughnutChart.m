@@ -616,7 +616,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat radiusO
         }
         CGFloat interpolatedEndAngle = [presentationLayerEndAngle doubleValue];
 
-        CGPathRef path = CGPathCreateArc(_doughnutCenter, _doughnutRadius, _radiusOffset,
+        CGPathRef path = CGPathCreateArc(self.doughnutCenter, self.doughnutRadius, self.radiusOffset,
                                          interpolatedStartAngle, interpolatedEndAngle);
         sliceLayer.path = path;
         sliceLayer.lineWidth = 0.0;
@@ -631,20 +631,20 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat radiusO
                 return;
             }
 
-            if (_showLabel) {
+            if (self.showLabel) {
                 labelLayer.hidden = NO;
 
-                labelLayer.position = CGPointMake(_doughnutCenter.x + (_labelRadius * cos(interpolatedMidAngle)),
-                                                  _doughnutCenter.y + (_labelRadius * sin(interpolatedMidAngle)));
+                labelLayer.position = CGPointMake(self.doughnutCenter.x + (self.labelRadius * cos(interpolatedMidAngle)),
+                                                  self.doughnutCenter.y + (self.labelRadius * sin(interpolatedMidAngle)));
 
-                NSString *valueText = [labelLayer valueAtSliceLayer:sliceLayer byPercentage:_showPercentage];
+                NSString *valueText = [labelLayer valueAtSliceLayer:sliceLayer byPercentage:self.showPercentage];
 
                 CGSize size = [valueText sizeWithAttributes:@{NSFontAttributeName: self.labelFont}];
                 labelLayer.bounds = CGRectMake(0, 0, size.width, size.height);
-                CGFloat labelLayerWidth = fabs(_labelRadius * cos(interpolatedStartAngle)
-                                              - _labelRadius * cos(interpolatedEndAngle));
-                CGFloat labelLayerHeight = fabs(_labelRadius * sin(interpolatedStartAngle)
-                                          - _labelRadius * sin(interpolatedEndAngle));
+                CGFloat labelLayerWidth = fabs(self.labelRadius * cos(interpolatedStartAngle)
+                                              - self.labelRadius * cos(interpolatedEndAngle));
+                CGFloat labelLayerHeight = fabs(self.labelRadius * sin(interpolatedStartAngle)
+                                          - self.labelRadius * sin(interpolatedEndAngle));
                 if (MAX(labelLayerWidth, labelLayerHeight) < MAX(size.width,size.height) || sliceLayer.value <= 0) {
                     labelLayer.string = @"";
                 } else {
@@ -664,16 +664,16 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat radiusO
     [sliceLayers enumerateObjectsUsingBlock:^(SliceLayer *sliceLayer, NSUInteger idx, BOOL *stop) {
         if (idx == selectedIndex) {
             CGFloat strokeWidth = 1.0;
-            if ([_delegate respondsToSelector:@selector(doughnutChart:selectedStrokeWidthForSliceAtIndexPath:)]) {
-                strokeWidth = [_delegate doughnutChart:self selectedStrokeWidthForSliceAtIndexPath:[XYDoughnutIndexPath indexPathForSlice:idx]];
+            if ([self.delegate respondsToSelector:@selector(doughnutChart:selectedStrokeWidthForSliceAtIndexPath:)]) {
+                strokeWidth = [self.delegate doughnutChart:self selectedStrokeWidthForSliceAtIndexPath:[XYDoughnutIndexPath indexPathForSlice:idx]];
             }
             sliceLayer.lineWidth = strokeWidth;
             UIColor *color = [UIColor colorWithCGColor:sliceLayer.fillColor];
             sliceLayer.fillColor = [color colorWithAlphaComponent:1.0].CGColor;
 
             CGColorRef strokeColor = [UIColor whiteColor].CGColor;
-            if ([_delegate respondsToSelector:@selector(doughnutChart:selectedStrokeColorForSliceAtIndexPath:)]) {
-                strokeColor = [_delegate doughnutChart:self selectedStrokeColorForSliceAtIndexPath:[XYDoughnutIndexPath indexPathForSlice:idx]].CGColor;
+            if ([self.delegate respondsToSelector:@selector(doughnutChart:selectedStrokeColorForSliceAtIndexPath:)]) {
+                strokeColor = [self.delegate doughnutChart:self selectedStrokeColorForSliceAtIndexPath:[XYDoughnutIndexPath indexPathForSlice:idx]].CGColor;
             }
             sliceLayer.strokeColor = strokeColor;
 
